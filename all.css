@@ -6,8 +6,6 @@ body * {
 }
 body {
     margin: 0;
-    width: 100vw;
-    height: 100vh;
 }
 
 html {
@@ -16,7 +14,7 @@ html {
 
 #cellbody {
     width: 100vw;
-    max-width: 1080px;
+    max-width: 500px;
     height: 100vh;
     display: flex;
     flex-direction: column;
