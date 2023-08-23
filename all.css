@@ -6,10 +6,13 @@ body * {
 }
 body {
     margin: 0;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(32, 32, 32);
 }
 
 html {
-    font-size: 1.5vw;
+    font-size: 5pt;
 }
 
 #cellbody {
