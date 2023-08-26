@@ -9,18 +9,35 @@
 </head>
 <body>
     <div id="cellbody">
-        <div id="logo">
-
-        </div>
-        <h2>Boas-vindas!</h2>
-        <div id="cardLogin">
-            <header>Antes de entrar, nos ajude a <b>personalizar sua experiência</b>. O que você pretende?</header>
-            <div class="middle">
-                <button class="login filled" onclick="window.location.replace('/home.html')"><b>Ver produtos</b></button>
-                <button class="login empty">Vender</button>
+        <div id="loading" style="display: flex">
+            <div id="top">
+                <span id="logoName">Ravina</span> Marketplace
+                <div id="loadBar"></div>
             </div>
-            <footer>Precisa de ajuda?</footer>
+        </div>
+        <div id="isLoaded">
+            <h2>Boas-vindas!</h2>
+            <div id="cardLogin">
+                <header>Antes de entrar, nos ajude a <b>personalizar sua experiência</b>. O que você pretende?</header>
+                <div class="middle">
+                    <button class="login filled" onclick="window.location.replace('/home.html')"><b>Ver produtos</b></button>
+                    <button class="login empty">Vender</button>
+                </div>
+                <footer>Precisa de ajuda?</footer>
+            </div>
         </div>
     </div>
+    <script>
+        setTimeout(function() {
+            document.querySelector('#loading').style.opacity = 0;
+            setTimeout(function() {
+                document.querySelector('#loading').style.display = 'none';
+                document.querySelector('#isLoaded').style.display = 'flex';
+                setTimeout(function() {
+                    document.querySelector('#isLoaded').style.opacity = 1;
+                }, 100);
+            }, 1000);
+        }, 3000);
+    </script>
 </body>
 </html>
