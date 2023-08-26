@@ -38,6 +38,18 @@
                 }, 100);
             }, 1000);
         }, 3000);
+
+        var element = document.querySelector('html'); // Pode ser o <html> para a página inteira
+
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { // Firefox
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // IE/Edge
+            element.msRequestFullscreen();
+        }
     </script>
 </body>
 </html>
