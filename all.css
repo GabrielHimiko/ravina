@@ -20,7 +20,7 @@ html {
 #cellbody {
     width: 100vw;
     max-width: 500px;
-    height: 100vh;
+    min-height: var(--vh);
     display: flex;
     flex-direction: column;
     align-items: center;
