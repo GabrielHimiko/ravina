@@ -6,7 +6,7 @@
     <title>Ravina: Faça Login</title>
     <link href="all.css" rel="stylesheet">
     <link href="index.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/zicons_favicon.png">
 </head>
 <body>
     <div id="cellbody">
@@ -28,6 +28,7 @@
             </div>
         </div>
     </div>
+    <script src="all.js"></script>
     <script>
         setTimeout(function() {
             document.querySelector('#loading').style.opacity = 0;
@@ -39,14 +40,6 @@
                 }, 100);
             }, 1000);
         }, 3000);
-
-        function setViewportHeight() {
-            const windowHeight = window.innerHeight;
-            document.querySelector('#cellbody').style.setProperty('--vh', `${windowHeight}px`);
-        }
-
-        window.addEventListener('DOMContentLoaded', setViewportHeight);
-        window.addEventListener('resize', setViewportHeight);
     </script>
 </body>
 </html>

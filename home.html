@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="all.css" rel="stylesheet">
+    <link href="home.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/zicons_favicon.png">
     <title>Ravina</title>
 </head>
 <body>
-    <div id="categorias">
-
+    <div id="cellbody">
+        <header id="headerTop">
+            <div class="line">
+                <button id="backPage"></button>
+                <input type="search">
+                <div id="perfil">perf</div>
+            </div>
+        </header>
+        <div id="categorias">
+            <button>Categorias</button>
+            <div id="downCat" style="display: none">
+                cat 1
+                cat 2
+                cat 3
+                cat 4
+            </div>
+        </div>
+        <div id="resultados">
+            <div class="line">
+                <div class="cardItem">i1</div>
+                <div class="cardItem">i2</div>
+            </div>
+        </div>
+        <footer>
+            <button>Loja</button>
+            <button>Cesta</button>
+            <button>Perto de mim</button>
+            <button>Conversas</button>
+        </footer>
     </div>
-    <div id="resultados">
-
-    </div>  
+    <script src="all.js"></script>
 </body>
 </html>
