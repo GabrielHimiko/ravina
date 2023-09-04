@@ -81,7 +81,7 @@ footer button {
     border-radius: 0;
     border-right: 1px solid lightgray;
     border-top: 1px solid lightgrey;
-    font-size: 2.2rem;
+    font-size: 2rem;
     transition: background-color 1s;
     background-color: transparent;
     display: flex;
