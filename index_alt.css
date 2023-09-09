@@ -3,9 +3,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 15px;
 }
 
-#cellbody {
+main {
     background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255));
     text-align: center;
     color: white;
@@ -16,7 +17,7 @@
 }
 
 h1 {
-    font-size: 36pt;
+    font-size: 24pt;
 }
 
 #cardLogin {
@@ -28,7 +29,7 @@ h1 {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    font-size: 15pt;
+    font-size: 14pt;
     background-color: white;
     color: black;
 }
@@ -45,7 +46,7 @@ h1 {
     margin-block: 5px;
     border-radius: 20px;
     border: 0;
-    font-size: 15pt;
+    font-size: 16pt;
     padding: 30px;
     transition: box-shadow 1s;
 }
