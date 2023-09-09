@@ -3,9 +3,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 15px;
 }
 
-#cellbody {
+main {
     background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255));
     text-align: center;
     color: white;
@@ -13,19 +14,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+}
+
+h1 {
+    font-size: 24pt;
 }
 
 #cardLogin {
     width: 90%;
-    padding: 5rem;
-    border-radius: 3rem;
-    box-shadow: 0 0 1rem black;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    font-size: 3rem;
+    font-size: 11pt;
     background-color: white;
     color: black;
 }
@@ -35,34 +39,33 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-block: 5rem;
+    margin-top: 30px;
 }
 #cardLogin .middle button {
     width: 100%;
-    margin-block: 1rem;
-    border-radius: 2rem;
+    margin-block: 5px;
+    border-radius: 20px;
     border: 0;
-    font-size: 3.5rem;
-    padding: 3rem;
+    font-size: 16pt;
+    padding: 30px;
+    transition: box-shadow 1s;
 }
 #cardLogin .middle button.login.filled {
     color: white;
     background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255));
 }
 #cardLogin .middle button.login.empty {
-    border: 0.9rem solid rgb(60, 60, 255);
+    border: 5px solid rgb(60, 60, 255);
+    background-color: transparent;
 }
 #cardLogin .middle button:active {
-    box-shadow: 0 3px 5px black inset;
-}
-
-footer {
-    font-size: 2.5rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5) inset;
+    transition: 0s;
 }
 
 #logoName {
     font-family: 'Lobster Two', cursive;
-    font-size: 10rem;
+    font-size: 46pt;
 }
 
 #loading {
