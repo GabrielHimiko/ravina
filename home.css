@@ -34,14 +34,14 @@ button {
 #headerTop input {
     width: 100%;
     height: 8rem;
-    margin-inline: 1rem;
+    margin-right: 1rem;
     border-radius: 2rem;
     font-size: 2.5rem;
     text-align: center;
     padding: 1rem;
     border: 0.2rem solid rgb(60, 60, 255);
     background-color: transparent;
-    box-shadow: 0 0 5px grey;
+    box-shadow: 0 0 1rem grey;
     outline: none;
 }
 #headerTop button#profile {
@@ -63,6 +63,30 @@ button {
     flex-direction: column;
     width: 100%;
     height: 80%;
+    padding: 3rem;
+}
+#resultados .line {
+    justify-content: space-between;
+}
+#resultados .cardItem {
+    margin-right: 3rem;
+    border: 0.2rem solid lightgrey;
+    border-radius: 2rem;
+}
+#resultados .cardItem:last-child {
+    margin-right: 0;
+}
+#resultados .cardItem .top {
+    width: 100%;
+    height: 35rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+}
+#resultados .cardItem .top img {
+    width: 100%;
 }
 
 footer {
