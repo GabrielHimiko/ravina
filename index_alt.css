@@ -13,7 +13,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+}
+
+h1 {
+    font-size: 36pt;
 }
 
 #cardLogin {
@@ -25,7 +28,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    font-size: 16pt;
+    font-size: 15pt;
     background-color: white;
     color: black;
 }
@@ -42,7 +45,7 @@
     margin-block: 5px;
     border-radius: 20px;
     border: 0;
-    font-size: 16pt;
+    font-size: 15pt;
     padding: 30px;
     transition: box-shadow 1s;
 }
@@ -51,7 +54,7 @@
     background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255));
 }
 #cardLogin .middle button.login.empty {
-    border: 0.9rem solid rgb(60, 60, 255);
+    border: 5px solid rgb(60, 60, 255);
     background-color: transparent;
 }
 #cardLogin .middle button:active {

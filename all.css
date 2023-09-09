@@ -13,10 +13,6 @@ body {
     background-color: rgb(32, 32, 32);
 }
 
-html {
-    font-size: 4.5pt;
-}
-
 #cellbody {
     width: 100vw;
     max-width: 500px;
