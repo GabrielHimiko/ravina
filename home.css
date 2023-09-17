@@ -25,10 +25,9 @@ button {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 20%;
-    position: absolute;
-    top: 0;
     padding: 15px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 #headerTop input {
     width: 100%;
@@ -51,29 +50,46 @@ button {
 
 #categorias {
     display: flex;
-    flex-direction: column;
-    padding: 15px;
+    overflow-x: hidden;
+    margin-top: 15px;
+}
+#categorias button {
+    border-radius: 5px;
 }
 
 #resultados {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
     align-items: center;
     width: 100%;
-    height: 80%;
+    height: 100%;
     padding: 15px;
+    overflow-y: scroll;
+}
+#resultados::-webkit-scrollbar {
+    width: 0px;
 }
 #resultados .line {
     justify-content: space-between;
+    margin-bottom: 15px;
+}
+#resultados .line:last-child {
+    margin-bottom: 0px;
 }
 #resultados .cardItem {
+    width: 100%;
     margin-right: 15px;
     border: 1px solid lightgray;
     border-radius: 15px;
+    transition: box-shadow 1s;
 }
 #resultados .cardItem:last-child {
     margin-right: 0;
+}
+#resultados .cardItem:active {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    transition: 0s;
 }
 #resultados .cardItem .top {
     width: 100%;
@@ -119,16 +135,17 @@ button {
 
 footer {
     width: 100%;
-    height: 10%;
-    position: absolute;
     bottom: 0;
     display: flex;
     justify-content: space-evenly;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 footer button {
     width: 25%;
     height: 100%;
+    padding-block: 5px;
     border-radius: 0;
     border-right: 1px solid lightgray;
     border-top: 1px solid lightgrey;
