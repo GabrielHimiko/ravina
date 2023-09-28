@@ -50,11 +50,18 @@ button {
 
 #categorias {
     display: flex;
-    overflow-x: hidden;
+    justify-content: space-between;
+    width: 100%;
     margin-top: 15px;
+    right: 0;
 }
 #categorias button {
     border-radius: 5px;
+    background-color: rgb(230, 230, 230);
+}
+#categorias button.selected {
+    background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255));
+    color: white;
 }
 
 #resultados {
@@ -66,6 +73,19 @@ button {
     height: 100%;
     padding: 15px;
     overflow-y: scroll;
+}
+#resultados .resInfo {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 15px;
+    outline: none;
+}
+#resultados .resInfo select {
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(230, 230, 230);
 }
 #resultados::-webkit-scrollbar {
     width: 0px;
