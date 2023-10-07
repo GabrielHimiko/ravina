@@ -20,21 +20,26 @@
             <div class="line">
                 <div id="categorias">
                     <button class="selected">⭐ Destaques</button>
-                    <button style="display: none">⭐ Destaques</button>
-                    <button>🥟 Salgados</button>
-                    <button>🍷 Bebidas</button>
-                    <button>🍪 Doces</button>
-                    <button>👔 Roupas</button>
-                    <button>💍 Acessórios</button>
-                    <button>🌱 Plantas</button>
-                    <button>🐶 Para pets</button>
-                    <button>Outros</button>
+                    <button style="display: none" id="dests">⭐ Destaques</button>
+                    <button id="com">🥟 Comida</button>
+                    <button id="beb">🍷 Bebida</button>
+                    <button id="doces">🍪 Doces</button>
+                    <button id="roupas">👔 Roupas</button>
+                    <button id="acess">💍 Acessórios</button>
+                    <button id="plantas">🌱 Plantas</button>
+                    <button id="pets">🐶 Para pets</button>
+                    <button id="serv">🔧 Serviços</button>
+                    <button id="outros">Outros</button>
                 </div>
             </div>
         </header>
         <div id="middle">
             <div class="resInfo">
-                <div style="font-size: 9pt">
+                <div style="display: flex; flex-direction: column; font-size: 10pt">
+                    <span id="filter_title" style="display: none"></span>
+                    <select id="filter_select" style="display: none;"></select>
+                </div>
+                <div style="font-size: 9pt; display: flex; flex-direction: column;">
                     Organizar por: 
                     <select style="font-size: 9pt">
                         <option>Relevância</option>
@@ -45,7 +50,7 @@
                 </div>
             </div>
             <div id="loading" style="display: none">
-                <img src="zicons_loading.gif" width="200px" height="200px">
+                <img src="zicons_loading.gif" width="200px" height="200px" style="opacity: 0.3">
             </div>
             <div id="prod_results">
                 <div class="line">

@@ -1,10 +1,42 @@
 const categoryBtns = document.querySelectorAll('#categorias button');
 const loading = document.querySelector('#loading');
 const prod_results = document.querySelector('#prod_results');
+const prod_filter_title = document.querySelector('.resInfo #filter_title');
+const prod_filter_select = document.querySelector('.resInfo #filter_select');
+
+const prod_filter = {
+    com: {
+        title: "Tipo de comida:",
+        options: ['Salgados/Lanchinhos', 'Almoço e janta', 'Comida típica']
+    },
+    beb: {
+        title: "Tipo de bebida:",
+        options: ['Sucos', 'Vitaminas', 'Com álcool', 'Ervas']
+    },
+    doces: {
+        title: "Tipo de doce:",
+        options: ['De pote', 'Para assar', 'Infantil']
+    },
+    roupas: {
+        title: "Tipo de roupa:",
+        options: ['Parte de cima', 'Parte de baixo', 'Íntimas', 'Calçados']
+    },
+    plantas: {
+        title: "Tipo de planta:",
+        options: ['Decorativas/Jardim', 'Medicinais', 'Frutíferas']
+    },
+    serv: {
+        title: "Tipo de serviço:",
+        options: ['Construção', 'Montagem de móveis', 'Encanamento', 'Costura', 'Outros']
+    }
+};
+let prodTypeSelected;
 
 categoryBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         if(btn.classList.contains('selected')) return;
+
+        prodTypeSelected = btn.id;
         
         btn.parentNode.scrollLeft = 0;
         categoryBtns.forEach((e) => {e.style.display = ''});
@@ -15,9 +47,27 @@ categoryBtns.forEach((btn) => {
         })
         btn.style.display = 'none';
 
+        if(prod_filter[prodTypeSelected]) {
+            prod_filter_title.style.display = '';
+            prod_filter_title.innerHTML = prod_filter[prodTypeSelected].title;
+            
+            if(prod_filter[prodTypeSelected].options) {
+                Array.from(prod_filter_select.children).forEach((c) => {prod_filter_select.removeChild(c)});
+                for(i = 0; i < prod_filter[prodTypeSelected].options.length; i++) {
+                    const newOpt = new Option(prod_filter[prodTypeSelected].options[i]);
+                    prod_filter_select.appendChild(newOpt);
+                }
+                prod_filter_select.style.display = '';
+            }
+        } else {
+            prod_filter_title.style.display = 'none';
+            prod_filter_select.style.display = 'none';
+        }
+
         prod_results.style.display = 'none';
         prod_results.style.opacity = '0';
         loading.style.display = '';
+
 
         setTimeout(function() {
             loading.style.opacity = '0';
@@ -30,3 +80,4 @@ categoryBtns.forEach((btn) => {
         }, 1000);
     })
 })
+
