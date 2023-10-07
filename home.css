@@ -19,6 +19,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
 }
 
 #headerTop {
@@ -54,6 +55,8 @@ button {
     width: 100%;
     margin-top: 15px;
     right: 0;
+    overflow-x: hidden;
+    position: relative;
 }
 #categorias button {
     border-radius: 5px;
@@ -77,7 +80,7 @@ button {
 #resultados .resInfo {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: right;
     align-items: end;
     margin-bottom: 15px;
     outline: none;
@@ -167,19 +170,14 @@ footer button {
     height: 100%;
     padding-block: 5px;
     border-radius: 0;
-    border-right: 1px solid lightgray;
-    border-top: 1px solid lightgrey;
     font-size: 8pt;
     transition: background-color 1s;
     background-color: transparent;
     display: flex;
     flex-direction: column;
 }
-footer button:last-child {
-    border-right: none;
-}
 footer button:active {
-    background-color: lightgray;
+    background-color: lightgrey;
     transition: 0s;
 }
 footer button .sym {
