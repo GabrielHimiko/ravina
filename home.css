@@ -51,20 +51,41 @@ button {
 
 #categorias {
     display: flex;
-    justify-content: space-between;
     width: 100%;
     margin-top: 15px;
     right: 0;
-    overflow-x: hidden;
-    position: relative;
+    overflow-x: scroll;
+    padding-bottom: 4px;
+}
+#categorias::-webkit-scrollbar {
+    height: 4px;
+    background-color: transparent;
+}
+#categorias::-webkit-scrollbar-thumb {
+    background-color: rgb(230, 230, 230); 
+    border-radius: 5px;
+}
+#categorias::-webkit-scrollbar-thumb:active {
+    background-color: lightgray; 
+    border-radius: 5px;
 }
 #categorias button {
+    margin-right: 4px;
     border-radius: 5px;
     background-color: rgb(230, 230, 230);
+    cursor: pointer;
+    transition: background-color 1s;
+}
+#categorias button:last-child {
+    margin-right: 0;
 }
 #categorias button.selected {
     background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255));
     color: white;
+}
+#categorias button:active {
+    background-color: lightgray;
+    transition: 0s;
 }
 
 #resultados {
