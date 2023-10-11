@@ -16,7 +16,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-let arr_products, arr_sellers, actual_type;
+let arr_products, arr_sellers, actual_type, isCreating;
 
 firebase.database().ref('products').once('value').then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
@@ -65,15 +65,27 @@ document.querySelector('#products_btn').addEventListener('click', function() {
 });
 
 add_new.addEventListener('click', () => {
+    if (isCreating) return;
     if (actual_type == 'product') {
+        isCreating = true;
         creating.style.display = '';
         creating.innerHTML = `
             <div class="add_new">
-                <div>*Nome: <input id="prod_name"></div>
+                <b style="margin-bottom: 10px; text-align: center">Produto nº <span id="product_id">000</b>
+                <div>*Título: <input id="prod_title"></div>
                 <div>
                     *Filtro: 
                     <select id="prod_filter">
                         <option>Selecione</option>
+                        <option value="com">🥟 Comida</option>
+                        <option value="beb">🍷 Bebida</option>
+                        <option value="doces">🍪 Doces</option>
+                        <option value="roupas">👔 Roupas</option>
+                        <option value="acess">💍 Acessórios</option>
+                        <option value="plantas">🌱 Plantas</option>
+                        <option value="pets">🐶 Para pets</option>
+                        <option value="serv">🔧 Serviços</option>
+                        <option value="outros">Outros</option>
                     </select>
                 </div>
                 <div>
@@ -91,8 +103,9 @@ add_new.addEventListener('click', () => {
                         <option>Selecione</option>
                     </select>
                 </div>
-                <div>
-                    <button>Salvar</button><button>Cancelar</button>
+                <div style="margin-top: 10px">
+                    <button style="background-color: lightgreen">Salvar</button>
+                    <button style="background-color: lightcoral">Cancelar</button>
                 </div>
             </div>
         `;
