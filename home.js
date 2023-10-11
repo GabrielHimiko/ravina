@@ -1,3 +1,22 @@
+const firebaseConfig = {
+    apiKey: "AIzaSyB9gKyaRTojAe8kGwtZEabOHT-_wHlW3_A",
+    authDomain: "ravina-13c31.firebaseapp.com",
+    databaseURL: "https://ravina-13c31-default-rtdb.firebaseio.com",
+    projectId: "ravina-13c31",
+    storageBucket: "ravina-13c31.appspot.com",
+    messagingSenderId: "273452791178",
+    appId: "1:273452791178:web:2b963d0c4b8994d16ec473",
+    measurementId: "G-SNX95VXLVN"
+  };
+firebase.initializeApp(firebaseConfig);
+
+firebase.database().ref('products').once('value').then((snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+        const prod = childSnapshot.val();
+        console.log(prod);
+    });
+});
+
 const categoryBtns = document.querySelectorAll('#categorias button');
 const loading = document.querySelector('#loading');
 const prod_results = document.querySelector('#prod_results');
@@ -53,6 +72,8 @@ categoryBtns.forEach((btn) => {
             
             if(prod_filter[prodTypeSelected].options) {
                 Array.from(prod_filter_select.children).forEach((c) => {prod_filter_select.removeChild(c)});
+                    const allOpt = new Option('Ver tudo');
+                    prod_filter_select.appendChild(allOpt);
                 for(i = 0; i < prod_filter[prodTypeSelected].options.length; i++) {
                     const newOpt = new Option(prod_filter[prodTypeSelected].options[i]);
                     prod_filter_select.appendChild(newOpt);

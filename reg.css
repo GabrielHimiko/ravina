@@ -1,0 +1,41 @@
+main {
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5%;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+#top #select_type {
+    display: flex;
+}
+
+#middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 95%;
+}
+
+button {
+    border-radius: 5px;
+    border: 0;
+    font-size: 11pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+button.selected {
+    background-color: rgb(60, 60, 255);
+    color: white;
+}

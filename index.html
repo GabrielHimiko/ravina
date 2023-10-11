@@ -10,6 +10,7 @@
 </head>
 <body>
     <main>
+        <button id="edit" onclick="window.location.href = '/reg.html'" style="display: none; opacity: 0">✎</button>
         <div id="loading" style="display: flex">
             <div id="top">
                 <span id="logoName">Ravina</span> Marketplace
@@ -28,17 +29,6 @@
         </div>
     </main>
     <script src="all.js"></script>
-    <script>
-        setTimeout(function() {
-            document.querySelector('#loading').style.opacity = 0;
-            setTimeout(function() {
-                document.querySelector('#loading').style.display = 'none';
-                document.querySelector('#isLoaded').style.display = 'flex';
-                setTimeout(function() {
-                    document.querySelector('#isLoaded').style.opacity = 1;
-                }, 100);
-            }, 1000);
-        }, 3000);
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>

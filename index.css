@@ -104,4 +104,21 @@ h1 {
     100% {
       left: 0;
     }
-  }
+}
+
+button#edit {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 18pt;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+}

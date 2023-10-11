@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="all.css" rel="stylesheet">
+    <link href="reg.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/zicons_favicon.png">
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <title>Gerenciar o Marketplace</title>
+</head>
+<body>
+    <main>
+        <div id="top">
+            <div id="select_type" style="display: none">
+                <button id="return" onclick="window.location.href = '/index.html'">🡰</button>&nbsp;
+                <button id="sellers_btn">Gerenciar vendedores</button>&nbsp;
+                <button id="products_btn">Gerenciar produtos</button>
+            </div>
+        </div>
+        <div id="middle">
+            <div id="validation" style="font-size: 10pt;">
+                <span style="font-weight: bold;">Você encontrou a página de gerenciamento do site!</span><br>
+                Digite a senha de acesso ou <a href="/index.html">volte para a página inicial</a><br>
+                <input type="password" id="validation_input">
+            </div>
+            
+            <div id="sellers" style="display: none">
+                
+            </div>
+            <div id="products" style="display: none">
+    
+            </div>
+        </div>
+    </main>
+
+    <script src="all.js"></script>
+    <script src="reg.js"></script>
+</body>
+</html>
