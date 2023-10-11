@@ -69,48 +69,57 @@ add_new.addEventListener('click', () => {
     if (actual_type == 'product') {
         isCreating = true;
         creating.style.display = '';
-        creating.innerHTML = `
-            <div class="add_new">
-                <b style="margin-bottom: 10px; text-align: center">Produto nº <span id="product_id">000</b>
-                <div>*Título: <input id="prod_title"></div>
-                <div>
-                    *Filtro: 
-                    <select id="prod_filter">
-                        <option>Selecione</option>
-                        <option value="com">🥟 Comida</option>
-                        <option value="beb">🍷 Bebida</option>
-                        <option value="doces">🍪 Doces</option>
-                        <option value="roupas">👔 Roupas</option>
-                        <option value="acess">💍 Acessórios</option>
-                        <option value="plantas">🌱 Plantas</option>
-                        <option value="pets">🐶 Para pets</option>
-                        <option value="serv">🔧 Serviços</option>
-                        <option value="outros">Outros</option>
-                    </select>
-                </div>
-                <div>
-                    *Subfiltro: 
-                    <select id="prod_subfilter" disabled=true>
-                        <option>Selecione</option>
-                    </select>
-                </div>
-                <div>*Preço: <input id="prod_price" type="number"></div>
-                <div>Preço anterior: <input id="prod_befprice" type="number"></div>
-                <div>Link da imagem: <input id="prod_imglink"></div>
-                <div>
-                    *Vendedor: 
-                    <select id="prod_sellerid">
-                        <option>Selecione</option>
-                    </select>
-                </div>
-                <div style="margin-top: 10px">
-                    <button style="background-color: lightgreen">Salvar</button>
-                    <button style="background-color: lightcoral">Cancelar</button>
-                </div>
-            </div>
-        `;
+        document.querySelector('#creating .add_new.product').style.display = '';
+        document.querySelector('#creating .add_new.seller').style.display = 'none';
     }
     else if (actual_type == 'seller') {
 
     };
+});
+
+document.querySelector('#creating .add_new.product #prod_filter').addEventListener('change', function() {
+    if(!this.value) return;
+    const prodTypeSelected = this.value;
+    const prod_subfilter_select = document.querySelector('#creating .add_new.product #prod_subfilter');
+    if(obj_prod_filter[prodTypeSelected]) {
+        prod_subfilter_select.disabled = false;
+        
+        if(obj_prod_filter[prodTypeSelected].options) {
+            Array.from(prod_subfilter_select.children).forEach((c) => {prod_subfilter_select.removeChild(c)});
+                const allOpt = new Option('Selecione');
+                allOpt.value = 0;
+                prod_subfilter_select.appendChild(allOpt);
+            for(i = 0; i < obj_prod_filter[prodTypeSelected].options.length; i++) {
+                const newOpt = new Option(obj_prod_filter[prodTypeSelected].options[i].title);
+                newOpt.value = obj_prod_filter[prodTypeSelected].options[i].value;
+                prod_subfilter_select.appendChild(newOpt);
+            }
+            prod_filter_select.style.display = '';
+        }
+    } else {
+        prod_subfilter_select.disabled = true;
+        Array.from(prod_subfilter_select.children).forEach((c) => {prod_subfilter_select.removeChild(c)});
+        const allOpt = new Option('Não disponível');
+        allOpt.value = 0;
+        prod_subfilter_select.appendChild(allOpt);
+    }
+});
+
+document.querySelector('#creating .add_new.product #prod_save').addEventListener('click', () => {
+    const needs = [
+        document.querySelector('#creating .add_new.product #prod_title'),
+        document.querySelector('#creating .add_new.product #prod_filter'),
+        document.querySelector('#creating .add_new.product #prod_price'),
+        document.querySelector('#creating .add_new.product #prod_sellerid')
+    ]
+    needs.forEach((e) => {
+        e.addEventListener('change', () => {
+            if(e.value != '0' && e.value) {
+                e.style.borderColor = 'lightgrey';
+            }
+        })
+        if(!e.value || e.value == '0') {
+            e.style.borderColor = 'orange';
+        }
+    })
 })
