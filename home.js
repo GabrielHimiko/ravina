@@ -7,7 +7,7 @@ const firebaseConfig = {
     messagingSenderId: "273452791178",
     appId: "1:273452791178:web:2b963d0c4b8994d16ec473",
     measurementId: "G-SNX95VXLVN"
-  };
+};
 firebase.initializeApp(firebaseConfig);
 
 firebase.database().ref('products').once('value').then((snapshot) => {

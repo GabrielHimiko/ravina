@@ -14,9 +14,9 @@
     <main>
         <div id="top">
             <div id="select_type" style="display: none">
-                <button id="return" onclick="window.location.href = '/index.html'">🡰</button>&nbsp;
-                <button id="sellers_btn">Gerenciar vendedores</button>&nbsp;
-                <button id="products_btn">Gerenciar produtos</button>
+                <button id="return" onclick="window.location.href = '/index.html'"><b>↩</b></button>&nbsp;
+                <button id="products_btn">Gerenciar produtos</button>&nbsp;
+                <button id="sellers_btn">Gerenciar vendedores</button>
             </div>
         </div>
         <div id="middle">
@@ -25,12 +25,10 @@
                 Digite a senha de acesso ou <a href="/index.html">volte para a página inicial</a><br><br>
                 <input type="password" id="validation_input" placeholder="Digite aqui..." style="text-align: center;">
             </div>
-            
-            <div id="sellers" style="display: none">
-                
-            </div>
-            <div id="products" style="display: none">
-    
+            <button id="add_new" style="display: none"></button><br>
+            <div id="creating" style="display: none"></div><br>
+            <div id="result" style="display: none">
+                <img src="zicons_loading.gif" width="200px" height="200px" style="opacity: 0.3">
             </div>
         </div>
     </main>

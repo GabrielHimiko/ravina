@@ -24,11 +24,14 @@ main {
     flex-direction: column;
     justify-content: center;
     height: 95%;
+    width: 100%;
+    padding: 15px;
 }
 
 button {
     border-radius: 5px;
-    border: 0;
+    border: 1px solid lightgrey;
+    background-color: rgb(230, 230, 230);
     font-size: 11pt;
     display: flex;
     justify-content: center;
@@ -37,5 +40,35 @@ button {
 }
 button.selected {
     background-color: rgb(60, 60, 255);
+    border: 1px solid black;
     color: white;
+}
+
+div.add_new {
+    background-color: rgb(230, 230, 230);
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    display: flex;
+    padding: 15px;
+    text-align: left;
+    flex-direction: column;
+}
+div.add_new div {
+    display: flex;
+    justify-content: space-between;
+    margin-block: 3px;
+}
+div.add_new input,
+div.add_new select {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    background-color: transparent;
+    outline: none;
+    width: 60%;
+    padding-inline: 5px;
+}
+div.add_new input:focus,
+div.add_new select:focus {
+    border-color: black;
+    background-color: white;
 }
