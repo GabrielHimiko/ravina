@@ -35,14 +35,13 @@ document.querySelector('#validation_input').addEventListener('input', function()
         localStorage.setItem('havePass', true);
     }
 });
-/*
+
 document.addEventListener('DOMContentLoaded', () => {
     if(localStorage.getItem('havePass')) {
         validation.style.display = 'none';
         select_type.style.display = '';
     }
 });
-*/
 
 document.querySelector('#sellers_btn').addEventListener('click', function() {
     sellers.style.display = '';

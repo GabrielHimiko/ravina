@@ -9,7 +9,7 @@ setTimeout(function() {
     }, 1000);
 }, 3000);
 
-document.querySelector('main').addEventListener('click', () => {
+document.querySelector('main').addEventListener('dblclick', () => {
     document.querySelector('button#edit').style.display = '';
     setTimeout(function() {
         document.querySelector('button#edit').style.opacity = '1';
