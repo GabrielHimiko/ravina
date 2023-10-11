@@ -32,12 +32,12 @@ document.querySelector('#validation_input').addEventListener('input', function()
     if (this.value === 'ravina23') {
         validation.style.display = 'none';
         select_type.style.display = '';
-        localStorage.setItem('havePass', true);
+        sessionStorage.setItem('havePass', true);
     }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    if(localStorage.getItem('havePass')) {
+    if(sessionStorage.getItem('havePass')) {
         validation.style.display = 'none';
         select_type.style.display = '';
     }
