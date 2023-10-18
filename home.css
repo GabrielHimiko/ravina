@@ -29,6 +29,7 @@ button {
     padding: 15px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid grey;
 }
 #headerTop input {
     width: 100%;
@@ -191,6 +192,8 @@ footer {
     justify-content: space-evenly;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
 }
 
 footer button {
@@ -203,6 +206,7 @@ footer button {
     background-color: transparent;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 footer button:active {
     background-color: lightgrey;
@@ -212,4 +216,14 @@ footer button .sym {
     width: 40px; 
     height: 40px; 
     padding: 5px;
+}
+
+footer button.selected::after {
+    content: '';
+    width: 50%;
+    height: 5px;
+    top: 0;
+    background-color: rgb(60, 60, 255);
+    border-radius: 0 0 3px 3px;
+    position: absolute;
 }

@@ -1,7 +1,6 @@
 const validation = document.querySelector('#validation');
 const select_type = document.querySelector('#select_type');
 const result = document.querySelector('#result');
-const add_new = document.querySelector('button#add_new');
 const creating = document.querySelector('#creating');
 
 const firebaseConfig = {
@@ -16,7 +15,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-let arr_products, arr_sellers, actual_type, isCreating;
+let arr_products, arr_sellers;
 
 firebase.database().ref('products').once('value').then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
@@ -46,41 +45,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.querySelector('#sellers_btn').addEventListener('click', function() {
     result.style.display = '';
-    add_new.style.display = '';
+    document.querySelector('#creating').style.display = '';
+    document.querySelector('#creating #sellerZone').style.display = '';
+    document.querySelector('#creating #productZone').style.display = 'none';
     document.querySelectorAll('#select_type button').forEach((e) => {e.classList.remove('selected')});
     this.classList.add('selected');
     result.innerHTML = arr_sellers ? arr_products.join('<br>') : '';
-    add_new.innerText = '+ Criar um novo vendedor';
-    actual_type = 'seller';
 });
 
 document.querySelector('#products_btn').addEventListener('click', function() {
     result.style.display = '';
-    add_new.style.display = '';
+    document.querySelector('#creating').style.display = '';
+    document.querySelector('#creating #sellerZone').style.display = 'none';
+    document.querySelector('#creating #productZone').style.display = '';
     document.querySelectorAll('#select_type button').forEach((e) => {e.classList.remove('selected')});
     this.classList.add('selected');
     result.innerHTML = arr_products ? arr_products.join('<br>') : '';
-    add_new.innerText = '+ Criar um novo produto';
-    actual_type = 'product';
 });
 
-add_new.addEventListener('click', () => {
+let isCreating;
+
+document.querySelector('#creating #productZone #btn_createNewProduct').addEventListener('click', () => {
     if (isCreating) return;
-    if (actual_type == 'product') {
-        isCreating = true;
-        creating.style.display = '';
-        document.querySelector('#creating .add_new.product').style.display = '';
-        document.querySelector('#creating .add_new.seller').style.display = 'none';
-    }
-    else if (actual_type == 'seller') {
-
-    };
+    isCreating = true;
+    creating.style.display = '';
+    document.querySelector('#creating #createNewProduct').style.display = '';
+    document.querySelector('#creating #createNewSeller').style.display = 'none';
 });
 
-document.querySelector('#creating .add_new.product #prod_filter').addEventListener('change', function() {
+document.querySelector('#creating #btn_createNewSeller').addEventListener('click', () => {
+    if (isCreating) return;
+    isCreating = true;
+    creating.style.display = '';
+    document.querySelector('#creating #createNewProduct').style.display = 'none';
+    document.querySelector('#creating #createNewSeller').style.display = '';
+});
+
+document.querySelector('#creating #createNewProduct #prod_filter').addEventListener('change', function() {
     if(!this.value) return;
     const prodTypeSelected = this.value;
-    const prod_subfilter_select = document.querySelector('#creating .add_new.product #prod_subfilter');
+    const prod_subfilter_select = document.querySelector('#creating #createNewProduct #prod_subfilter');
     if(obj_prod_filter[prodTypeSelected]) {
         prod_subfilter_select.disabled = false;
         
@@ -100,26 +104,54 @@ document.querySelector('#creating .add_new.product #prod_filter').addEventListen
         prod_subfilter_select.disabled = true;
         Array.from(prod_subfilter_select.children).forEach((c) => {prod_subfilter_select.removeChild(c)});
         const allOpt = new Option('Não disponível');
-        allOpt.value = 0;
+        allOpt.value = '1';
         prod_subfilter_select.appendChild(allOpt);
     }
 });
 
-document.querySelector('#creating .add_new.product #prod_save').addEventListener('click', () => {
+let prodValidation = false;
+
+document.querySelector('#creating #createNewProduct #prod_save').addEventListener('click', () => {
     const needs = [
-        document.querySelector('#creating .add_new.product #prod_title'),
-        document.querySelector('#creating .add_new.product #prod_filter'),
-        document.querySelector('#creating .add_new.product #prod_price'),
-        document.querySelector('#creating .add_new.product #prod_sellerid')
+        document.querySelector('#creating #createNewProduct #prod_title'),
+        document.querySelector('#creating #createNewProduct #prod_filter'),
+        document.querySelector('#creating #createNewProduct #prod_subfilter'),
+        document.querySelector('#creating #createNewProduct #prod_price'),
+        document.querySelector('#creating #createNewProduct #prod_sellerid')
     ]
     needs.forEach((e) => {
         e.addEventListener('change', () => {
             if(e.value != '0' && e.value) {
-                e.style.borderColor = 'lightgrey';
+                e.parentNode.style.color = 'black';
             }
         })
         if(!e.value || e.value == '0') {
-            e.style.borderColor = 'orange';
+            e.parentNode.style.color = 'orange';
         }
-    })
-})
+    });
+});
+
+let sellerPend = 0;
+
+document.querySelector('#creating #createNewSeller #seller_save').addEventListener('click', () => {
+    const needs = [
+        document.querySelector('#creating #createNewSeller #seller_name'),
+        document.querySelector('#creating #createNewSeller #seller_locat'),
+        document.querySelector('#creating #createNewSeller #seller_dist'),
+        document.querySelector('#creating #createNewSeller #seller_rate')
+    ]
+    needs.forEach((e) => {
+        e.addEventListener('change', () => {
+            if(e.value != '0' && e.value) {
+                e.parentNode.style.color = 'black';
+                sellerPend--;
+            }
+        })
+        if(!e.value || e.value == '0') {
+            e.parentNode.style.color = 'orange';
+            sellerPend++;
+        }
+    });
+
+    
+});

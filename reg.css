@@ -44,23 +44,33 @@ button.selected {
     color: white;
 }
 
-div.add_new {
-    background-color: rgb(230, 230, 230);
-    border: 1px solid lightgrey;
-    border-radius: 5px;
+#creating #productZone, 
+#creating #sellerZone {
     display: flex;
-    padding: 15px;
-    text-align: left;
     flex-direction: column;
 }
-div.add_new div {
+#createNewProduct,
+#createNewSeller {
+    border-radius: 5px;
+    background-color: rgb(230, 230, 230);
+    border: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    font-size: 10pt;
+}
+#createNewProduct div,
+#createNewSeller div {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding-block: 3px;
-    font-size: 10pt;
 }
-div.add_new input,
-div.add_new select {
+#createNewProduct input,
+#createNewProduct select,
+#createNewSeller input,
+#createNewSeller textarea,
+#createNewSeller select {
     border: 1px solid lightgrey;
     border-radius: 5px;
     background-color: transparent;
@@ -68,6 +78,10 @@ div.add_new select {
     width: 60%;
     padding-inline: 5px;
     font-size: 10pt;
+}
+#createNewSeller textarea {
+    resize: vertical;
+    font-size: 8pt;
 }
 div.add_new input:focus,
 div.add_new select:focus {

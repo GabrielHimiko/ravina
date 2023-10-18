@@ -25,49 +25,77 @@
                 Digite a senha de acesso ou <a href="/index.html">volte para a página inicial</a><br><br>
                 <input type="password" id="validation_input" placeholder="Digite aqui..." style="text-align: center;">
             </div>
-            <button id="add_new" style="display: none"></button><br>
             <div id="creating" style="display: none">
-                <div class="add_new product">
-                    <b style="margin-bottom: 10px; text-align: center">Produto nº <span id="product_id">000</b>
-                    <div>*Título: <input id="prod_title"></div>
-                    <div>
-                        *Filtro: 
-                        <select id="prod_filter">
-                            <option value="0">Selecione</option>
-                            <option value="com">🥟 Comida</option>
-                            <option value="beb">🍷 Bebida</option>
-                            <option value="doces">🍪 Doces</option>
-                            <option value="roupas">👔 Roupas</option>
-                            <option value="acess">💍 Acessórios</option>
-                            <option value="plantas">🌱 Plantas</option>
-                            <option value="pets">🐶 Para pets</option>
-                            <option value="serv">🔧 Serviços</option>
-                            <option value="outros">Outros</option>
-                        </select>
-                    </div>
-                    <div>
-                        *Subfiltro: 
-                        <select id="prod_subfilter" disabled=true>
-                            <option value="0">Selecione</option>
-                        </select>
-                    </div>
-                    <div>*Preço (R$): <input id="prod_price" type="number"></div>
-                    <div>Preço riscado (R$): <input id="prod_befprice" type="number"></div>
-                    <div>Link da imagem: <input id="prod_imglink"></div>
-                    <div>
-                        *Vendedor: 
-                        <select id="prod_sellerid">
-                            <option value="0">Selecione</option>
-                        </select>
-                    </div>
-                    <div style="margin-top: 10px">
-                        <button style="background-color: lightgreen" id="prod_save">Salvar</button>
-                        <button style="background-color: lightcoral" id="prod_cancel">Cancelar</button>
+                <div id="productZone" style="display: none">
+                    <button id="btn_createNewProduct">+ Adicionar novo produto</button><br>
+                    <div id="createNewProduct" style="display: none">
+                        <b style="margin-bottom: 10px; text-align: center">Produto nº <span id="product_id">---</b>
+                        <div>*Título: <input id="prod_title"></div>
+                        <div>
+                            *Filtro: 
+                            <select id="prod_filter">
+                                <option value="0">Selecione</option>
+                                <option value="com">🥟 Comida</option>
+                                <option value="beb">🍷 Bebida</option>
+                                <option value="doces">🍪 Doces</option>
+                                <option value="roupas">👔 Roupas</option>
+                                <option value="acess">💍 Acessórios</option>
+                                <option value="plantas">🌱 Plantas</option>
+                                <option value="pets">🐶 Para pets</option>
+                                <option value="serv">🔧 Serviços</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+                        <div>
+                            *Subfiltro: 
+                            <select id="prod_subfilter" disabled=true>
+                                <option value="0">Selecione</option>
+                            </select>
+                        </div>
+                        <div>*Preço (R$): <input id="prod_price" type="number"></div>
+                        <div>Preço riscado (R$): <input id="prod_befprice" type="number"></div>
+                        <div>Link da imagem: <input id="prod_imglink"></div>
+                        <div>
+                            *Vendedor: 
+                            <select id="prod_sellerid">
+                                <option value="0">Selecione</option>
+                            </select>
+                        </div>
+                        <div style="margin-top: 10px">
+                            <button style="background-color: lightgreen" id="prod_save">Salvar</button>
+                            <button style="background-color: lightcoral" id="prod_cancel">Cancelar</button>
+                        </div>
                     </div>
                 </div>
-                <div id="add_new seller" style="display: none">
+                <div id="sellerZone">
+                    <button id="btn_createNewSeller">+ Adicionar novo vendedor</button><br>
+                    <div id="createNewSeller" style="display: none">
+                        <b style="margin-bottom: 10px; text-align: center">Vendedor nº <span id="seller_id">---</b>
+                            <div>*Nome completo: <input id="seller_name"></div>
+                            <div>Nome exibido: <input id="seller_nick"></div>
+                            <div>Descrição: <textarea id="seller_desc"></textarea></div>
+                            <div>*Endereço: <input id="seller_locat"></div>
+                            <div>*Distância (km): <input id="seller_dist" type="number"></div>
+                            <div>
+                                *Avaliação: 
+                                <select id="seller_rate">
+                                    <option value="0">Selecione</option>
+                                    <option value="1">★☆☆☆☆</option>
+                                    <option value="2">★★☆☆☆</option>
+                                    <option value="3">★★★☆☆</option>
+                                    <option value="4">★★★★☆</option>
+                                    <option value="5">★★★★★</option>
+                                </select>
+                            </div>
+                            <div>Imagem grande: <input id="seller_prof_imglink"></div>
+                            <div>Imagem pequena: <input id="seller_prof_imglink"></div>
+                            <div style="margin-top: 10px">
+                                <button style="background-color: lightgreen" id="seller_save">Salvar</button>
+                                <button style="background-color: lightcoral" id="seller_cancel">Cancelar</button>
+                            </div>
+                    </div>
+                </div>
                 
-                </div>
             </div><br>
             <div id="result" style="display: none">
                 <img src="zicons_loading.gif" width="200px" height="200px" style="opacity: 0.3">
