@@ -7,11 +7,6 @@ main {
     align-items: center;
 }
 
-.line {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
 button {
     border-radius: 15px;
     border: 0;

@@ -53,7 +53,8 @@
                             </select>
                         </div>
                         <div>*Preço (R$): <input id="prod_price" type="number"></div>
-                        <div>Preço riscado (R$): <input id="prod_befprice" type="number"></div>
+                        <div>Preço riscado (R$): <input id="prod_rprice" type="number"></div>
+                        <div>*Relevância: <input id="prod_rel" type="number"></div>
                         <div>Link da imagem: <input id="prod_imglink"></div>
                         <div>
                             *Vendedor: 
@@ -65,40 +66,94 @@
                             <button style="background-color: lightgreen" id="prod_save">Salvar</button>
                             <button style="background-color: lightcoral" id="prod_cancel">Cancelar</button>
                         </div>
+                    </div><br>
+                    <div id="products_results">
+                        <div class="line">
+                            <div class="cardItem">
+                                <div class="top">
+                                    <img class="product" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo6GtnBkZdsuia07kZr23xnZ9kk0PZiKjvpHdN9RVfBGkFWvyZDd1sC1VAWKWklxHCPaA&usqp=CAU">
+                                </div>
+                                <div class="info">
+                                    <div class="itemInfo">
+                                        <span class="item_title">Pão de queijo</span><br>
+                                        <span class="item_price">R$0,80</span><span class="item_priceType"> cada</span>
+                                    </div>
+                                    <div class="sellerInfo"><span class="seller_name">Shirley</span> <span class="seller_rating">★★★★★</span><br><span class="seller_dist">7,0km de distância</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="sellerZone">
-                    <button id="btn_createNewSeller">+ Adicionar novo vendedor</button><br>
+                    <button id="btn_createNewSeller">➕ Adicionar novo vendedor</button>
                     <div id="createNewSeller" style="display: none">
-                        <b style="margin-bottom: 10px; text-align: center">Vendedor nº <span id="seller_id">---</b>
-                            <div>*Nome completo: <input id="seller_name"></div>
-                            <div>Nome exibido: <input id="seller_nick"></div>
-                            <div>Descrição: <textarea id="seller_desc"></textarea></div>
-                            <div>*Endereço: <input id="seller_locat"></div>
-                            <div>*Distância (km): <input id="seller_dist" type="number"></div>
-                            <div>
-                                *Avaliação: 
-                                <select id="seller_rate">
-                                    <option value="0">Selecione</option>
-                                    <option value="1">★☆☆☆☆</option>
-                                    <option value="2">★★☆☆☆</option>
-                                    <option value="3">★★★☆☆</option>
-                                    <option value="4">★★★★☆</option>
-                                    <option value="5">★★★★★</option>
-                                </select>
+                        <b style="margin-bottom: 10px; text-align: center">Vendedor nº <span id="sellers_count">---</b>
+                        <div>*Nome completo: <input id="seller_name"></div>
+                        <div>Nome exibido: <input id="seller_nick"></div>
+                        <div>Descrição: <textarea id="seller_desc"></textarea></div>
+                        <div>*Endereço: <input id="seller_locat"></div>
+                        <div>*Distância (km): <input id="seller_dist" type="number"></div>
+                        <div>
+                            *Avaliação: 
+                            <select id="seller_rate">
+                                <option value="0">Selecione</option>
+                                <option value="1">★☆☆☆☆</option>
+                                <option value="2">★★☆☆☆</option>
+                                <option value="3">★★★☆☆</option>
+                                <option value="4">★★★★☆</option>
+                                <option value="5">★★★★★</option>
+                            </select>
+                        </div>
+                        <div>*Relevância: <input id="seller_rel" type="number"></div>
+                        <div>Link da imagem: <input id="seller_imglink"></div>
+                        <div style="margin-top: 10px">
+                            <button style="background-color: lightgreen" id="seller_save">Salvar</button>
+                            <button style="background-color: lightcoral" id="seller_cancel">Cancelar</button>
+                        </div>
+                    </div>
+                    <div id="sellerResults">
+                        <div id="sellerView" style="display: none">
+                            <div style="font-weight: bold; font-size: 12pt; display: flex; justify-content: space-between;">
+                                <div>Informações <span style="font-weight: normal; font-size: 10pt">[ID: <span class="sellerid">sellerId</span>]</span></div>
+                                <div><button style="background-color: white;" class="close">✖️</button></div>
                             </div>
-                            <div>Imagem grande: <input id="seller_prof_imglink"></div>
-                            <div>Imagem pequena: <input id="seller_prof_imglink"></div>
-                            <div style="margin-top: 10px">
-                                <button style="background-color: lightgreen" id="seller_save">Salvar</button>
-                                <button style="background-color: lightcoral" id="seller_cancel">Cancelar</button>
+                            <div style="text-align: left; padding-block: 5px; display: flex; flex-direction: column; border-bottom: 1px solid lightgrey;">
+                                <div>Nome: <span class="name">sellerName</span></div>
+                                <div>Endereço: <span class="locat">sellerLocat</span></div>
+                                <div>Imagem: <a class="imglink" target="_blank">clique para abrir</a></div>
                             </div>
+                            <div style="display: flex">
+                                <div style="text-align: left; width: 50%; padding-block: 5px; border-bottom: 1px solid lightgrey;">
+                                    <div>Apelido: <span class="nick">sellerNick</span></div>
+                                    <div>Distância: <span class="dist">sellerDist</span>km</div>
+                                </div>
+                                <div style="text-align: left; width: 50%; padding-block: 5px; border-bottom: 1px solid lightgrey;">
+                                    <div>Avaliação: <span class="rate">sellerRate</span></div>
+                                    <div>Relevância: <span class="rel">sellerRel</span></div>
+                                </div>
+                            </div>
+                            <div style="text-align: left; padding-block: 5px; border-bottom: 1px solid lightgrey;">
+                                <div>Descrição: "<span class="desc">sellerDesc</span>"</div>
+                            </div>
+                            <div style="text-align: left; margin-top: 5px;">
+                                <div style="display: flex" class="common_btns">
+                                    <button style="background-color: lightcoral" class="delete">Excluir</button>&nbsp;
+                                    <button style="background-color: lightblue" class="edit">Editar</button>
+                                </div>
+                                <div style="display: none" class="edit_btns">
+                                    <button style="background-color: lightgreen" class="save">Salvar</button>&nbsp;
+                                    <button style="background-color: lightcoral" class="discard">Descartar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <table>
+                            <tr>
+                                <th class="name">Vendedores registrados (<span id="sellersCount"></span>)</th>
+                            </tr>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
-                
-            </div><br>
-            <div id="result" style="display: none">
-                <img src="zicons_loading.gif" width="200px" height="200px" style="opacity: 0.3">
             </div>
         </div>
     </main>

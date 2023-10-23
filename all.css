@@ -23,3 +23,9 @@ main {
     justify-content: center;
     position: relative;
 }
+
+.line {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
