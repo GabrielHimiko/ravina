@@ -11,6 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: rgb(32, 32, 32);
+    zoom: 100%;
 }
 
 main {

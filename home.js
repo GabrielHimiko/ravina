@@ -13,7 +13,6 @@ firebase.initializeApp(firebaseConfig);
 firebase.database().ref('products').once('value').then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
         const prod = childSnapshot.val();
-        console.log(prod);
     });
 });
 
@@ -40,26 +39,32 @@ categoryBtns.forEach((btn) => {
         })
         btn.style.display = 'none';
 
-        if(obj_prod_filter[prodTypeSelected]) {
-            prod_filter_title.style.display = '';
-            prod_filter_title.innerHTML = obj_prod_filter[prodTypeSelected].subtitle;
-            
-            if(obj_prod_filter[prodTypeSelected].options) {
-                Array.from(prod_filter_select.children).forEach((c) => {prod_filter_select.removeChild(c)});
+        let hasFind = false;
+        obj_prod_filter.forEach((filter) => {
+            if(filter.value === prodTypeSelected && !hasFind) {
+                hasFind = true;
+                prod_filter_title.style.display = '';
+                prod_filter_title.innerHTML = filter.subtitle;
+
+                if(filter.options) {
+                    console.log('Tem filter.options')
+                    Array.from(prod_filter_select.children).forEach((c) => {prod_filter_select.removeChild(c)});
                     const allOpt = new Option('Ver tudo');
                     allOpt.value = 'all';
                     prod_filter_select.appendChild(allOpt);
-                for(i = 0; i < obj_prod_filter[prodTypeSelected].options.length; i++) {
-                    const newOpt = new Option(obj_prod_filter[prodTypeSelected].options[i].title);
-                    newOpt.value = obj_prod_filter[prodTypeSelected].options[i].value;
-                    prod_filter_select.appendChild(newOpt);
-                }
-                prod_filter_select.style.display = '';
-            }
-        } else {
-            prod_filter_title.style.display = 'none';
-            prod_filter_select.style.display = 'none';
-        }
+                    for(i = 0; i < filter.options.length; i++) {
+                        const newOpt = new Option(filter.options[i].title);
+                        newOpt.value = filter.options[i].value;
+                        prod_filter_select.appendChild(newOpt);
+                    }
+                    prod_filter_select.style.display = '';
+                };
+            } else if(!hasFind) {
+                console.log('Não tem filter.options')
+                prod_filter_title.style.display = 'none';
+                prod_filter_select.style.display = 'none';
+            };
+        })
 
         prod_results.style.display = 'none';
         prod_results.style.opacity = '0';

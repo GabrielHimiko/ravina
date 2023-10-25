@@ -13,8 +13,10 @@ if (localStorage.getItem('storedVH')) {
 
 window.addEventListener('resize', setViewportHeight());
 
-const obj_prod_filter = {
-    com: {
+const obj_prod_filter = [
+    {
+        value: 'com',
+        title: 'Comida',
         subtitle: "Tipo de comida:",
         options: [
             {value: 'salg_lanch', title: 'Salgados/Lanchinhos'},
@@ -22,7 +24,9 @@ const obj_prod_filter = {
             {value: 'tipical', title: 'Comida típica'}
         ]
     },
-    beb: {
+    {
+        value: 'beb',
+        title: 'Bebida',
         subtitle: "Tipo de bebida:",
         options: [
             {value: 'sucos', title: 'Sucos'},
@@ -31,7 +35,9 @@ const obj_prod_filter = {
             {value: 'beb_out', title: 'Outros'},
         ]
     },
-    doces: {
+    {
+        value: 'doces',
+        title: 'Doces',
         subtitle: "Tipo de doce:",
         options: [
             {value: 'doce_comum', title: 'Comum'},
@@ -40,7 +46,9 @@ const obj_prod_filter = {
             {value: 'doce_lowcarb', title: 'Poucas calorias'}
         ]
     },
-    roupas: {
+    {
+        value: 'roupas',
+        title: 'Roupas',
         subtitle: "Tipo de roupa:",
         options: [
             {value: 'cima', title: 'Parte de cima'},
@@ -50,7 +58,9 @@ const obj_prod_filter = {
             {value: 'calc', title: 'Calçados'},
         ]
     },
-    plantas: {
+    {
+        value: 'plantas',
+        title: 'Plantas',
         subtitle: "Tipo de planta:",
         options: [
             {value: 'dec', title: 'Decoração/Para vaso'},
@@ -59,7 +69,9 @@ const obj_prod_filter = {
             {value: 'frut', title: 'Árvores frutíferas'},
         ]
     },
-    serv: {
+    {
+        value: 'serv',
+        title: 'Serviços',
         subtitle: "Tipo de serviço:",
         options: [
             {value: 'const', title: 'Construção'},
@@ -68,5 +80,17 @@ const obj_prod_filter = {
             {value: 'cost', title: 'Costura'},
             {value: 'serv_out', title: 'Outros'}
         ]
+    },
+    {
+        value: 'outros',
+        title: 'Outros'
+    },
+    {
+        value: 'acess',
+        title: 'Acessórios'
+    },
+    {
+        value: 'pets',
+        title: 'Para pets'
     }
-}
+];

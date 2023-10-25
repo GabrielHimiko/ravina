@@ -3,7 +3,9 @@ const select_type = document.querySelector('#select_type');
 const result = document.querySelector('#result');
 const creating = document.querySelector('#creating');
 const sellerView = document.querySelector('#creating #sellerResults #sellerView');
+const productView = document.querySelector('#creating #productResults #productView');
 const createNewSeller = document.querySelector('#creating #createNewSeller');
+const createNewProduct = document.querySelector('#creating #createNewProduct');
 
 const firebaseConfig = {
     apiKey: "AIzaSyB9gKyaRTojAe8kGwtZEabOHT-_wHlW3_A",
@@ -17,15 +19,9 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-let arr_products = [], arr_sellers = [], sellerInView;
+let arr_products = [], arr_sellers = [], sellerInView, sellerInView_isEdit = false, prodInView, prodInView_isEdit = false;
 
-firebase.database().ref('products').once('value').then((snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-        arr_products.push(childSnapshot.val());
-    });
-});
-
-loadSellers();
+loadSellers(); loadProducts();
 
 document.querySelector('#validation_input').addEventListener('input', function() {
     if (this.value === 'ravina23') {
@@ -56,12 +52,17 @@ document.querySelector('#products_btn').addEventListener('click', function() {
     document.querySelector('#creating #productZone').style.display = '';
     document.querySelectorAll('#select_type button').forEach((e) => {e.classList.remove('selected')});
     this.classList.add('selected');
-    result.innerHTML = arr_products ? arr_products.join('<br>') : '';
 });
 
-document.querySelector('#creating #btn_createNewProduct').addEventListener('click', () => {
-    creating.style.display = '';
+document.querySelector('#creating #btn_createNewProduct').addEventListener('click', function() {
+    this.style.display = 'none';
     document.querySelector('#creating #createNewProduct').style.display = '';
+    document.querySelector('#creating #createNewProduct #products_count').innerText = arr_products.length+1;
+    productView.style.display = 'none';
+    productView.parentNode.querySelector('table').style.display = 'none';
+    document.querySelector('#creating #createNewProduct').style.display = '';
+    loadProducts();
+    clear_createNewProduct();
 });
 
 document.querySelector('#creating #btn_createNewSeller').addEventListener('click', function() {
@@ -70,34 +71,34 @@ document.querySelector('#creating #btn_createNewSeller').addEventListener('click
     document.querySelector('#creating #createNewSeller #sellers_count').innerText = arr_sellers.length+1;
     sellerView.style.display = 'none';
     sellerView.parentNode.querySelector('table').style.display = 'none';
+
+    clear_createNewSeller();
 });
 
 document.querySelector('#creating #createNewProduct #prod_filter').addEventListener('change', function() {
     if(!this.value) return;
     const prodTypeSelected = this.value;
     const prod_subfilter_select = document.querySelector('#creating #createNewProduct #prod_subfilter');
-    if(obj_prod_filter[prodTypeSelected]) {
-        prod_subfilter_select.disabled = false;
-        
-        if(obj_prod_filter[prodTypeSelected].options) {
-            Array.from(prod_subfilter_select.children).forEach((c) => {prod_subfilter_select.removeChild(c)});
-                const allOpt = new Option('Selecione');
-                allOpt.value = 0;
+    Array.from(prod_subfilter_select.children).forEach((c) => {c.remove()});
+
+    obj_prod_filter.forEach((filter) => {
+        if(filter.value === prodTypeSelected) {
+            if(filter.options) {
+                prod_subfilter_select.disabled = false;
+                for(i = 0; i < filter.options.length; i++) {
+                    const newOpt = new Option(filter.options[i].title);
+                    newOpt.value = filter.options[i].value;
+                    prod_subfilter_select.appendChild(newOpt);
+                }
+            } else {
+                prod_subfilter_select.disabled = true;
+                const allOpt = new Option('Não disponível');
+                allOpt.value = '1';
                 prod_subfilter_select.appendChild(allOpt);
-            for(i = 0; i < obj_prod_filter[prodTypeSelected].options.length; i++) {
-                const newOpt = new Option(obj_prod_filter[prodTypeSelected].options[i].title);
-                newOpt.value = obj_prod_filter[prodTypeSelected].options[i].value;
-                prod_subfilter_select.appendChild(newOpt);
-            }
+                prod_subfilter_select.parentNode.style.color = 'black';
+            };
         }
-    } else {
-        prod_subfilter_select.disabled = true;
-        Array.from(prod_subfilter_select.children).forEach((c) => {prod_subfilter_select.removeChild(c)});
-        const allOpt = new Option('Não disponível');
-        allOpt.value = '1';
-        prod_subfilter_select.appendChild(allOpt);
-        prod_subfilter_select.parentNode.style.color = 'black';
-    }
+    })
 });
 
 let productsPendencies;
@@ -129,6 +130,16 @@ document.querySelector('#creating #createNewProduct #prod_save').addEventListene
     if(!productsPendencies) {
         alert('Produto criado com sucesso!');
 
+        let prot_prodid = document.querySelector('#creating #createNewProduct #prod_title').value.split(' ')[0].toLowerCase();
+        let num = 0;
+        arr_products.forEach(prod => {
+            if(!prod) return;
+            if(prod.prodid === prot_prodid) {
+                num++;
+            }
+        });
+        if(num) {prot_prodid += num};
+
         const newProduct = {
             title: document.querySelector('#creating #createNewProduct #prod_title').value,
             filter: document.querySelector('#creating #createNewProduct #prod_filter').value,
@@ -136,10 +147,14 @@ document.querySelector('#creating #createNewProduct #prod_save').addEventListene
             price: document.querySelector('#creating #createNewProduct #prod_price').value,
             rprice: document.querySelector('#creating #createNewProduct #prod_rprice').value,
             rel: document.querySelector('#creating #createNewProduct #prod_rel').value,
-            sellerid: document.querySelector('#creating #createNewProduct #prod_sellerid'),
-            imglink: document.querySelector('#creating #createNewProduct #prod_imglink').value
+            sellerid: document.querySelector('#creating #createNewProduct #prod_sellerid').value,
+            imglink: document.querySelector('#creating #createNewProduct #prod_imglink').value,
+            prodid: prot_prodid
         }
-        firebase.database().ref('sellers').push(newProduct);
+        firebase.database().ref('products').push(newProduct);
+        loadProducts();
+
+        close_createNewProduct(newProduct);
     } else {
         alert('Preencha os campos em laranja antes de enviar.');
     }
@@ -208,7 +223,7 @@ document.querySelector('#creating #createNewProduct #prod_cancel').addEventListe
     formElements.forEach(function(element) {
         element.value = element.defaultValue;
     });
-    createNewProduct.style.display = 'none';
+    close_createNewProduct();
 });
 
 document.querySelector('#creating #createNewSeller #seller_cancel').addEventListener('click', () => {
@@ -224,19 +239,141 @@ document.querySelector('#creating #sellerResults #sellerView button.close').addE
     document.querySelector('#creating #sellerResults #sellerView').style.display = 'none';
 });
 
+document.querySelector('#creating #productResults #productView button.close').addEventListener('click', function() {
+    document.querySelector('#creating #productResults #productView').style.display = 'none';
+});
+
 document.querySelector('#creating #sellerResults #sellerView button.delete').addEventListener('click', () => {
     if (!sellerInView) return;
     if(confirm('Deseja mesmo excluir este vendedor?')) {
-        firebase.database().ref('sellers').child(sellerInView.key).remove().then(() => {
+        let prodsCount = 0;
+        arr_products.forEach((prod) => {
+            if(prod.sellerid === sellerInView.sellerid) {
+                prodsCount++;
+            }
+        });
+        if(prodsCount) {
+            if(confirm(`Este vendedor tem ${prodsCount} produtos. Todos serão excluídos.\nQUER MESMO DELETAR ESTE VENDEDOR?`)) {
+                firebase.database().ref('sellers').child(sellerInView.key).remove().then(() => {
+                    loadSellers();
+                    document.querySelector('#creating #sellerResults #sellerView').style.display = 'none';
+                    document.querySelector('#creating #sellerZone #sellerResults table #sellersCount').innerText = arr_sellers.length;
+                }).catch((error) => {
+                    console.error(error);
+                });
+                arr_products.forEach((prod) => {
+                    if(prod.sellerid === sellerInView.sellerid) {
+                        firebase.database().ref('products').child(prod).remove().then(() => {
+                        }).catch((error) => {
+                            console.error(error);
+                        });
+                    }
+                })
+            }
+        } else {
+            firebase.database().ref('sellers').child(sellerInView.key).remove().then(() => {
                 loadSellers();
                 document.querySelector('#creating #sellerResults #sellerView').style.display = 'none';
+            }).catch((error) => {
+                console.error(error);
+            });
+            document.querySelector('#creating #sellerZone #sellerResults table #sellersCount').innerText = arr_sellers.length;
+        }
+        
+    }
+});
+
+document.querySelector('#creating #productResults #productView button.delete').addEventListener('click', () => {
+    if (!prodInView) return;
+    if(confirm('Deseja mesmo excluir este produto?')) {
+        firebase.database().ref('products').child(prodInView.key).remove().then(() => {
+                loadProducts();
+                document.querySelector('#creating #productResults #productView').style.display = 'none';
+                document.querySelector('#creating #productZone #productResults table #productsCount').innerText = arr_products.length;
         }).catch((error) => {
             console.error(error);
         });
     }
 });
 
-//FUNÇÕES DE ATALHO------------------------------------------------------------------------------------------------------------------------
+document.querySelector('#creating #sellerResults #sellerView button.edit').addEventListener('click', () => {
+    sellerInView_isEdit = true;
+    sellerView.querySelector('.imglink').innerHTML = sellerInView.imglink;
+    sellerView.querySelector('#btns_common').style.display = 'none';
+    sellerView.querySelector('#btns_edit').style.display = 'flex';
+    sellerView.querySelectorAll('.name, .nick, .desc, .locat, .rate, .rel, .dist, .imglink').forEach((e) => {
+        if(e.innerHTML.length < 1) e.innerText = '-x-';
+        e.contentEditable = true;
+        e.style.borderBottom = '1px solid black';
+        e.style.margin = '5px';
+        e.style.paddingInline = '5px';
+    });
+});
+
+document.querySelector('#creating #productResults #productView button.edit').addEventListener('click', () => {
+    prodInView_isEdit = true;
+    productView.querySelector('.imglink').innerHTML = prodInView.imglink;
+    productView.querySelector('#btns_common').style.display = 'none';
+    productView.querySelector('#btns_edit').style.display = 'flex';
+    productView.querySelectorAll('.title, .rel, .imglink, .price, .rprice').forEach((e) => {
+        if(e.innerHTML.length < 1) e.innerText = '-x-';
+        e.contentEditable = true;
+        e.style.borderBottom = '1px solid black';
+        e.style.margin = '5px';
+        e.style.paddingInline = '5px';
+    });
+});
+
+document.querySelector('#creating #sellerResults #sellerView button.save').addEventListener('click', () => {
+    const newSeller = {
+        name: sellerView.querySelector('.name').innerHTML,
+        nick: sellerView.querySelector('.nick').innerHTML,
+        locat: sellerView.querySelector('.locat').innerHTML,
+        dist: sellerView.querySelector('.dist').innerHTML,
+        rel: sellerView.querySelector('.rel').innerHTML,
+        rate: sellerView.querySelector('.rate').innerHTML,
+        desc: sellerView.querySelector('.desc').innerHTML,
+        imglink: sellerView.querySelector('.imglink').innerHTML,
+        sellerid: sellerView.querySelector('.sellerid').innerHTML
+    }
+
+    firebase.database().ref('sellers/' + sellerInView.key).update(newSeller).then(() => {
+        close_editSeller();
+        loadSellers();
+        viewSeller(newSeller);
+    }).catch((error) => {
+        console.error(`Erro ao atualizar vendedor: ${error}`);
+    });
+});
+document.querySelector('#creating #productResults #productView button.save').addEventListener('click', () => {
+    const newProduct = {
+        title: productView.querySelector('.title').innerHTML,
+        imglink: productView.querySelector('.imglink').innerHTML,
+        price: productView.querySelector('.price').innerHTML,
+        rprice: productView.querySelector('.rprice').innerHTML,
+        rel: productView.querySelector('.rel').innerHTML
+    }
+
+    firebase.database().ref('products/' + prodInView.key).update(newProduct).then(() => {
+        close_editProd();
+        loadProducts();
+        alert('Produto atualizado com sucesso.');
+        productView.style.display = 'none';
+    }).catch((error) => {
+        console.error(`Erro ao atualizar vendedor: ${error}`);
+    });
+})
+
+document.querySelector('#creating #sellerResults #sellerView button.discard').addEventListener('click', () => {
+    close_editSeller();
+    viewSeller(sellerInView);
+});
+document.querySelector('#creating #productResults #productView button.discard').addEventListener('click', () => {
+    close_editProd();
+    viewProd(prodInView);
+});
+
+//FUNÇÕES DE ATALHO - SELLER------------------------------------------------------------------------------------------------------------------------
 
 function close_createNewSeller(sellerForView) {
     if(sellerForView) {
@@ -247,12 +384,17 @@ function close_createNewSeller(sellerForView) {
     sellerView.parentNode.querySelector('table').style.display = '';
     document.querySelector('#creating #btn_createNewSeller').style.display = '';
 };
+function clear_createNewSeller() {
+    var formElements = createNewSeller.querySelectorAll('input, select, textarea');
+    formElements.forEach(function(element) {
+        element.value = element.defaultValue;
+    });
+};
 
 function loadSellers() {
     arr_sellers = [];
-
+    console.log('loadSellers ----------------')
     document.querySelectorAll('#creating #sellerZone #sellerResults table td').forEach((e) => {e.remove()});
-    console.log('All childs deleted');
 
     firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
@@ -268,7 +410,7 @@ function loadSellers() {
 
             const actCell = document.createElement('td');
             const actCell_btnView = document.createElement('button');
-            actCell_btnView.innerHTML = '⚙️';
+            actCell_btnView.innerHTML = 'Ver';
             actCell_btnView.classList.add('view');
             actCell.appendChild(actCell_btnView);
             actCell.classList.add('act');
@@ -280,17 +422,39 @@ function loadSellers() {
             row.appendChild(nameCell);
             row.appendChild(actCell);
             document.querySelector('#creating #sellerZone #sellerResults table tbody').appendChild(row);
+            console.log(seller.name + ' adicionada à tabela.');
 
             arr_sellers.push(seller);
             document.querySelector('#creating #sellerZone #sellerResults table #sellersCount').innerText = arr_sellers.length;
-            console.log('New child added');            
         });
     });
 
 };
 
+function close_editSeller() {
+    sellerInView_isEdit = false;
+    sellerView.querySelector('.imglink').innerHTML = 'Clique para abrir';
+    sellerView.querySelector('.imglink').href = sellerInView.imglink;
+    sellerView.querySelector('#btns_common').style.display = 'flex';
+    sellerView.querySelector('#btns_edit').style.display = 'none';
+
+    sellerView.querySelectorAll('.name, .nick, .desc, .locat, .rate, .rel, .dist, .imglink').forEach((e) => {
+        e.contentEditable = false;
+        e.style.borderBottom = 'none';
+        e.style.margin = '0';
+        e.style.paddingInline = '0';
+    })
+};
+
 function viewSeller(seller) {
+    if (sellerInView_isEdit) {
+        close_editSeller();
+        return;
+    }
     sellerInView = seller;
+    console.log('viewSeller ----------------');
+    console.log(seller.name + ' está sendo exibida.');
+    
     sellerView.style.display = '';
     sellerView.querySelector('.sellerid').innerHTML = seller.sellerid;
     sellerView.querySelector('.name').innerHTML = seller.name;
@@ -301,4 +465,148 @@ function viewSeller(seller) {
     sellerView.querySelector('.rate').innerHTML = seller.rate;
     sellerView.querySelector('.rel').innerHTML = seller.rel;
     sellerView.querySelector('.desc').innerHTML = seller.desc;
+
+    sellerView.style.backgroundColor = 'lightgrey';
+    setTimeout(() => {
+        sellerView.style.backgroundColor = 'rgb(230, 230, 230)';
+    }, 500)
+};
+
+//FUNÇÕES DE ATALHO - PRODUCT------------------------------------------------------------------------------------------------------------------
+
+function close_createNewProduct(productForView) {
+    if(productForView) {
+        viewProd(productForView);
+        productView.style.display = '';
+    };
+    createNewProduct.style.display = 'none';
+    productView.parentNode.querySelector('table').style.display = '';
+    document.querySelector('#creating #btn_createNewProduct').style.display = '';
+};
+function clear_createNewProduct() {
+    var formElements = createNewProduct.querySelectorAll('input, select, textarea');
+    formElements.forEach(function(element) {
+        element.value = element.defaultValue;
+    });
+
+    Array.from(document.querySelector('#creating #createNewProduct #prod_sellerid').children).forEach((e) => {e.remove()});
+    document.querySelector('#creating #createNewProduct #prod_sellerid').appendChild(document.createElement('option'));
+
+    arr_sellers.forEach((s) => {
+        const opt = document.createElement('option');
+        opt.value = s.sellerid;
+        opt.innerHTML = s.name;
+        document.querySelector('#creating #createNewProduct #prod_sellerid').appendChild(opt);
+    });
+};
+
+function loadProducts() {
+    arr_products = [];
+    console.log('loadProducts ----------------')
+    document.querySelectorAll('#creating #productZone #productResults table td').forEach((e) => {e.remove()});
+
+    firebase.database().ref('products').orderByChild('name').on('value', (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+
+            const product = childSnapshot.val();
+            product.key = childSnapshot.key;
+
+            const row = document.createElement('tr');
+
+            const titleCell = document.createElement('td');
+            titleCell.classList.add('title');
+            titleCell.innerHTML = product.title;
+
+            const sellerCell = document.createElement('td');
+            sellerCell.classList.add('title');
+            sellerCell.innerHTML = product.sellerid;
+
+            const actCell = document.createElement('td');
+            const actCell_btnView = document.createElement('button');
+            actCell_btnView.innerHTML = 'Ver';
+            actCell_btnView.classList.add('view');
+            actCell.appendChild(actCell_btnView);
+            actCell.classList.add('act');
+
+            actCell_btnView.addEventListener('click', () => {
+                viewProd(product);
+            });
+
+            row.appendChild(titleCell);
+            row.appendChild(sellerCell);
+            row.appendChild(actCell);
+            document.querySelector('#creating #productZone #productResults table tbody').appendChild(row);
+            console.log(product.title + ' adicionado à tabela.');
+
+            arr_products.push(product);
+            document.querySelector('#creating #productZone #productResults table #productsCount').innerText = arr_products.length;
+        });
+    });
+
+};
+
+function close_editProd() {
+    prodInView_isEdit = false;
+    productView.querySelector('.imglink').innerHTML = 'Clique para abrir';
+    productView.querySelector('.imglink').href = prodInView.imglink;
+    productView.querySelector('#btns_common').style.display = 'flex';
+    productView.querySelector('#btns_edit').style.display = 'none';
+
+    productView.querySelectorAll('.title, .rel, .imglink, .price, .rprice').forEach((e) => {
+        e.contentEditable = false;
+        e.style.borderBottom = 'none';
+        e.style.margin = '0';
+        e.style.paddingInline = '0';
+    });
+};
+
+function viewProd(prod) {
+    if (prodInView_isEdit) {
+        close_editProd();
+        return;
+    }
+    prodInView = prod;
+    console.log('viewProd ----------------');
+    console.log(prod.title + ' está sendo exibido.');
+    
+    let prod_sellerName;
+    arr_sellers.forEach((seller) => {
+        if(seller.sellerid === prod.sellerid) {
+            prod_sellerName = seller.name;
+        }
+    });
+
+    let prod_filterName;
+    obj_prod_filter.forEach((filter) => {
+        if(filter.value == prod.filter) {
+            prod_filterName = filter.title;
+        }
+    });
+
+    let prod_subfilterName = 'Não há';
+    obj_prod_filter.forEach((filter) => {
+        if(filter.options) {
+            filter.options.forEach((subfilter) => {
+                if (subfilter.value === prod.subfilter) {
+                    prod_subfilterName = subfilter.title;
+                }
+            })
+        }
+    });
+
+    productView.style.display = '';
+    productView.querySelector('.seller').innerHTML = prod_sellerName;
+    productView.querySelector('.prodid').innerHTML = prod.prodid;
+    productView.querySelector('.title').innerHTML = prod.title;
+    productView.querySelector('.imglink').href = prod.imglink;
+    productView.querySelector('.filter').innerHTML = prod_filterName;
+    productView.querySelector('.subfilter').innerHTML = prod_subfilterName;
+    productView.querySelector('.price').innerHTML = prod.price;
+    productView.querySelector('.rprice').innerHTML = prod.rprice;
+    productView.querySelector('.rel').innerHTML = prod.rel;
+
+    productView.style.backgroundColor = 'lightgrey';
+    setTimeout(() => {
+        productView.style.backgroundColor = 'rgb(230, 230, 230)';
+    }, 500);
 };

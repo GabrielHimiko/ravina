@@ -27,14 +27,13 @@
             </div>
             <div id="creating" style="display: none">
                 <div id="productZone" style="display: none">
-                    <button id="btn_createNewProduct">+ Adicionar novo produto</button><br>
+                    <button id="btn_createNewProduct">➕ Adicionar novo produto</button>
                     <div id="createNewProduct" style="display: none">
-                        <b style="margin-bottom: 10px; text-align: center">Produto nº <span id="product_id">---</b>
+                        <b style="margin-bottom: 10px; text-align: center">Produto nº <span id="products_count">---</b>
                         <div>*Título: <input id="prod_title"></div>
                         <div>
                             *Filtro: 
                             <select id="prod_filter">
-                                <option value="0">Selecione</option>
                                 <option value="com">🥟 Comida</option>
                                 <option value="beb">🍷 Bebida</option>
                                 <option value="doces">🍪 Doces</option>
@@ -59,31 +58,57 @@
                         <div>
                             *Vendedor: 
                             <select id="prod_sellerid">
-                                <option value="0">Selecione</option>
+                                <option value="0"></option>
                             </select>
                         </div>
                         <div style="margin-top: 10px">
                             <button style="background-color: lightgreen" id="prod_save">Salvar</button>
                             <button style="background-color: lightcoral" id="prod_cancel">Cancelar</button>
                         </div>
-                    </div><br>
-                    <div id="products_results">
-                        <div class="line">
-                            <div class="cardItem">
-                                <div class="top">
-                                    <img class="product" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo6GtnBkZdsuia07kZr23xnZ9kk0PZiKjvpHdN9RVfBGkFWvyZDd1sC1VAWKWklxHCPaA&usqp=CAU">
+                    </div>
+                    <div id="productResults">
+                        <div id="productView" style="display: none">
+                            <div style="font-weight: bold; font-size: 12pt; display: flex; justify-content: space-between;">
+                                <div>Informações <span style="font-weight: normal; font-size: 10pt">[ID: <span class="prodid">prodId</span>]</span></div>
+                                <div><button style="background-color: white;" class="close">✖️</button></div>
+                            </div>
+                            <div style="text-align: left; padding-block: 5px; display: flex; flex-direction: column; border-bottom: 1px solid lightgrey;">
+                                <div>Título: <span class="title">prodTitle</span></div>
+                                <div>Vendido por: <span class="seller">prodSeller</span></div>
+                                <div>Imagem: <a class="imglink" target="_blank">clique para abrir</a></div>
+                            </div>
+                            <div style="display: flex">
+                                <div style="text-align: left; width: 50%; padding-block: 5px; border-bottom: 1px solid lightgrey;">
+                                    <div>Filtro: <span class="filter">prodFilter</span></div>
+                                    <div>Subfiltro: <span class="subfilter">prodSubfilter</span></div>
+                                    <div>Relevância: <span class="rel">prodRel</span></div>
                                 </div>
-                                <div class="info">
-                                    <div class="itemInfo">
-                                        <span class="item_title">Pão de queijo</span><br>
-                                        <span class="item_price">R$0,80</span><span class="item_priceType"> cada</span>
-                                    </div>
-                                    <div class="sellerInfo"><span class="seller_name">Shirley</span> <span class="seller_rating">★★★★★</span><br><span class="seller_dist">7,0km de distância</span></div>
+                                <div style="text-align: left; width: 50%; padding-block: 5px; border-bottom: 1px solid lightgrey;">
+                                    <div>Preço: R$<span class="price">prodPrice</span></div>
+                                    <div>Preço riscado: R$<span class="rprice">prodRPrice</span></div>
+                                </div>
+                            </div>
+                            <div style="text-align: left; margin-top: 5px;">
+                                <div style="display: flex" id="btns_common">
+                                    <button style="background-color: lightcoral" class="delete">Excluir</button>&nbsp;
+                                    <button style="background-color: lightblue" class="edit">Editar</button>
+                                </div>
+                                <div style="display: none" id="btns_edit">
+                                    <button style="background-color: lightgreen" class="save">Salvar</button>&nbsp;
+                                    <button style="background-color: lightcoral" class="discard">Descartar</button>
                                 </div>
                             </div>
                         </div>
+                        <table>
+                            <tr>
+                                <th class="title">Produto (<span id="productsCount"></span>)</th>
+                                <th class="prod_sellerid">ID do Vendedor</th>
+                            </tr>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
+
                 <div id="sellerZone">
                     <button id="btn_createNewSeller">➕ Adicionar novo vendedor</button>
                     <div id="createNewSeller" style="display: none">
@@ -91,12 +116,22 @@
                         <div>*Nome completo: <input id="seller_name"></div>
                         <div>Nome exibido: <input id="seller_nick"></div>
                         <div>Descrição: <textarea id="seller_desc"></textarea></div>
-                        <div>*Endereço: <input id="seller_locat"></div>
+                        <div>
+                            *Endereço: 
+                            <select id="seller_locat">
+                                <option value="Zona Norte, Londrina">Zona Norte, Londrina</option>
+                                <option value="Zona Oeste, Londrina">Zona Oeste, Londrina</option>
+                                <option value="Zona Leste, Londrina">Zona Leste, Londrina</option>
+                                <option value="Zona Sul, Londrina">Zona Sul, Londrina</option>
+                                <option value="Centro, Londrina">Centro, Londrina</option>
+                                <option value="Cambé">Cambé</option>
+                                <option value="Ibiporã">Ibiporã</option>
+                            </select>
+                        </div>
                         <div>*Distância (km): <input id="seller_dist" type="number"></div>
                         <div>
                             *Avaliação: 
                             <select id="seller_rate">
-                                <option value="0">Selecione</option>
                                 <option value="1">★☆☆☆☆</option>
                                 <option value="2">★★☆☆☆</option>
                                 <option value="3">★★★☆☆</option>
@@ -120,7 +155,7 @@
                             <div style="text-align: left; padding-block: 5px; display: flex; flex-direction: column; border-bottom: 1px solid lightgrey;">
                                 <div>Nome: <span class="name">sellerName</span></div>
                                 <div>Endereço: <span class="locat">sellerLocat</span></div>
-                                <div>Imagem: <a class="imglink" target="_blank">clique para abrir</a></div>
+                                <div>Imagem: <a class="imglink" target="_blank">Clique para abrir</a></div>
                             </div>
                             <div style="display: flex">
                                 <div style="text-align: left; width: 50%; padding-block: 5px; border-bottom: 1px solid lightgrey;">
@@ -133,14 +168,14 @@
                                 </div>
                             </div>
                             <div style="text-align: left; padding-block: 5px; border-bottom: 1px solid lightgrey;">
-                                <div>Descrição: "<span class="desc">sellerDesc</span>"</div>
+                                <div>Descrição: <span class="desc">sellerDesc</span></div>
                             </div>
                             <div style="text-align: left; margin-top: 5px;">
-                                <div style="display: flex" class="common_btns">
+                                <div style="display: flex" id="btns_common">
                                     <button style="background-color: lightcoral" class="delete">Excluir</button>&nbsp;
                                     <button style="background-color: lightblue" class="edit">Editar</button>
                                 </div>
-                                <div style="display: none" class="edit_btns">
+                                <div style="display: none" id="btns_edit">
                                     <button style="background-color: lightgreen" class="save">Salvar</button>&nbsp;
                                     <button style="background-color: lightcoral" class="discard">Descartar</button>
                                 </div>
