@@ -131,6 +131,7 @@ button {
     height: 100%;
     padding: 15px;
     overflow-y: scroll;
+    z-index: 2;
 }
 #middle .resInfo {
     display: flex;
@@ -147,7 +148,13 @@ button {
     background-color: rgb(230, 230, 230);
 }
 #middle::-webkit-scrollbar {
-    width: 0px;
+    width: 4px;
+    background-color: transparent;
+}
+#middle::-webkit-scrollbar-thumb {
+    background-color: lightgrey; 
+    border-radius: 5px;
+    
 }
 #loading {
     transition: opacity 1s;
