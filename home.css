@@ -32,7 +32,7 @@ button {
     align-items: center;
     width: 100%;
     border: 3px solid rgb(60, 60, 255);
-    margin-right: 15px;
+    margin-right: 4px;
     border-radius: 15px;
     height: 50px;
     position: relative;
@@ -67,12 +67,20 @@ button {
     background: lightgrey;
     transition: 0s;
 }
-#headerTop button#profile {
+#headerTop button#config {
     width: 50px;
     height: 50px;
-    font-size: 24pt;
     background-color: transparent;
-    border: 3px solid lightgray;
+    border: none;
+    transition: background-color 1S;
+}
+#headerTop button#config .material-symbols-outlined {
+    font-size: 24pt;
+    color: rgb(51, 51, 51);
+}
+#headerTop button#config:active {
+    background-color: lightgrey;
+    transition: 0s;
 }
 
 #categorias {
@@ -238,9 +246,9 @@ footer button:active {
     transition: 0s;
 }
 footer button .sym {
-    width: 40px; 
-    height: 40px; 
-    padding: 5px;
+    width: 30px; 
+    height: 30px; 
+    margin-top: 5px;
 }
 
 footer button.selected::after {
