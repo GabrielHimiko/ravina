@@ -4,6 +4,9 @@
 * {
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
+    zoom: 100%;
+    max-zoom: 100%;
+    min-zoom: 100%;
 }
 body {
     margin: 0;
@@ -11,7 +14,6 @@ body {
     justify-content: center;
     align-items: center;
     background-color: rgb(32, 32, 32);
-    zoom: 100%;
 }
 
 main {

@@ -22,13 +22,13 @@ const prod_results = document.querySelector('#prod_results');
 const prod_filter_title = document.querySelector('.resInfo #filter_title');
 const prod_filter_select = document.querySelector('.resInfo #filter_select');
 
-let prodTypeSelected;
+let sel_filter, sel_subfilter, sel_search;
 
 categoryBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         if(btn.classList.contains('selected')) return;
 
-        prodTypeSelected = btn.id;
+        sel_filter = btn.id;
         
         btn.parentNode.scrollLeft = 0;
         categoryBtns.forEach((e) => {e.style.display = ''});
@@ -41,12 +41,13 @@ categoryBtns.forEach((btn) => {
 
         let hasFind = false;
         obj_prod_filter.forEach((filter) => {
-            if(filter.value === prodTypeSelected && !hasFind) {
+            if(filter.value === sel_filter && !hasFind) {
                 hasFind = true;
-                prod_filter_title.style.display = '';
-                prod_filter_title.innerHTML = filter.subtitle;
 
                 if(filter.options) {
+                    prod_filter_select.style.display = '';
+                    prod_filter_title.style.display = '';
+                    prod_filter_title.innerHTML = filter.subtitle;
                     console.log('Tem filter.options')
                     Array.from(prod_filter_select.children).forEach((c) => {prod_filter_select.removeChild(c)});
                     const allOpt = new Option('Ver tudo');
@@ -57,14 +58,18 @@ categoryBtns.forEach((btn) => {
                         newOpt.value = filter.options[i].value;
                         prod_filter_select.appendChild(newOpt);
                     }
-                    prod_filter_select.style.display = '';
-                };
-            } else if(!hasFind) {
-                console.log('Não tem filter.options')
-                prod_filter_title.style.display = 'none';
-                prod_filter_select.style.display = 'none';
+                }
+                else {
+                    prod_filter_title.style.display = 'none';
+                    prod_filter_select.style.display = 'none';
+                }
             };
-        })
+        });
+        if(!hasFind) {
+            console.log('Não tem filter.options')
+            prod_filter_title.style.display = 'none';
+            prod_filter_select.style.display = 'none';
+        };
 
         prod_results.style.display = 'none';
         prod_results.style.opacity = '0';
@@ -81,4 +86,8 @@ categoryBtns.forEach((btn) => {
         }, 1000);
     })
 })
+
+function loadProducts(filter, subfilter, search) {
+    
+}
 
