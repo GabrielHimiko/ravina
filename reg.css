@@ -3,8 +3,6 @@ main {
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 #top {
@@ -27,6 +25,7 @@ main {
     justify-content: center;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 button {
@@ -126,7 +125,9 @@ td, th {
 table .title {width: 60%}
 table .prod_sellerid {width: 40%}
 table .name {width: 100%}
+table .img {width: 20%}
 table .act {
+    height: 100%;
     padding-left: 5px;
     display: flex;
     justify-content: center;

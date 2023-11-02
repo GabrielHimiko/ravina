@@ -16,7 +16,7 @@ window.addEventListener('resize', setViewportHeight());
 const obj_prod_filter = [
     {
         value: 'com',
-        title: 'Comida',
+        title: 'Refeições',
         subtitle: "Tipo de comida:",
         options: [
             {value: 'salg_lanch', title: 'Salgados/Lanchinhos'},
@@ -26,7 +26,7 @@ const obj_prod_filter = [
     },
     {
         value: 'beb',
-        title: 'Bebida',
+        title: 'Bebidas',
         subtitle: "Tipo de bebida:",
         options: [
             {value: 'sucos', title: 'Sucos'},
@@ -47,15 +47,12 @@ const obj_prod_filter = [
         ]
     },
     {
-        value: 'roupas',
-        title: 'Roupas',
-        subtitle: "Tipo de roupa:",
+        value: 'dec',
+        title: 'Decorações',
+        subtitle: "Tipo de confecção decorativa:",
         options: [
-            {value: 'cima', title: 'Parte de cima'},
-            {value: 'baixo', title: 'Parte de baixo'},
-            {value: 'int', title: 'Íntimas masculinas'},
-            {value: 'int', title: 'Íntimas femininas'},
-            {value: 'calc', title: 'Calçados'},
+            {value: 'tricroch', title: 'Tricô e Croche'},
+            {value: 'brinc', title: 'Brinquedos'},
         ]
     },
     {

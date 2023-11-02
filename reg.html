@@ -15,8 +15,8 @@
         <div id="top">
             <div id="select_type" style="display: none">
                 <button id="return" onclick="window.location.href = '/index.html'"><b>↩</b></button>&nbsp;
-                <button id="products_btn">Gerenciar produtos</button>&nbsp;
-                <button id="sellers_btn">Gerenciar vendedores</button>
+                <button id="products_btn">Editar produtos</button>&nbsp;
+                <button id="sellers_btn">Editar vendedores</button>
             </div>
         </div>
         <div id="middle">
@@ -34,11 +34,10 @@
                         <div>
                             *Filtro: 
                             <select id="prod_filter">
-                                <option value="com">🥟 Comida</option>
-                                <option value="beb">🍷 Bebida</option>
+                                <option value="com">🥟 Refeições</option>
+                                <option value="beb">🍷 Bebidas</option>
                                 <option value="doces">🍪 Doces</option>
-                                <option value="roupas">👔 Roupas</option>
-                                <option value="acess">💍 Acessórios</option>
+                                <option value="dec">🧸 Decorações</option>
                                 <option value="plantas">🌱 Plantas</option>
                                 <option value="pets">🐶 Para pets</option>
                                 <option value="serv">🔧 Serviços</option>
@@ -76,6 +75,7 @@
                                 <div>Título: <span class="title">prodTitle</span></div>
                                 <div>Vendido por: <span class="seller">prodSeller</span></div>
                                 <div>Imagem: <a class="imglink" target="_blank">clique para abrir</a></div>
+                                <div><img style="max-width: 100%; max-height: 200px; border-radius: 5px; border: 1px solid lightgrey;"class="imglink_preview"></img></div>
                             </div>
                             <div style="display: flex">
                                 <div style="text-align: left; width: 50%; padding-block: 5px; border-bottom: 1px solid lightgrey;">
@@ -156,13 +156,14 @@
                                 <div>Nome: <span class="name">sellerName</span></div>
                                 <div>Endereço: <span class="locat">sellerLocat</span></div>
                                 <div>Imagem: <a class="imglink" target="_blank">Clique para abrir</a></div>
+                                <div><img style="max-width: 100%; max-height: 200px; border-radius: 5px; border: 1px solid lightgrey;"class="imglink_preview"></img></div>
                             </div>
-                            <div style="display: flex">
-                                <div style="text-align: left; width: 50%; padding-block: 5px; border-bottom: 1px solid lightgrey;">
+                            <div style="display: flex; width: 100%; border-bottom: 1px solid lightgrey;">
+                                <div style="text-align: left; min-width: 50%; margin-right: 5px; padding-block: 5px; padding-right: 5px; border-right: 1px solid lightgrey">
                                     <div>Apelido: <span class="nick">sellerNick</span></div>
                                     <div>Distância: <span class="dist">sellerDist</span>km</div>
                                 </div>
-                                <div style="text-align: left; width: 50%; padding-block: 5px; border-bottom: 1px solid lightgrey;">
+                                <div style="text-align: left; padding-block: 5px;">
                                     <div>Avaliação: <span class="rate">sellerRate</span></div>
                                     <div>Relevância: <span class="rel">sellerRel</span></div>
                                 </div>
@@ -183,7 +184,8 @@
                         </div>
                         <table>
                             <tr>
-                                <th class="name">Vendedores registrados (<span id="sellersCount"></span>)</th>
+                                <th class="img">Foto</th>
+                                <th class="name">Vendedor (<span id="sellersCount"></span>)</th>
                             </tr>
                             <tbody></tbody>
                         </table>

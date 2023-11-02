@@ -15,6 +15,7 @@ button {
     justify-content: center;
     align-items: center;
     color: black;
+    cursor: pointer;
 }
 
 #headerTop {
@@ -37,6 +38,7 @@ button {
     height: 50px;
     position: relative;
     overflow: hidden;
+    max-width: 700px;
 }
 #headerTop .inputZone input {
     height: 100%;
@@ -49,7 +51,6 @@ button {
     position: absolute;
 }
 #headerTop .inputZone button {
-    width: 10%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -85,7 +86,6 @@ button {
 
 #categorias {
     display: flex;
-    width: 100%;
     margin-top: 15px;
     right: 0;
     overflow-x: scroll;
@@ -154,10 +154,6 @@ button {
 #middle::-webkit-scrollbar-thumb {
     background-color: lightgrey; 
     border-radius: 5px;
-    
-}
-#loading {
-    transition: opacity 1s;
 }
 #prod_results {
     transition: opacity 1s;
@@ -227,6 +223,7 @@ button {
 
 footer {
     width: 100%;
+    max-width: 600px;
     bottom: 0;
     display: flex;
     justify-content: space-evenly;
@@ -234,6 +231,22 @@ footer {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
+}
+
+@media (min-width: 601px) {
+    footer {
+        height: 10%;
+        width: 100%;
+        max-width: 600px;
+        bottom: 0;
+        display: flex;
+        justify-content: space-evenly;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 15px 15px 0 0;
+        overflow: hidden;
+    }
 }
 
 footer button {

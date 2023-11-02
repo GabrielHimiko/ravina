@@ -404,6 +404,13 @@ function loadSellers() {
 
             const row = document.createElement('tr');
 
+            const imgCell = document.createElement('td');
+            imgCell.classList.add('img');
+            const imgCell_img = document.createElement('img');
+            imgCell.appendChild(imgCell_img);
+            imgCell_img.src = seller.imglink;
+            imgCell_img.style = 'width: 100%; height: 100%';
+
             const nameCell = document.createElement('td');
             nameCell.classList.add('name');
             nameCell.innerHTML = seller.name;
@@ -419,6 +426,7 @@ function loadSellers() {
                 viewSeller(seller);
             })
 
+            row.appendChild(imgCell);
             row.appendChild(nameCell);
             row.appendChild(actCell);
             document.querySelector('#creating #sellerZone #sellerResults table tbody').appendChild(row);
@@ -447,19 +455,19 @@ function close_editSeller() {
 };
 
 function viewSeller(seller) {
+    document.querySelector('main #middle #creating').scrollTop = 0;
     if (sellerInView_isEdit) {
         close_editSeller();
         return;
     }
     sellerInView = seller;
-    console.log('viewSeller ----------------');
-    console.log(seller.name + ' está sendo exibida.');
     
     sellerView.style.display = '';
     sellerView.querySelector('.sellerid').innerHTML = seller.sellerid;
     sellerView.querySelector('.name').innerHTML = seller.name;
     sellerView.querySelector('.locat').innerHTML = seller.locat;
     sellerView.querySelector('.imglink').href = seller.imglink;
+    sellerView.querySelector('.imglink_preview').src = seller.imglink;
     sellerView.querySelector('.nick').innerHTML = seller.nick;
     sellerView.querySelector('.dist').innerHTML = seller.dist;
     sellerView.querySelector('.rate').innerHTML = seller.rate;
@@ -505,7 +513,7 @@ function loadProducts() {
     console.log('loadProducts ----------------')
     document.querySelectorAll('#creating #productZone #productResults table td').forEach((e) => {e.remove()});
 
-    firebase.database().ref('products').orderByChild('name').on('value', (snapshot) => {
+    firebase.database().ref('products').orderByChild('sellerid').on('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
 
             const product = childSnapshot.val();
@@ -561,6 +569,7 @@ function close_editProd() {
 };
 
 function viewProd(prod) {
+    document.querySelector('main #middle #creating').scrollTop = 0;
     if (prodInView_isEdit) {
         close_editProd();
         return;
@@ -599,6 +608,7 @@ function viewProd(prod) {
     productView.querySelector('.prodid').innerHTML = prod.prodid;
     productView.querySelector('.title').innerHTML = prod.title;
     productView.querySelector('.imglink').href = prod.imglink;
+    productView.querySelector('.imglink_preview').src = prod.imglink;
     productView.querySelector('.filter').innerHTML = prod_filterName;
     productView.querySelector('.subfilter').innerHTML = prod_subfilterName;
     productView.querySelector('.price').innerHTML = prod.price;
