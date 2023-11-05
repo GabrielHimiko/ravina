@@ -51,9 +51,9 @@
                     </div>
                 </div>
                 
-                <div style="background-color: rgb(230, 230, 230); width: 100%; border: 1px solid lightgrey; border-radius: 15px; margin-top: 15px;">
+                <div id="seller-info" style="background-color: rgb(230, 230, 230); width: 100%; border: 1px solid lightgrey; border-radius: 15px; margin-top: 15px;">
                     <div style="display: flex; align-items: center; background-color: lightgrey; border-radius: 15px; padding: 15px;">
-                        <div style="display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 15px; overflow: hidden; width: 70px; height: 70px; border: 1px solid grey;">
+                        <div id="seller-info_image"style="display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 15px; overflow: hidden; width: 70px; height: 70px; border: 1px solid grey;">
                             <img class="seller_imglink" style="width: 70px;"></img>
                         </div>
                         <div style="display: flex; flex-direction: column; text-align: left; margin-left: 15px;">
@@ -66,6 +66,13 @@
                         <div style="display: flex; align-items: center;"><span class='material-symbols-outlined'>distance</span>&nbsp;Distância:&nbsp;<span class="seller_dist"></span>km</div>
                         <div style="display: flex; align-items: center;"><span class='material-symbols-outlined'>inventory_2</span>&nbsp;Produtos à venda:&nbsp;<span class="seller_prodcount"></span></div>
                     </div>
+                </div>
+
+                <div id="seller-img" style="width: 100%; position: relative; border-radius: 15px; border: 1px solid lightgrey; overflow: hidden; margin-top: 15px; display: none">
+                    <button style="position: absolute; top: 5px; left: 5px; width: 30px; height: 30px;">
+                        <span class='material-symbols-outlined'>close_fullscreen</span>
+                    </button>
+                    <img class="seller_imglink2" style="width: 100%"></img>
                 </div>
 
             </div>

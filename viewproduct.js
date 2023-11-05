@@ -76,6 +76,7 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
         document.querySelector('#middle .seller_disttimewalk').innerHTML = `${seller.disttimewalk}min andando`;
         document.querySelector('#middle .seller_disttimecar').innerHTML = `${seller.disttimecar}min de carro`;
         document.querySelector('#middle .seller_imglink').src = seller.imglink;
+        document.querySelector('#middle .seller_imglink2').src = seller.imglink;
         document.querySelector('#middle .seller_name').innerHTML = seller.name;
         document.querySelector('#middle .seller_rate').innerHTML = seller.rate;
         document.querySelector('#middle .seller_dist').innerHTML = seller.dist;
@@ -85,4 +86,24 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
 
 document.querySelector('#return').addEventListener('click', () => {
     window.location.href = '/home.html';
+});
+
+document.querySelector('#middle #result #seller-info_image').addEventListener('click', () => {
+    document.querySelector('#middle #result #seller-info').style.display = 'none';
+    document.querySelector('#middle #result #seller-img').style.display = '';
+    document.querySelector('#middle #result #seller-img').style.opacity = '0';
+
+    setTimeout(function() {
+        document.querySelector('#middle #result #seller-img').style.opacity = '1';
+    }, 100);
+});
+
+document.querySelector('#middle #result #seller-img').addEventListener('click', () => {
+    document.querySelector('#middle #result #seller-img').style.display = 'none';
+    document.querySelector('#middle #result #seller-info').style.display = '';
+    document.querySelector('#middle #result #seller-info').style.opacity = '0';
+
+    setTimeout(function() {
+        document.querySelector('#middle #result #seller-info').style.opacity = '1';
+    }, 100);
 });
