@@ -68,18 +68,27 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
             }
         })
         seller.prodcount = count;
-        seller.disttimewalk = (seller.dist/0.0833).toFixed(0);
-        seller.disttimecar = (seller.dist/0.5).toFixed(0);
+        seller.distNum = Number(seller.dist.replace(',', '.'));
+        seller.distStr = seller.dist.replace('.', ',');
+        seller.disttimewalk = (seller.distNum/0.0833).toFixed(0);
+        seller.disttimecar = (seller.distNum/0.5).toFixed(0);
+        switch(seller.rate) {
+            case '1': seller.rateStars = '★☆☆☆☆'; break;
+            case '2': seller.rateStars = '★★☆☆☆'; break;
+            case '3': seller.rateStars = '★★★☆☆'; break;
+            case '4': seller.rateStars = '★★★★☆'; break;
+            case '5': seller.rateStars = '★★★★★'; break;
+        };
 
         document.querySelector('#middle .prod_title').innerHTML = prod.title;
         document.querySelector('#middle .prod_imglink').src = prod.imglink;
-        document.querySelector('#middle .seller_disttimewalk').innerHTML = `${seller.disttimewalk}min andando`;
-        document.querySelector('#middle .seller_disttimecar').innerHTML = `${seller.disttimecar}min de carro`;
+        document.querySelector('#middle .seller_disttime').innerHTML = `${(seller.disttimewalk >= 60 ? `${(seller.disttimewalk/60).toFixed(1).replace('.', ',')}h` : `${seller.disttimewalk}min`) + ' andando'} ou ${seller.disttimecar}min de carro`;
         document.querySelector('#middle .seller_imglink').src = seller.imglink;
         document.querySelector('#middle .seller_imglink2').src = seller.imglink;
         document.querySelector('#middle .seller_name').innerHTML = seller.name;
-        document.querySelector('#middle .seller_rate').innerHTML = seller.rate;
-        document.querySelector('#middle .seller_dist').innerHTML = seller.dist;
+        document.querySelector('#middle .seller_nick').innerHTML = seller.nick;
+        document.querySelector('#middle .seller_rate').innerHTML = seller.rateStars;
+        document.querySelector('#middle .seller_dist').innerHTML = seller.distStr;
         document.querySelector('#middle .seller_prodcount').innerHTML = seller.prodcount;
     });
 });

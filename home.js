@@ -151,14 +151,13 @@ function loadProducts() {
                 else arr_products.sort((a, b) => a[sel_order] - b[sel_order]);
             });
 
+            loading.style.display = 'none';
+            prod_results.style.display = '';
+            
             setTimeout(function() {
-                loading.style.display = 'none';
-                prod_results.style.display = '';
-                setTimeout(function() {
-                    prod_results.style.opacity = '1';
-                    loading.style.opacity = '1';
-                }, 100);
-            }, 500);
+                prod_results.style.opacity = '1';
+                loading.style.opacity = '1';
+            }, 100);
 
             let finded = 0;
             arr_products.forEach((prod) => {

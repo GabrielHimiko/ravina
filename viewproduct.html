@@ -37,11 +37,10 @@
                     <img style="border-radius: 15px 15px 0 0; max-width: 100%" class="prod_imglink">
                     <div style="border-radius: 0 0 15px 15px;  width: 100%; padding: 15px; background-color: rgb(230, 230, 230);">
                         <div>
-                            <b><span class="prod_title"></span></b>
+                            <b><span class="prod_title" style="font-size: 14pt"></span></b>
                             <div style="display: flex; align-items: center; justify-content: center; font-size: 10pt">
                                 <span class='material-symbols-outlined' style="font-size: 20px">route</span>&nbsp;
-                                <span class="seller_disttimewalk"></span>&nbsp;ou&nbsp;
-                                <span class="seller_disttimecar"></span>
+                                <span class="seller_disttime"></span>
                             </div>
                         </div>
                         <div style="display: flex; flex-direction: column; margin-top: 15px; justify-content: center;">
@@ -52,20 +51,26 @@
                 </div>
                 
                 <div id="seller-info" style="background-color: rgb(230, 230, 230); width: 100%; border: 1px solid lightgrey; border-radius: 15px; margin-top: 15px;">
-                    <div style="display: flex; align-items: center; background-color: lightgrey; border-radius: 15px; padding: 15px;">
+                    <div style="display: flex; align-items: center; padding: 15px; border-bottom: 1px solid lightgrey">
                         <div id="seller-info_image"style="display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 15px; overflow: hidden; width: 70px; height: 70px; border: 1px solid grey;">
                             <img class="seller_imglink" style="width: 70px;"></img>
                         </div>
                         <div style="display: flex; flex-direction: column; text-align: left; margin-left: 15px;">
-                            <b>Vendido por</b>
-                            <span class="seller_name"></span>
+                            Vendido por
+                            <b><span class="seller_name"></span></b>
                         </div>
                     </div>
-                    <div style="padding: 15px;">
-                        <div style="display: flex; align-items: center;"><span class='material-symbols-outlined'>reviews</span>&nbsp;Avaliação:&nbsp;<span class="seller_rate"></span></div>
+                    <div style="padding-inline: 15px; padding-top: 15px;">
+                        <div style="display: flex; align-items: center;"><span class='material-symbols-outlined'>reviews</span>&nbsp;Avaliação:&nbsp;<span class="seller_rate" style="color: rgb(200, 150, 0);"></span></div>
                         <div style="display: flex; align-items: center;"><span class='material-symbols-outlined'>distance</span>&nbsp;Distância:&nbsp;<span class="seller_dist"></span>km</div>
                         <div style="display: flex; align-items: center;"><span class='material-symbols-outlined'>inventory_2</span>&nbsp;Produtos à venda:&nbsp;<span class="seller_prodcount"></span></div>
                     </div>
+                    <div style="padding: 15px; display: flex; justify-content: center;">
+                        <button style="padding: 10px; border-radius: 10px; border: 1px solid lightgrey;">
+                            <span class='material-symbols-outlined'>chat</span>&nbsp;Conversar com&nbsp;<span class="seller_nick"></span>
+                        </button>
+                    </div>
+                    
                 </div>
 
                 <div id="seller-img" style="width: 100%; position: relative; border-radius: 15px; border: 1px solid lightgrey; overflow: hidden; margin-top: 15px; display: none">
