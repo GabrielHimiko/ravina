@@ -113,6 +113,7 @@ button {
     margin-right: 0;
 }
 #categorias button.selected {
+    font-weight: bold;
     background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255));
     color: white;
 }
@@ -167,7 +168,7 @@ button {
 }
 #prod_results .cardItem {
     width: 100%;
-    margin-right: 15px;
+    margin-right: 5px;
     border: 1px solid lightgray;
     border-radius: 15px;
     transition: box-shadow 1s;

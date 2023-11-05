@@ -39,6 +39,28 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
             }
         });
 
+        document.querySelector('#middle #loading').style.display = 'none';
+        
+        if(prod) {
+            document.querySelector('#middle #result').style.display = '';
+            document.querySelector('#middle #result').style.opacity = '0';
+
+            setTimeout(function() {
+                document.querySelector('#middle #result').style.opacity = '1';
+            }, 100);
+        } else {
+            document.querySelector('#middle #not-found').style.display = '';
+            document.querySelector('#middle #not-found').style.opacity = '0';
+
+            setTimeout(function() {
+                document.querySelector('#middle #not-found').style.opacity = '1';
+            }, 100);
+
+            setTimeout(function() {
+                window.location.href = '/home.html';
+            }, 5000);
+        }
+
         let count = 0;
         arr_products.forEach((p) => {
             if(p.sellerid === seller.sellerid) {
@@ -53,10 +75,11 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
         document.querySelector('#middle .prod_imglink').src = prod.imglink;
         document.querySelector('#middle .seller_disttimewalk').innerHTML = `${seller.disttimewalk}min andando`;
         document.querySelector('#middle .seller_disttimecar').innerHTML = `${seller.disttimecar}min de carro`;
-        document.querySelector('#middle .seller_name').innerHTML = `<i>${seller.name}</i>`;
-        document.querySelector('#middle .seller_rate').innerHTML = `Avaliado com <span class="d">${seller.rate}★</span> pelos compradores`;
-        document.querySelector('#middle .seller_dist').innerHTML = `Está a <span class="d">${seller.dist}km</span> de distância de você`;
-        document.querySelector('#middle .seller_prodcount').innerHTML = `Tem <span class="d">${seller.prodcount} produto${seller.prodcount > 1 ? 's' : ''}</span> à venda`;
+        document.querySelector('#middle .seller_imglink').src = seller.imglink;
+        document.querySelector('#middle .seller_name').innerHTML = seller.name;
+        document.querySelector('#middle .seller_rate').innerHTML = seller.rate;
+        document.querySelector('#middle .seller_dist').innerHTML = seller.dist;
+        document.querySelector('#middle .seller_prodcount').innerHTML = seller.prodcount;
     });
 });
 
