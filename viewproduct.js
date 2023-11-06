@@ -1,3 +1,5 @@
+const baskDataString = localStorage.getItem("baskData");
+
 const firebaseConfig = {
     apiKey: "AIzaSyB9gKyaRTojAe8kGwtZEabOHT-_wHlW3_A",
     authDomain: "ravina-13c31.firebaseapp.com",
@@ -11,6 +13,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let arr_sellers = [], arr_products = [];
+let prod, seller;
 
 const url = new URL(window.location.href);
 const urlPar = url.searchParams.get('id');
@@ -27,7 +30,6 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
             arr_products.push(prod);
         });
 
-        let prod, seller;
         arr_products.forEach((p) => {
             if(urlPar === p.prodid) {
                 prod = p;
@@ -59,7 +61,7 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
             setTimeout(function() {
                 window.location.href = '/home.html';
             }, 5000);
-        }
+        };
 
         let count = 0;
         arr_products.forEach((p) => {
@@ -90,6 +92,10 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
         document.querySelector('#middle .seller_rate').innerHTML = seller.rateStars;
         document.querySelector('#middle .seller_dist').innerHTML = seller.distStr;
         document.querySelector('#middle .seller_prodcount').innerHTML = seller.prodcount;
+
+        if(prod.filter == 'serv') {
+            document.querySelector('#buy-zone').style.display = 'none';
+        }
     });
 });
 
@@ -116,3 +122,24 @@ document.querySelector('#middle #result #seller-img').addEventListener('click', 
         document.querySelector('#middle #result #seller-info').style.opacity = '1';
     }, 100);
 });
+
+let isOnBask = false;
+document.querySelector('#to-basket').addEventListener('click', function() {
+    if (isOnBask) {alert('Este produto já está na sua cesta!'); return};
+    isOnBask = true;
+    this.style.borderColor = 'lightgrey';
+    this.style.opacity = 0.5;
+
+    let new_baskData = [];
+    if(baskDataString) {
+        new_baskData = JSON.parse(baskDataString);
+    }
+    new_baskData.push(prod);
+    const new_baskDataString = JSON.stringify(new_baskData);
+
+    localStorage.setItem("baskData", new_baskDataString);
+
+    console.log(new_baskData);
+
+    alert(`1x ${prod.title} adicionado à cesta.`);
+})

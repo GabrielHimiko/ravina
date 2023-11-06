@@ -19,7 +19,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-let arr_products = [], arr_sellers = [], arr_cardItems = [], arr_lines = [], sel_filter = 'dests', sel_subfilter, sel_order = 'rel', sel_search, perLine = 2;
+let arr_products = [], arr_sellers = [], arr_cardItems = [], arr_lines = [], sel_filter = 'dests', sel_subfilter, sel_order = 'rel', sel_search, red_search, perLine = 2;
 
 function setPerLine() {
     if(window.innerWidth <= 600) perLine = 2;
@@ -89,29 +89,53 @@ categoryBtns.forEach((btn) => {
         loadProducts();
 
     })
-})
+});
 
 select_orderBy.addEventListener('change', function() {
     sel_order = this.value;
     loadProducts();
 })
-search_btn.addEventListener('click', () => {
-    if(search_input.value.length == 0 && !sel_search) return;
-    if(search_input.value.length == 0) {
-        document.querySelector('#categorias')
-        
-        categoryBtns.forEach((e) => {e.style.display = ''});
-        categoryBtns.forEach((e) => {
-            if(e.classList.contains('selected')) {
-                e.innerText = btn.innerText;
-            }
-        })
-        btn.style.display = 'none';
-    }
 
+function searchStr(texto) {
+    return texto
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  }
+
+search_btn.addEventListener('click', () => {
+    if(search_input.value.length == 0) loadProducts();
+    sel_search = search_input.value;
+    
+    let finded_p = [];
+    arr_products.forEach((p) => {
+        if(searchStr(p.title).includes(searchStr(sel_search))) {
+            finded_p.push(p);
+        }
+    });
+
+    let finded_s = [];
+    arr_sellers.forEach((s) => {
+        if(searchStr(s.name).includes(searchStr(sel_search))) {
+            finded_s.push(s);
+        }
+    });
+
+    if(finded_p.length) {
+        loadProducts(searchStr(sel_search));
+    } else if(finded_s.length) {
+        window.location.href = '/persons.html?search=' + searchStr(sel_search);
+    }
+    else {
+        prod_results.innerHTML = `
+            Não encontramos "${sel_search}" no sistema.<br>
+            Tente <b>mudar os critérios de pesquisa</b>!
+        `;
+        return;
+    };
 });
 
-function loadProducts() {
+function loadProducts(searchk) {
 
     arr_products = []; 
     arr_sellers = [];
@@ -146,7 +170,11 @@ function loadProducts() {
                 if(prod.rprice === '-x-') prod.rprice = '';
                 if(prod.rprice) prod.rprice = Number(prod.rprice).toFixed(2).replace('.', ',');
 
-                arr_products.push(prod);
+                if(!searchk) arr_products.push(prod);
+                else {
+                    if(searchStr(prod.title).includes(searchk)) arr_products.push(prod);
+                }
+
                 if (sel_order == 'rate') arr_products.sort((a, b) => b[sel_order] - a[sel_order])
                 else arr_products.sort((a, b) => a[sel_order] - b[sel_order]);
             });

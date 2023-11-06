@@ -91,3 +91,5 @@ const obj_prod_filter = [
         title: 'Para pets'
     }
 ];
+
+const chatData = [];

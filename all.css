@@ -24,11 +24,83 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
+    background-color: white;
+    text-align: center;
+}
+
+button {
+    border-radius: 15px;
+    border: 0;
+    font-size: 11pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    cursor: pointer;
 }
 
 .line {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+footer {
+    width: 100%;
+    max-width: 600px;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+@media (min-width: 601px) {
+    footer {
+        height: 10%;
+        width: 100%;
+        max-width: 600px;
+        bottom: 0;
+        display: flex;
+        justify-content: space-evenly;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 15px 15px 0 0;
+        overflow: hidden;
+    }
+}
+
+footer button {
+    width: 25%;
+    height: 100%;
+    padding-block: 5px;
+    border-radius: 0;
+    font-size: 8pt;
+    transition: background-color 1s;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+footer button:active {
+    background-color: lightgrey;
+    transition: 0s;
+}
+footer button .sym {
+    width: 30px; 
+    height: 30px; 
+    margin-top: 5px;
+}
+
+footer button.selected::after {
+    content: '';
+    width: 50%;
+    height: 5px;
+    top: 0;
+    position: absolute;
+    background-color: rgb(60, 60, 255);
+    border-radius: 0 0 3px 3px;
 }

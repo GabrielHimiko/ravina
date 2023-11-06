@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html html lang="pt" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="all.css" rel="stylesheet">
+    <link href="chat.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <link rel="icon" type="image/png" href="/zicons_favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Loja</title>
+</head>
+<body>
+    <main>
+        <header id="headerTop">
+            <div class="line">
+                <div class="inputZone"><button class="inputSym"><span class='material-symbols-outlined'>search</span></button><input placeholder="Pesquisar"></div>
+                <button id="config"><span class='material-symbols-outlined'>settings</span></button>
+            </div>
+        </header>
+        <div id="middle">
+
+            <div id="loading">
+                <img src="zicons_loading.gif" width="200px" height="200px" style="opacity: 0.3">
+            </div>
+
+            <div id="not-found" style="display: none">
+                <b>Opa...</b><br>
+                Você ainda não tem conversas por aqui.
+                <span style="font-size: 10pt">Pesquise por um vendedor ou vá para a página <a href="/persons.html">Pessoas</a></span>
+            </div>
+
+            <div id="result" style="display: none">
+
+            </div>
+
+        </div>
+        <footer>
+            <button onclick="window.location.href='/home.html'">
+                <div class="line">
+                    <img class="sym" src="/zicons_store_off.png">
+                </div>
+                <div class="line">Loja</div>
+            </button>
+            <button>
+                <div class="line">
+                    <img class="sym" src="/zicons_near_off.png">
+                </div>
+                <div class="line">Pessoas</div>
+            </button>
+            <button class="selected">
+                <div class="line">
+                    <img class="sym" src="/zicons_chat.png">
+                </div>
+                <div class="line">Conversas</div>
+            </button>
+            <button onclick="window.location.href='/basket.html'">
+                <div class="line">
+                    <img class="sym" src="/zicons_basket_off.png">
+                </div>
+                <div class="line">Cesta</div>
+            </button>
+        </footer>
+    </main>
+
+    <script src="all.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>

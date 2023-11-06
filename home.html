@@ -16,7 +16,7 @@
         <header id="headerTop">
             <div class="line">
                 <div class="line">
-                    <div class="inputZone"><button class="inputSym"><span class='material-symbols-outlined'>search</span></button><input placeholder="Pesquisar Produto/Pessoa"></div>
+                    <div class="inputZone"><button class="inputSym"><span class='material-symbols-outlined'>search</span></button><input placeholder="Pesquisar"></div>
                     <button id="config"><span class='material-symbols-outlined'>settings</span></button>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     </select>
                 </div>
             </div>
-            <div id="loading" style="display: none">
+            <div id="loading">
                 <img src="zicons_loading.gif" width="200px" height="200px" style="opacity: 0.3">
             </div>
             <div id="prod_results">
@@ -69,21 +69,21 @@
             </button>
             <button>
                 <div class="line">
-                    <img class="sym" src="/zicons_basket_off.png">
-                </div>
-                <div class="line">Cesta</div>
-            </button>
-            <button>
-                <div class="line">
                     <img class="sym" src="/zicons_near_off.png">
                 </div>
-                <div class="line">Por perto</div>
+                <div class="line">Pessoas</div>
             </button>
-            <button>
+            <button onclick="window.location.href='/chat.html'">
                 <div class="line">
                     <img class="sym" src="/zicons_chat_off.png">
                 </div>
                 <div class="line">Conversas</div>
+            </button>
+            <button onclick="window.location.href='/basket.html'">
+                <div class="line">
+                    <img class="sym" src="/zicons_basket_off.png">
+                </div>
+                <div class="line">Cesta</div>
             </button>
         </footer>
     </main>

@@ -8,12 +8,7 @@
 
 main {
     background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255));
-    text-align: center;
     color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 h1 {
