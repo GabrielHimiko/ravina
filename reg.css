@@ -129,8 +129,6 @@ table .img {width: 20%}
 table .act {
     height: 100%;
     padding-left: 5px;
-    display: flex;
-    justify-content: center;
     border: none;
 }
 table .act button:active {

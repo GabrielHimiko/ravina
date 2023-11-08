@@ -21,7 +21,8 @@ firebase.initializeApp(firebaseConfig);
 
 let arr_products = [], arr_sellers = [], sellerInView, sellerInView_isEdit = false, prodInView, prodInView_isEdit = false;
 
-loadSellers(); loadProducts();
+loadProducts();
+loadSellers(); 
 
 document.querySelector('#validation_input').addEventListener('input', function() {
     if (this.value === 'ravina23') {
@@ -393,7 +394,6 @@ function clear_createNewSeller() {
 
 function loadSellers() {
     arr_sellers = [];
-    console.log('loadSellers ----------------')
     document.querySelectorAll('#creating #sellerZone #sellerResults table td').forEach((e) => {e.remove()});
 
     firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) => {
@@ -409,11 +409,18 @@ function loadSellers() {
             const imgCell_img = document.createElement('img');
             imgCell.appendChild(imgCell_img);
             imgCell_img.src = seller.imglink;
-            imgCell_img.style = 'width: 100%; height: 100%';
+            imgCell_img.style = 'max-height: 50px';
 
+            let psCount = 0;
+            arr_products.forEach(prod => {
+                if(prod.sellerid == seller.sellerid) {
+                    psCount++;
+                }
+            });
+            
             const nameCell = document.createElement('td');
             nameCell.classList.add('name');
-            nameCell.innerHTML = seller.name;
+            nameCell.innerHTML = `${seller.name}<br>(${psCount} produtos)`;
 
             const actCell = document.createElement('td');
             const actCell_btnView = document.createElement('button');
@@ -430,7 +437,6 @@ function loadSellers() {
             row.appendChild(nameCell);
             row.appendChild(actCell);
             document.querySelector('#creating #sellerZone #sellerResults table tbody').appendChild(row);
-            console.log(seller.name + ' adicionada à tabela.');
 
             arr_sellers.push(seller);
             document.querySelector('#creating #sellerZone #sellerResults table #sellersCount').innerText = arr_sellers.length;
@@ -501,16 +507,21 @@ function clear_createNewProduct() {
     document.querySelector('#creating #createNewProduct #prod_sellerid').appendChild(document.createElement('option'));
 
     arr_sellers.forEach((s) => {
+        let prodsCount = 0;
+        arr_products.forEach((prod) => {
+            if(prod.sellerid === s.sellerid) {
+                prodsCount++;
+            }
+        });
         const opt = document.createElement('option');
         opt.value = s.sellerid;
-        opt.innerHTML = s.name;
+        opt.innerHTML = `${s.name} (${prodsCount})`;
         document.querySelector('#creating #createNewProduct #prod_sellerid').appendChild(opt);
     });
 };
 
 function loadProducts() {
     arr_products = [];
-    console.log('loadProducts ----------------')
     document.querySelectorAll('#creating #productZone #productResults table td').forEach((e) => {e.remove()});
 
     firebase.database().ref('products').orderByChild('sellerid').on('value', (snapshot) => {
@@ -544,7 +555,6 @@ function loadProducts() {
             row.appendChild(sellerCell);
             row.appendChild(actCell);
             document.querySelector('#creating #productZone #productResults table tbody').appendChild(row);
-            console.log(product.title + ' adicionado à tabela.');
 
             arr_products.push(product);
             document.querySelector('#creating #productZone #productResults table #productsCount').innerText = arr_products.length;
@@ -575,8 +585,6 @@ function viewProd(prod) {
         return;
     }
     prodInView = prod;
-    console.log('viewProd ----------------');
-    console.log(prod.title + ' está sendo exibido.');
     
     let prod_sellerName;
     arr_sellers.forEach((seller) => {

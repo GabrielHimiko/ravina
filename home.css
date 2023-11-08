@@ -82,6 +82,7 @@ button {
     overflow-x: scroll;
     padding-bottom: 4px;
     scroll-behavior: smooth;
+    position: relative;
 }
 #categorias::-webkit-scrollbar {
     height: 4px;
@@ -92,6 +93,7 @@ button {
     border-radius: 5px;
 }
 #categorias button {
+    font-size: 10pt;
     white-space: nowrap;
     margin-right: 4px;
     border-radius: 5px;
@@ -139,19 +141,19 @@ button {
     background-color: rgb(230, 230, 230);
 }
 #middle::-webkit-scrollbar {
-    width: 4px;
+    width: 7px;
     background-color: transparent;
 }
 #middle::-webkit-scrollbar-thumb {
     background-color: lightgrey; 
-    border-radius: 5px;
+    border-radius: 3px 0 0 3px;
 }
 #prod_results {
     transition: opacity 1s;
 }
 #prod_results .line {
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 #prod_results .line:last-child {
     margin-bottom: 0px;
@@ -195,7 +197,7 @@ button {
     font-weight: bold;
 }
 #prod_results .cardItem .info .item_oldPrice {
-    color:rgb(194, 29, 29);
+    color:rgb(190, 30, 30);
     font-size: 8pt;
     text-decoration: line-through;
 }
@@ -209,5 +211,5 @@ button {
     color: grey;
 }
 #prod_results .cardItem .info .seller_rating {
-    color: rgb(200, 150, 0);
+    color: rgb(230, 170, 0);
 }

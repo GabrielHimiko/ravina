@@ -19,7 +19,9 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-let arr_products = [], arr_sellers = [], arr_cardItems = [], arr_lines = [], sel_filter = 'dests', sel_subfilter, sel_order = 'rel', sel_search, red_search, perLine = 2;
+let arr_products = [], arr_sellers = [], arr_cardItems = [], arr_lines = [];
+let sel_filter = 'desc', sel_subfilter, sel_order = 'rel', sel_search, red_search, perLine = 2;
+let cardItemsInserted = 0, requireLoadMore = false, actualMaxLines = 10;
 
 function setPerLine() {
     if(window.innerWidth <= 600) perLine = 2;
@@ -135,12 +137,15 @@ search_btn.addEventListener('click', () => {
     };
 });
 
+
 function loadProducts(searchk) {
 
     arr_products = []; 
     arr_sellers = [];
     arr_cardItems = [];
     arr_lines = [];
+    cardItemsInserted = 0;
+    requireLoadMore = false;
 
     prod_results.innerHTML = '';
     prod_results.style.display = 'none';
@@ -161,11 +166,11 @@ function loadProducts(searchk) {
                 arr_sellers.forEach((s) => {
                     if (s.sellerid === prod.sellerid) {
                         sRate = s.rate;
-                        sDist = s.dist;
+                        sDist = s.dist.replace('.', ',');
                     }
                 });
                 prod.rate = sRate;
-                prod.dist = sDist.replace('.', ',');
+                prod.dist = sDist;
                 prod.price = Number(prod.price).toFixed(2).replace('.', ',');
                 if(prod.rprice === '-x-') prod.rprice = '';
                 if(prod.rprice) prod.rprice = Number(prod.rprice).toFixed(2).replace('.', ',');
@@ -175,8 +180,28 @@ function loadProducts(searchk) {
                     if(searchStr(prod.title).includes(searchk)) arr_products.push(prod);
                 }
 
-                if (sel_order == 'rate') arr_products.sort((a, b) => b[sel_order] - a[sel_order])
-                else arr_products.sort((a, b) => a[sel_order] - b[sel_order]);
+                if (sel_order === 'price') {
+                    arr_products.sort((a, b) => {
+                        const vA = parseFloat(a.price.replace(',', '.'));
+                        const vB = parseFloat(b.price.replace(',', '.'));
+                        return vA - vB;
+                    });
+                } else if (sel_order === 'rate') {
+                    arr_products.sort((a, b) => {
+                        return b.rate - a.rate;
+                    });
+                } else if (sel_order === 'rel') {
+                    arr_products.sort((a, b) => {
+                        return a.sel_order - b.sel_order;
+                    });
+                } else if (sel_order === 'dist') {
+                    arr_products.sort((a, b) => {
+                        const vA = parseFloat(a.dist.replace(',', '.'));
+                        const vB = parseFloat(b.dist.replace(',', '.'));
+                        console.log(vA - vB);
+                        return vA - vB;
+                    });
+                }
             });
 
             loading.style.display = 'none';
@@ -189,10 +214,13 @@ function loadProducts(searchk) {
 
             let finded = 0;
             arr_products.forEach((prod) => {
-                if(sel_filter != 'dests') {
+                if(sel_filter == 'desc') {
+                    if(!prod.rprice) return;
+                }
+                else if(sel_filter != 'all') {
                     if (prod.filter != sel_filter) return;
                     if ((sel_subfilter) && (prod.subfilter != sel_subfilter)) return;
-                } 
+                }
                 finded++;
 
                 let prod_sellerNick, prod_sellerRate;
@@ -220,7 +248,7 @@ function loadProducts(searchk) {
                         </div>
                         <div class="info">
                             <div class="itemInfo">
-                                <span class="item_title">${prod.title.length > 20 ? prod.title.slice(0, 20) + '...' : prod.title}</span><br>
+                                <span class="item_title">${prod.title.length > 20 ? `<span style="font-size: 9pt">${prod.title.slice(0, 20)}...</span>` : prod.title}</span><br>
                                 ${!prod.rprice ? '' : `<span class="item_oldPrice">R$${prod.rprice}</span> `}<span class="item_price">${prod.filter == 'serv' ? 'Preço variável' : `R$${prod.price}`}</span>${prod.filter == 'serv' ? '' : ' <span class="item_priceType">cada</span>'}
                             </div>
                             <div class="sellerInfo"><span class="seller_name">${prod_sellerNick}</span> <span class="seller_rating">${prod_sellerRate}</span><br><span class="seller_dist">${prod.dist}km de distância</span></div>
@@ -243,15 +271,15 @@ function loadProducts(searchk) {
                 return;
             }
 
-            const linesCount = Math.ceil(arr_cardItems.length / perLine);
-            let cardItemInserted = 0;
+            let linesCount = Math.ceil(arr_cardItems.length / perLine);
+            if (linesCount > 10) requireLoadMore = true;
             for (let i = 0; i < linesCount; i++) {
                 const line = document.createElement('div');
                 line.classList.add('line');
                 arr_lines.push(line);
 
                 for (let j = 0; j < perLine; j++) {
-                    if (cardItemInserted >= arr_cardItems.length) {
+                    if (cardItemsInserted >= arr_cardItems.length) {
                         if(Array.from(arr_lines[i].children).length < perLine) {
                             for(let k = 0; Array.from(arr_lines[i].children).length < perLine; k++) {
                                 const nullCardItem = document.createElement('div');
@@ -262,16 +290,46 @@ function loadProducts(searchk) {
                         }
                         break;
                     }
-                    arr_lines[i].appendChild(arr_cardItems[cardItemInserted]);
-                    cardItemInserted++;
+                    arr_lines[i].appendChild(arr_cardItems[cardItemsInserted]);
+                    cardItemsInserted++;
                 }
             };
 
-            arr_lines.forEach((l) => {
-                document.querySelector('#prod_results').appendChild(l);
-            });
+            for(i = 0; i < arr_lines.length; i++) {
+                if(i > 10 && requireLoadMore) {
+                    arr_lines[i].style.display = 'none';
+                };
+                document.querySelector('#prod_results').appendChild(arr_lines[i]);
+            };
+
+            if(requireLoadMore) createLoadMore();
 
         });
     });
 };
 
+function loadMoreLines() {
+    actualMaxLines+=10, requireLoadMore = false;
+    document.querySelector('#load-more').remove();
+
+    if(actualMaxLines < arr_lines.length) requireLoadMore = true;
+
+    for(i = actualMaxLines-10; i < arr_lines.length && i < actualMaxLines; i++) {
+        arr_lines[i].style.display = '';
+    };
+
+    if(requireLoadMore) createLoadMore();
+};
+
+function createLoadMore() {
+    const loadMoreDiv = document.createElement('div');
+    loadMoreDiv.style = 'display: flex; justify-content: center';
+    const loadMore = document.createElement('button');
+    loadMore.style = 'padding-inline: 30px; padding-block: 10px; box-shadow: 0 0 10px rgb(100, 100, 255); background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255)); color: white; margin-top: 10px'
+    loadMore.innerHTML = 'Ver mais';
+    loadMore.id = 'load-more';
+    loadMore.addEventListener('click', () => {loadMoreLines()});
+
+    loadMoreDiv.appendChild(loadMore);
+    document.querySelector('#prod_results').appendChild(loadMoreDiv);
+}
