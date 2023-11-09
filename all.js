@@ -56,6 +56,15 @@ const obj_prod_filter = [
         ]
     },
     {
+        value: 'acess',
+        title: 'Acessórios',
+        subtitle: "Tipo de acessório:",
+        options: [
+            {value: 'roupa', title: 'Roupas'},
+            {value: 'acessother', title: 'Outros'},
+        ]
+    },
+    {
         value: 'plantas',
         title: 'Plantas',
         subtitle: "Tipo de planta:",
@@ -64,6 +73,7 @@ const obj_prod_filter = [
             {value: 'jard', title: 'Para jardim'},
             {value: 'med', title: 'Medicinais'},
             {value: 'frut', title: 'Árvores frutíferas'},
+            {value: 'plantasother', title: 'Outros'},
         ]
     },
     {
@@ -81,10 +91,6 @@ const obj_prod_filter = [
     {
         value: 'outros',
         title: 'Outros'
-    },
-    {
-        value: 'acess',
-        title: 'Acessórios'
     },
     {
         value: 'pets',

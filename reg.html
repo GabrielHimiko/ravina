@@ -15,8 +15,12 @@
         <div id="top">
             <div id="select_type" style="display: none">
                 <button id="return" onclick="window.location.href = '/index.html'"><b>↩</b></button>&nbsp;
-                <button id="products_btn">Editar produtos</button>&nbsp;
-                <button id="sellers_btn">Editar vendedores</button>
+                <select id="type-select">
+                    <option>Selecione</option>
+                    <option value="prod">Editar produtos</option>
+                    <option value="seller">Editar vendedores</option>
+                    <option value="stats">Ver estatísticas</option>
+                </select>
             </div>
         </div>
         <div id="middle">
@@ -37,6 +41,7 @@
                                 <option value="com">🥟 Refeições</option>
                                 <option value="beb">🍷 Bebidas</option>
                                 <option value="doces">🍪 Doces</option>
+                                <option value="acess">👜 Acessórios</option>
                                 <option value="dec">🧸 Decorações</option>
                                 <option value="plantas">🌱 Plantas</option>
                                 <option value="pets">🐶 Para pets</option>
@@ -189,6 +194,12 @@
                             </tr>
                             <tbody></tbody>
                         </table>
+                    </div>
+                </div>
+
+                <div id="statsZone">
+                    <div id="statsResults" style="width: 100%; display: flex; flex-direction: column; text-align: left;">
+
                     </div>
                 </div>
             </div>

@@ -325,7 +325,7 @@ function createLoadMore() {
     const loadMoreDiv = document.createElement('div');
     loadMoreDiv.style = 'display: flex; justify-content: center';
     const loadMore = document.createElement('button');
-    loadMore.style = 'padding-inline: 30px; padding-block: 10px; box-shadow: 0 0 10px rgb(100, 100, 255); background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255)); color: white; margin-top: 10px'
+    loadMore.style = 'padding-inline: 30px; padding-block: 10px; box-shadow: 0 0 10px rgb(100, 100, 255); background-image: linear-gradient(to right, rgb(25, 25, 255), rgb(100, 100, 255)); color: white; margin-top: 10px; font-weight: bold'
     loadMore.innerHTML = 'Ver mais';
     loadMore.id = 'load-more';
     loadMore.addEventListener('click', () => {loadMoreLines()});

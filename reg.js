@@ -24,6 +24,8 @@ let arr_products = [], arr_sellers = [], sellerInView, sellerInView_isEdit = fal
 loadProducts();
 loadSellers(); 
 
+
+
 document.querySelector('#validation_input').addEventListener('input', function() {
     if (this.value === 'ravina23') {
         validation.style.display = 'none';
@@ -39,21 +41,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-document.querySelector('#sellers_btn').addEventListener('click', function() {
-    document.querySelector('#creating').style.display = '';
-    document.querySelector('#creating #sellerZone').style.display = '';
-    document.querySelector('#creating #productZone').style.display = 'none';
-    document.querySelectorAll('#select_type button').forEach((e) => {e.classList.remove('selected')});
-    this.classList.add('selected');
-});
+if(localStorage.getItem('regMode')) {
+    document.querySelector('#type-select').value = localStorage.getItem('regMode');
+    typeSelect();
+}
 
-document.querySelector('#products_btn').addEventListener('click', function() {
+document.querySelector('#type-select').addEventListener('change', () => {typeSelect()});
+
+function typeSelect() {
+    if(!arr_products.length) {
+        setTimeout(function() {typeSelect()}, 1000);
+    };
+
+    const ts = document.querySelector('#type-select').value;
+
     document.querySelector('#creating').style.display = '';
+    document.querySelector('#creating #productZone').style.display = 'none';
     document.querySelector('#creating #sellerZone').style.display = 'none';
-    document.querySelector('#creating #productZone').style.display = '';
-    document.querySelectorAll('#select_type button').forEach((e) => {e.classList.remove('selected')});
-    this.classList.add('selected');
-});
+    document.querySelector('#creating #statsZone').style.display = 'none';
+    
+    if(ts === 'seller') {
+        document.querySelector('#creating #sellerZone').style.display = '';
+        localStorage.setItem('regMode', 'seller');
+    } 
+    else if(ts === 'prod') {
+        document.querySelector('#creating #productZone').style.display = '';
+        localStorage.setItem('regMode', 'prod');
+    }
+    else if(ts === 'stats') {
+        document.querySelector('#creating #statsZone').style.display = '';
+        loadStats();
+        localStorage.setItem('regMode', 'stats');
+    }
+};
 
 document.querySelector('#creating #btn_createNewProduct').addEventListener('click', function() {
     this.style.display = 'none';
@@ -314,9 +334,12 @@ document.querySelector('#creating #sellerResults #sellerView button.edit').addEv
 document.querySelector('#creating #productResults #productView button.edit').addEventListener('click', () => {
     prodInView_isEdit = true;
     productView.querySelector('.imglink').innerHTML = prodInView.imglink;
+    productView.querySelector('.filter').innerHTML = prodInView.filter;
+    productView.querySelector('.subfilter').innerHTML = prodInView.subfilter;
+    productView.querySelector('.seller').innerHTML = prodInView.sellerid;
     productView.querySelector('#btns_common').style.display = 'none';
     productView.querySelector('#btns_edit').style.display = 'flex';
-    productView.querySelectorAll('.title, .rel, .imglink, .price, .rprice').forEach((e) => {
+    productView.querySelectorAll('.title, .rel, .imglink, .price, .rprice, .filter, .subfilter, .seller').forEach((e) => {
         if(e.innerHTML.length < 1) e.innerText = '-x-';
         e.contentEditable = true;
         e.style.borderBottom = '1px solid black';
@@ -326,6 +349,7 @@ document.querySelector('#creating #productResults #productView button.edit').add
 });
 
 document.querySelector('#creating #sellerResults #sellerView button.save').addEventListener('click', () => {
+
     const newSeller = {
         name: sellerView.querySelector('.name').innerHTML,
         nick: sellerView.querySelector('.nick').innerHTML,
@@ -335,7 +359,7 @@ document.querySelector('#creating #sellerResults #sellerView button.save').addEv
         rate: sellerView.querySelector('.rate').innerHTML,
         desc: sellerView.querySelector('.desc').innerHTML,
         imglink: sellerView.querySelector('.imglink').innerHTML,
-        sellerid: sellerView.querySelector('.sellerid').innerHTML
+        sellerid: sellerView.querySelector('.sellerid').innerHTML,
     }
 
     firebase.database().ref('sellers/' + sellerInView.key).update(newSeller).then(() => {
@@ -347,19 +371,23 @@ document.querySelector('#creating #sellerResults #sellerView button.save').addEv
     });
 });
 document.querySelector('#creating #productResults #productView button.save').addEventListener('click', () => {
+
     const newProduct = {
         title: productView.querySelector('.title').innerHTML,
         imglink: productView.querySelector('.imglink').innerHTML,
         price: productView.querySelector('.price').innerHTML,
         rprice: productView.querySelector('.rprice').innerHTML,
-        rel: productView.querySelector('.rel').innerHTML
+        rel: productView.querySelector('.rel').innerHTML,
+        filter: productView.querySelector('.filter').innerHTML,
+        subfilter: productView.querySelector('.subfilter').innerHTML,
+        sellerid: productView.querySelector('.seller').innerHTML
     }
 
     firebase.database().ref('products/' + prodInView.key).update(newProduct).then(() => {
         close_editProd();
-        loadProducts();
         alert('Produto atualizado com sucesso.');
         productView.style.display = 'none';
+        loadProducts();
     }).catch((error) => {
         console.error(`Erro ao atualizar vendedor: ${error}`);
     });
@@ -420,7 +448,7 @@ function loadSellers() {
             
             const nameCell = document.createElement('td');
             nameCell.classList.add('name');
-            nameCell.innerHTML = `${seller.name}<br>(${psCount} produtos)`;
+            nameCell.innerHTML = `${seller.name}<br>(${psCount > 0 ? `${psCount} produtos` : `<span style="color: red">${psCount} produtos</span>`})`;
 
             const actCell = document.createElement('td');
             const actCell_btnView = document.createElement('button');
@@ -452,7 +480,7 @@ function close_editSeller() {
     sellerView.querySelector('#btns_common').style.display = 'flex';
     sellerView.querySelector('#btns_edit').style.display = 'none';
 
-    sellerView.querySelectorAll('.name, .nick, .desc, .locat, .rate, .rel, .dist, .imglink').forEach((e) => {
+    sellerView.querySelectorAll('* span').forEach((e) => {
         e.contentEditable = false;
         e.style.borderBottom = 'none';
         e.style.margin = '0';
@@ -570,7 +598,7 @@ function close_editProd() {
     productView.querySelector('#btns_common').style.display = 'flex';
     productView.querySelector('#btns_edit').style.display = 'none';
 
-    productView.querySelectorAll('.title, .rel, .imglink, .price, .rprice').forEach((e) => {
+    productView.querySelectorAll('span, a').forEach((e) => {
         e.contentEditable = false;
         e.style.borderBottom = 'none';
         e.style.margin = '0';
@@ -628,3 +656,39 @@ function viewProd(prod) {
         productView.style.backgroundColor = 'rgb(230, 230, 230)';
     }, 500);
 };
+
+//FUNÇÕES DE ATALHO - STATS------------------------------------------------------------------------------------------------------------------
+
+function loadStats() {
+
+    let filters = [], subfilters = [];
+
+    arr_products.forEach(p => {
+        if(p.filter) {
+
+            let fName;
+            obj_prod_filter.forEach(f => {
+                if (f.value == p.filter) fName = f.title;
+            });
+
+            if(filters[fName]) filters[fName]++
+            else filters[fName] = 1;
+        }
+    })
+
+    let filterStr = '';
+    for (const filter in filters) {
+        if (filters.hasOwnProperty(filter)) {
+          filterStr += `${filter}: ${filters[filter]}<br>`;
+        }
+    }
+
+    document.querySelector('#statsResults').innerHTML = `
+        <b>Informação geral</b>
+        Vendedores cadastrados: ${arr_sellers.length}<br>
+        Produtos cadastrados: ${arr_products.length}<br><br>
+
+        <b>Produtos por filtro</b>
+        ${filterStr}
+    `;
+}

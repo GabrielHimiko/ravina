@@ -18,6 +18,11 @@ main {
     justify-content: center;
     width: 100%;
 }
+#top #select_type select {
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    background-color: rgb(230, 230, 230);
+}
 
 #middle {
     display: flex;
@@ -54,7 +59,8 @@ button.selected {
 }
 
 #creating #productZone, 
-#creating #sellerZone {
+#creating #sellerZone,
+#creating #statsZone {
     display: flex;
     flex-direction: column;
     align-items: center;
