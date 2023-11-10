@@ -128,7 +128,7 @@ td, th {
     font-size: 10pt;
     border: 1px solid black;
 }
-table .title {width: 60%}
+table .title {width: 40%}
 table .prod_sellerid {width: 40%}
 table .name {width: 100%}
 table .img {width: 20%}

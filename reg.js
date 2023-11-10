@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-if(localStorage.getItem('regMode')) {
+if(localStorage.getItem('regMode') && sessionStorage.getItem('havePass')) {
     document.querySelector('#type-select').value = localStorage.getItem('regMode');
     typeSelect();
 }
@@ -173,7 +173,24 @@ document.querySelector('#creating #createNewProduct #prod_save').addEventListene
             prodid: prot_prodid
         }
         firebase.database().ref('products').push(newProduct);
-        loadProducts();
+
+        firebase.database().ref('products').orderByChild('sellerid').on('value', (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+    
+                const product = childSnapshot.val();
+                product.key = childSnapshot.key;
+
+                const newProduct = {
+                    prodid: product.key
+                }
+
+                firebase.database().ref('products/' + product.key).update(newProduct).then(() => {
+                    loadProducts();
+                }).catch((error) => {
+                    console.error(`Erro ao atualizar vendedor: ${error}`);
+                });
+            })
+        });
 
         close_createNewProduct(newProduct);
     } else {
@@ -480,7 +497,7 @@ function close_editSeller() {
     sellerView.querySelector('#btns_common').style.display = 'flex';
     sellerView.querySelector('#btns_edit').style.display = 'none';
 
-    sellerView.querySelectorAll('* span').forEach((e) => {
+    sellerView.querySelectorAll('span, a').forEach((e) => {
         e.contentEditable = false;
         e.style.borderBottom = 'none';
         e.style.margin = '0';
@@ -560,6 +577,13 @@ function loadProducts() {
 
             const row = document.createElement('tr');
 
+            const imgCell = document.createElement('td');
+            imgCell.classList.add('img');
+            const imgCell_img = document.createElement('img');
+            imgCell.appendChild(imgCell_img);
+            imgCell_img.src = product.imglink;
+            imgCell_img.style = 'max-height: 50px';
+
             const titleCell = document.createElement('td');
             titleCell.classList.add('title');
             titleCell.innerHTML = product.title;
@@ -579,6 +603,7 @@ function loadProducts() {
                 viewProd(product);
             });
 
+            row.appendChild(imgCell);
             row.appendChild(titleCell);
             row.appendChild(sellerCell);
             row.appendChild(actCell);

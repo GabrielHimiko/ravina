@@ -93,6 +93,26 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
         document.querySelector('#middle .seller_dist').innerHTML = seller.distStr;
         document.querySelector('#middle .seller_prodcount').innerHTML = seller.prodcount;
 
+        setTimeout(function() {
+            if(document.querySelector('#middle .prod_imglink').offsetHeight > 300) {
+
+                document.querySelector('#middle #expand_img').style.display = '';
+    
+                document.querySelector('#middle #expand_img').addEventListener('click', function() {
+                    if(this.style.backgroundColor == '') {
+                        document.querySelector('#middle #img-container').style.height = 'auto';
+                        this.style.backgroundColor = 'grey';
+                    } else {
+                        document.querySelector('#middle #img-container').style.height = '300px';
+                        this.style.backgroundColor = '';
+                    }
+                    
+                });
+    
+            };
+        }, 500);
+        
+
         if(prod.filter == 'serv') {
             document.querySelector('#buy-zone').style.display = 'none';
         }

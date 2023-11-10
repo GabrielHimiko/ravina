@@ -1,5 +1,3 @@
-const baskDataString = localStorage.getItem("baskData");
-
 const firebaseConfig = {
     apiKey: "AIzaSyB9gKyaRTojAe8kGwtZEabOHT-_wHlW3_A",
     authDomain: "ravina-13c31.firebaseapp.com",
@@ -21,28 +19,27 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
 
     document.querySelector('#loading').style.display = 'none';
 
-    let baskData = []; 
-
-    if(!baskDataString) {
-        document.querySelector('#not-found').style.display = '';
-    }  else {
-        baskData = JSON.parse(baskDataString);
-
-        document.querySelector('#result').style.display = '';
-        loadBask();
-    }
+    let baskDataString;
+    loadBask();
 
     function loadBask() {
-        baskData.forEach((prod) => {
 
+        baskDataString = localStorage.getItem("baskData");
+        document.querySelector('#result').innerHTML = '';
+        let baskData = [];
+
+        baskData = JSON.parse(baskDataString);
+
+        if (baskData.length) document.querySelector('#result').style.display = ''
+        else document.querySelector('#not-found').style.display = '';
+
+        baskData.forEach((prod) => {
             prod.price = Number(prod.price).toFixed(2).replace('.', ',');
-    
-            console.log(prod.sellerid);
+            if(prod.rprice && prod.rprice != '-x-') prod.rprice = Number(prod.rprice).toFixed(2).replace('.', ',');
             
             let seller;
             arr_sellers.forEach((s) => {
                 if(prod.sellerid === s.sellerid) seller = s;
-                console.log('executed');
             });
     
             const cardItem = document.createElement('div');
@@ -55,15 +52,35 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
                     </div>
                     <div class="right">
                         <div>
-                            <span class="item_title"><b>${prod.title}</b></span><br>
+                            <span class="item_title"><b>${prod.title.length > 25 ? `<span style="font-size: 11pt">${prod.title}</span>` : prod.title}</b></span><br>
                             ${!prod.rprice || prod.rprice == '-x-' ? '' : `<span style="font-size: 10pt; color: rgb(194, 29, 29);">R$<s>${prod.rprice}</s></span> `}<span style="color: rgb(60, 60, 255);">R$${prod.price}</span> cada
                         </div>
                         <div style="font-size: 10pt">Vendido por <span class="seller_name">${seller.nick}</span></div>
+                        <div><button class="delete" style="margin-top: 5px">❌ Remover</button></div>
 
                     </div>
                 </div>
             `;
     
+            cardItem.querySelector('.delete').addEventListener('click', function() {
+                let new_baskData = [];
+
+                if(baskDataString) {
+                    new_baskData = JSON.parse(baskDataString);
+                }
+
+                let index = new_baskData.findIndex(item => item.prodid === cardItem.id);
+                console.log(index);
+
+                if (index > -1) {
+                    new_baskData.splice(index, 1);
+                }
+
+                const new_baskDataString = JSON.stringify(new_baskData);
+                localStorage.setItem("baskData", new_baskDataString);
+                loadBask();
+            });
+
             document.querySelector('#result').append(cardItem);
     
         });

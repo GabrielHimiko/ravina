@@ -84,8 +84,13 @@
     transition: 0s;
 }
 
+#result {
+    width: 100%;
+}
+
 .cardItem {
     width: 100%;
+    height: 120px;
     margin-bottom: 5px;
     border: 1px solid lightgray;
     border-radius: 15px;
@@ -101,11 +106,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
+    border-radius: 15px 0 0 15px;
+    overflow: hidden;
 }
 .cardItem .left img {
     width: 100%;
-    border-radius: 15px 0 0 15px;
 }
 .cardItem .right {
     margin-left: 5px;
