@@ -153,13 +153,16 @@ document.querySelector('#middle #result #seller-img').addEventListener('click', 
 function testIsOnBask() {
     const baskData = JSON.parse(baskDataString);
     
-    if(!baskData) return false;
-
-    baskData.forEach(p => {
-        if(p.prodid === prod.prodid) {
-            finded = true;
-        }
-    });
+    try {
+        baskData.forEach(p => {
+            if(p.prodid === prod.prodid) {
+                finded = true;
+            }
+        });
+    } catch(error) {
+        console.log('Erro ao executar o baskData.forEach: ' + error);
+        return false;
+    }
 
     if(finded) {
         document.querySelector('#to-basket').style.borderColor = 'lightgrey';
