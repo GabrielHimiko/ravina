@@ -36,8 +36,8 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
 
         baskData = JSON.parse(baskDataString);
 
-        if (baskData.length) document.querySelector('#result').style.display = ''
-        else document.querySelector('#not-found').style.display = '';
+        if (baskData) {document.querySelector('#result').style.display = ''}
+        else {document.querySelector('#not-found').style.display = ''; return}
 
         baskData.forEach((prod) => {
             prod.price = Number(prod.price).toFixed(2).replace('.', ',');
