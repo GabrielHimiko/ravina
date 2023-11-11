@@ -1,3 +1,8 @@
+const search_input = document.querySelector('#headerTop input');
+const search_btn = document.querySelector('#headerTop .inputZone button');
+search_input.addEventListener('keydown', (event) => {if(event.key === 'Enter') window.location.href = '/home.html?search=' + search_input.value});
+search_btn.addEventListener('click', () => {window.location.href = '/home.html?search=' + search_input.value});
+
 const firebaseConfig = {
     apiKey: "AIzaSyB9gKyaRTojAe8kGwtZEabOHT-_wHlW3_A",
     authDomain: "ravina-13c31.firebaseapp.com",
@@ -48,15 +53,15 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
             cardItem.id = prod.prodid;
             cardItem.innerHTML = `
                 <div class="cardItem">
-                    <div class="left">
+                    <div class="left clickable">
                         <img class="product" src="${prod.imglink}">
                     </div>
                     <div class="right">
-                        <div>
+                        <div class="clickable">
                             <span class="item_title"><b>${prod.title.length > 25 ? `<span style="font-size: 11pt">${prod.title}</span>` : prod.title}</b></span><br>
                             ${!prod.rprice || prod.rprice == '-x-' ? '' : `<span style="font-size: 10pt; color: rgb(194, 29, 29);">R$<s>${prod.rprice}</s></span> `}<span style="color: rgb(60, 60, 255);">R$${prod.price}</span> cada
                         </div>
-                        <div style="font-size: 10pt">Vendido por <span class="seller_name">${seller.nick}</span></div>
+                        <div class="clickable" style="font-size: 10pt">Vendido por <span class="seller_name">${seller.nick}</span></div>
                         <div><button class="delete" style="margin-top: 5px">❌ Remover</button></div>
 
                     </div>
@@ -82,8 +87,10 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
                 loadBask();
             });
 
-            cardItem.addEventListener('click', function() {
-                window.location.href = '/viewproduct.html?id=' + this.id;
+            cardItem.querySelectorAll('.clickable').forEach(e => {
+                e.addEventListener('click', () => {
+                    window.location.href = '/viewproduct.html?id=' + cardItem.id;
+                });
             });
 
             document.querySelector('#result').append(cardItem);

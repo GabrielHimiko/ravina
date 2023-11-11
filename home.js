@@ -20,11 +20,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let arr_products = [], arr_sellers = [], arr_cardItems = [], arr_lines = [];
-let sel_filter = 'desc', sel_subfilter, sel_order = 'rel', sel_search, red_search, perLine = 2;
+let sel_filter = 'desc', sel_subfilter, sel_order = 'rel', perLine = 2;
 let cardItemsInserted = 0, requireLoadMore = false, actualMaxLines = 10;
+let veredict = false;
 
 const url = new URL(window.location.href);
 const url_sellerid = url.searchParams.get('sellerid');
+const url_search = url.searchParams.get('search');
 
 function setPerLine() {
     if(window.innerWidth <= 600) perLine = 2;
@@ -34,12 +36,7 @@ function setPerLine() {
 }
 
 setPerLine();
-loadProducts();
-
-window.addEventListener('resize', () => {
-    setPerLine();
-    loadProducts();
-});
+loadProducts(url_search);
 
 categoryBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -47,7 +44,6 @@ categoryBtns.forEach((btn) => {
 
         sel_filter = btn.id;
         search_input.value = '';
-        searchk = '';
         
         btn.parentNode.scrollLeft = 0;
         categoryBtns.forEach((e) => {e.style.display = ''});
@@ -70,6 +66,7 @@ categoryBtns.forEach((btn) => {
                     prod_filter_title.innerHTML = filter.subtitle;
                     Array.from(prod_filter_select.children).forEach((c) => {prod_filter_select.removeChild(c)});
                     const allOpt = new Option('Ver tudo');
+                    allOpt.value = 'all';
                     prod_filter_select.appendChild(allOpt);
                     for(i = 0; i < filter.options.length; i++) {
                         const newOpt = new Option(filter.options[i].title);
@@ -79,7 +76,7 @@ categoryBtns.forEach((btn) => {
 
                     prod_filter_select.addEventListener('change', () => {
                         sel_subfilter = prod_filter_select.value;
-                        loadProducts(sel_filter, sel_subfilter);
+                        loadProducts();
                     });
                 }
                 else {
@@ -110,41 +107,13 @@ function searchStr(texto) {
       .toLowerCase();
   }
 
-search_btn.addEventListener('click', () => {
-    if(search_input.value.length == 0) loadProducts();
-    sel_search = search_input.value;
-    
-    let finded_p = [];
-    arr_products.forEach((p) => {
-        if(searchStr(p.title).includes(searchStr(sel_search))) {
-            finded_p.push(p);
-        }
-    });
-
-    let finded_s = [];
-    arr_sellers.forEach((s) => {
-        if(searchStr(s.name).includes(searchStr(sel_search))) {
-            finded_s.push(s);
-        }
-    });
-
-    if(finded_p.length) {
-        if(finded_p.length == 1) {
-            window.location.href = '/viewproduct.html?id=' + finded_p[0].prodid;
-        }
-        else loadProducts(searchStr(sel_search));
-    } 
-    else if(finded_s.length) {
-        window.location.href = '/persons.html?search=' + searchStr(sel_search);
+search_btn.addEventListener('click', () => {loadProducts(search_input.value)});
+search_input.addEventListener('keydown', (event) => {
+    if (event.key === "Enter") {
+        loadProducts(search_input.value);
     }
-    else {
-        prod_results.innerHTML = `
-            Não encontramos "${sel_search}" no sistema.<br>
-            Tente <b>mudar os critérios de pesquisa</b>!
-        `;
-        return;
-    };
 });
+
 
 
 function loadProducts(searchk) {
@@ -173,7 +142,8 @@ function loadProducts(searchk) {
             arr_sellers.push(seller);
         });
 
-        firebase.database().ref('products').orderByChild('name').on('value', (snapshot) => {
+        firebase.database().ref('products').orderByChild('title').on('value', (snapshot) => {
+            
             snapshot.forEach((childSnapshot) => {
                 const prod = childSnapshot.val();
 
@@ -190,7 +160,18 @@ function loadProducts(searchk) {
                 if(prod.rprice === '-x-') prod.rprice = '';
                 if(prod.rprice) prod.rprice = Number(prod.rprice).toFixed(2).replace('.', ',');
 
-                if(!searchk & !url_sellerid) arr_products.push(prod);
+                if(!searchk & !url_sellerid) {
+                    switch(sel_filter) {
+                        case 'desc': if(prod.rprice) arr_products.push(prod); break;
+                        case 'all': arr_products.push(prod); break;
+                        default: 
+                            if(prod.filter === sel_filter) {
+                                if(!sel_subfilter || sel_subfilter == 'all') {arr_products.push(prod)}
+                                else if(sel_subfilter && prod.subfilter == sel_subfilter) {arr_products.push(prod)};
+                            }
+                            break;
+                    }
+                }
                 else if(searchk) {
                     if(searchStr(prod.title).includes(searchk)) arr_products.push(prod);
                     if(!hasDef_search) {
@@ -198,7 +179,7 @@ function loadProducts(searchk) {
                         categoryBtns.forEach((e) => {e.style.display = ''});
                         categoryBtns.forEach((e) => {
                             if(e.classList.contains('selected')) {
-                                e.innerText = '🔎 Pesquisa'
+                                e.innerText = '🔎 Pesquisa';
                             }
                         });
                     };
@@ -216,31 +197,50 @@ function loadProducts(searchk) {
                             }
                         });
                     }
-                    
-                };
-
-                if (sel_order === 'price') {
-                    arr_products.sort((a, b) => {
-                        const vA = parseFloat(a.price.replace(',', '.'));
-                        const vB = parseFloat(b.price.replace(',', '.'));
-                        return vA - vB;
-                    });
-                } else if (sel_order === 'dist') {
-                    arr_products.sort((a, b) => {
-                        const vA = parseFloat(a.dist.replace(',', '.'));
-                        const vB = parseFloat(b.dist.replace(',', '.'));
-                        return vA - vB;
-                    });
-                } else if (sel_order === 'rate') {
-                    arr_products.sort((a, b) => {
-                        return b.rate - a.rate;
-                    });
-                } else if (sel_order === 'rel') {
-                    arr_products.sort((a, b) => {
-                        return b.sel_order - a.sel_order;
-                    });
-                }
+                } 
+                else return;
             });
+
+            prod_results.style.display = '';
+            setTimeout(() => {prod_results.style.opacity = '1'}, 100);
+            loading.style.display = 'none';
+
+            if(!arr_products.length) {
+                if(searchk) prod_results.innerHTML = `
+                    Não encontramos "${searchk}" no sistema.<br>
+                    Tente <b>mudar o critério de pesquisa</b>!
+                `;
+                else prod_results.innerHTML = `
+                Não encontramos nada com estas especificações no sistema.<br>
+                Tente <b>mudar os filtros e subfiltros</b>!
+            `;
+            }
+
+            if (sel_order === 'price') {
+                arr_products.sort((a, b) => {
+                    const vA = parseFloat(a.price.replace(',', '.'));
+                    const vB = parseFloat(b.price.replace(',', '.'));
+                    return vA - vB;
+                });
+            } else if (sel_order === 'dist') {
+                arr_products.sort((a, b) => {
+                    const vA = parseFloat(a.dist.replace(',', '.'));
+                    const vB = parseFloat(b.dist.replace(',', '.'));
+                    return vA - vB;
+                });
+            } else if (sel_order === 'rate') {
+                arr_products.sort((a, b) => {
+                    return b.rate - a.rate;
+                });
+            } else if (sel_order === 'rel') {
+                arr_products.sort((a, b) => {
+                    if (a.rel !== b.rel) {
+                        return a.rel - b.rel;
+                    } else {
+                        return Math.random() * 2 - 1;
+                    }
+                });
+            }
 
             loading.style.display = 'none';
             prod_results.style.display = '';
@@ -250,16 +250,7 @@ function loadProducts(searchk) {
                 loading.style.opacity = '1';
             }, 100);
 
-            let finded = 0;
             arr_products.forEach((prod) => {
-                if(sel_filter == 'desc') {
-                    if(!prod.rprice) return;
-                }
-                else if(sel_filter != 'all') {
-                    if (prod.filter != sel_filter) return;
-                    if ((sel_subfilter) && (prod.subfilter != sel_subfilter)) return;
-                }
-                finded++;
 
                 let prod_sellerNick, prod_sellerRate;
 
@@ -286,7 +277,7 @@ function loadProducts(searchk) {
                         </div>
                         <div class="info" style="white-space: nowrap">
                             <div class="itemInfo">
-                                <span class="item_title">${prod.title.length > 20 ? `<span style="font-size: 9pt">${prod.title.slice(0, 20)}...</span>` : prod.title}</span><br>
+                                <span class="item_title">${prod.title.length > 20 ? `<span style="font-size: 9pt">${prod.title.slice(0, 20).trim()}...</span>` : prod.title}</span><br>
                                 ${!prod.rprice ? '' : `<span class="item_oldPrice">R$${prod.rprice}</span> `}<span class="item_price">${prod.filter == 'serv' ? 'Preço variável' : `R$${prod.price}`}</span>${prod.filter == 'serv' ? '' : ' <span class="item_priceType">cada</span>'}
                             </div>
                             <div class="sellerInfo"><span class="seller_name">${prod_sellerNick}</span> <span class="seller_rating">${prod_sellerRate}</span><br><span class="seller_dist">${prod.dist}km de distância</span></div>
@@ -300,14 +291,6 @@ function loadProducts(searchk) {
 
                 arr_cardItems.push(cardItem);
             });
-            
-            if(finded == 0) {
-                prod_results.innerHTML = `
-                    Não encontramos produtos com essas especificações 😞<br>
-                    Tente <b>mudar o filtro e o subfiltro</b> selecionados!
-                `;
-                return;
-            }
 
             let linesCount = Math.ceil(arr_cardItems.length / perLine);
             if (linesCount > 10) actualMaxLines = 10, requireLoadMore = true;

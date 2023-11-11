@@ -16,7 +16,7 @@
         <header id="headerTop">
             <div class="line">
                 <div class="inputZone"><button class="inputSym"><span class='material-symbols-outlined'>search</span></button><input placeholder="Pesquisar"></div>
-                <button id="config"><span class='material-symbols-outlined'>settings</span></button>
+                <button id="config" onclick="window.location.href='/index.html'"><span class='material-symbols-outlined'>settings</span></button>
             </div>
         </header>
         <div id="middle">
@@ -26,9 +26,8 @@
             </div>
 
             <div id="not-found" style="display: none">
-                <b>Opa...</b><br>
+                <b>Tá vazio...</b><br>
                 Você ainda não tem conversas por aqui.
-                <span style="font-size: 10pt">Pesquise por um vendedor ou vá para a página <a href="/persons.html">Pessoas</a></span>
             </div>
 
             <div id="result" style="display: none">
@@ -43,7 +42,7 @@
                 </div>
                 <div class="line">Loja</div>
             </button>
-            <button>
+            <button onclick="window.location.href='/persons.html'">
                 <div class="line">
                     <img class="sym" src="/zicons_near_off.png">
                 </div>

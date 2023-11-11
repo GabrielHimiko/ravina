@@ -1,3 +1,8 @@
+const search_input = document.querySelector('#headerTop input');
+const search_btn = document.querySelector('#headerTop .inputZone button');
+search_input.addEventListener('keydown', (event) => {if(event.key === 'Enter') window.location.href = '/home.html?search=' + search_input.value});
+search_btn.addEventListener('click', () => {window.location.href = '/home.html?search=' + search_input.value});
+
 const baskDataString = localStorage.getItem("baskData");
 
 const firebaseConfig = {
@@ -180,4 +185,8 @@ document.querySelector('#to-basket').addEventListener('click', function() {
     alert(`1x ${prod.title} adicionado à cesta.`);
     finded = true;
     testIsOnBask();
+});
+
+document.querySelector('#see-this-seller').addEventListener('click', () => {
+    window.location.href = '/home.html?sellerid=' + seller.sellerid;
 });

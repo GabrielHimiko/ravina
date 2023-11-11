@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="all.css" rel="stylesheet">
-    <link href="basket.css" rel="stylesheet">
+    <link href="persons.css" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
     <link rel="icon" type="image/png" href="/zicons_favicon.png">
@@ -15,37 +15,46 @@
     <main>
         <header id="headerTop">
             <div class="line">
-                <div class="inputZone"><button class="inputSym"><span class='material-symbols-outlined'>search</span></button><input placeholder="Pesquisar"></div>
-                <button id="config" onclick="window.location.href='/index.html'"><span class='material-symbols-outlined'>settings</span></button>
+                <div class="line">
+                    <div class="inputZone"><button class="inputSym"><span class='material-symbols-outlined'>search</span></button><input placeholder="Pesquisar"></div>
+                    <button id="config" onclick="window.location.href='/index.html'"><span class='material-symbols-outlined'>settings</span></button>
+                </div>
             </div>
         </header>
         <div id="middle">
-
+            <div class="resInfo">
+                <div style="display: flex; flex-direction: column; font-size: 10pt">
+                    <span id="filter_title" style="display: none"></span>
+                    <select id="filter_select" style="display: none;"></select>
+                </div>
+                <div style="font-size: 9pt; display: flex; flex-direction: column;">
+                    Organizar por: 
+                    <select id="orderBy" style="font-size: 9pt">
+                        <option value="rel">Relevância</option>
+                        <option value="dist">Distância</option>
+                        <option value="rate">Avaliações</option>
+                        <option value="prodcount">Quant. de produtos</option>
+                    </select>
+                </div>
+            </div>
             <div id="loading">
                 <img src="zicons_loading.gif" width="200px" height="200px" style="opacity: 0.3">
             </div>
-
-            <div id="not-found" style="display: none">
-                <b>Tá vazio...</b><br>
-                Você ainda não tem produtos por aqui.
+            <div id="prod_results">
+                
             </div>
-
-            <div id="result" style="display: none">
-
-            </div>
-
+            
         </div>
-        <footer style="position: relative">
-            <button id="buy"><div style="display: flex; align-items: center;"><span class='material-symbols-outlined'>attach_money</span>Comprar</div></button>
+        <footer>
             <button onclick="window.location.href='/home.html'">
                 <div class="line">
                     <img class="sym" src="/zicons_store_off.png">
                 </div>
                 <div class="line">Loja</div>
             </button>
-            <button onclick="window.location.href='/persons.html'">
+            <button  class="selected">
                 <div class="line">
-                    <img class="sym" src="/zicons_near_off.png">
+                    <img class="sym" src="/zicons_near.png">
                 </div>
                 <div class="line">Pessoas</div>
             </button>
@@ -55,16 +64,15 @@
                 </div>
                 <div class="line">Conversas</div>
             </button>
-            <button class="selected">
+            <button onclick="window.location.href='/basket.html'">
                 <div class="line">
-                    <img class="sym" src="/zicons_basket.png">
+                    <img class="sym" src="/zicons_basket_off.png">
                 </div>
                 <div class="line">Cesta</div>
             </button>
         </footer>
     </main>
-
     <script src="all.js"></script>
-    <script src="basket.js"></script>
+    <script src="persons.js"></script>
 </body>
 </html>
