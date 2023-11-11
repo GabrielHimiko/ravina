@@ -152,6 +152,8 @@ document.querySelector('#middle #result #seller-img').addEventListener('click', 
 
 function testIsOnBask() {
     const baskData = JSON.parse(baskDataString);
+    
+    if(!baskData.length) return false;
 
     baskData.forEach(p => {
         if(p.prodid === prod.prodid) {
