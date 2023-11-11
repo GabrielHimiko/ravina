@@ -125,6 +125,7 @@ button {
     height: 100%;
     padding: 15px;
     overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 #middle .resInfo {
     display: flex;
@@ -149,6 +150,7 @@ button {
     border-radius: 3px 0 0 3px;
 }
 #prod_results {
+    width: 100%;
     transition: opacity 1s;
 }
 #prod_results .line {

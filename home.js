@@ -23,6 +23,9 @@ let arr_products = [], arr_sellers = [], arr_cardItems = [], arr_lines = [];
 let sel_filter = 'desc', sel_subfilter, sel_order = 'rel', sel_search, red_search, perLine = 2;
 let cardItemsInserted = 0, requireLoadMore = false, actualMaxLines = 10;
 
+const url = new URL(window.location.href);
+const url_sellerid = url.searchParams.get('sellerid');
+
 function setPerLine() {
     if(window.innerWidth <= 600) perLine = 2;
     if(window.innerWidth > 600 && window.innerWidth <= 750) perLine = 3;
@@ -43,6 +46,8 @@ categoryBtns.forEach((btn) => {
         if(btn.classList.contains('selected')) return;
 
         sel_filter = btn.id;
+        search_input.value = '';
+        searchk = '';
         
         btn.parentNode.scrollLeft = 0;
         categoryBtns.forEach((e) => {e.style.display = ''});
@@ -124,8 +129,12 @@ search_btn.addEventListener('click', () => {
     });
 
     if(finded_p.length) {
-        loadProducts(searchStr(sel_search));
-    } else if(finded_s.length) {
+        if(finded_p.length == 1) {
+            window.location.href = '/viewproduct.html?id=' + finded_p[0].prodid;
+        }
+        else loadProducts(searchStr(sel_search));
+    } 
+    else if(finded_s.length) {
         window.location.href = '/persons.html?search=' + searchStr(sel_search);
     }
     else {
@@ -140,12 +149,18 @@ search_btn.addEventListener('click', () => {
 
 function loadProducts(searchk) {
 
+    prod_results.parentNode.scrollTop = 0;
+
     arr_products = []; 
     arr_sellers = [];
     arr_cardItems = [];
     arr_lines = [];
     cardItemsInserted = 0;
+    actualMaxLines = 0;
     requireLoadMore = false;
+    
+    let hasDef_seller = false;
+    let hasDef_search = false;
 
     prod_results.innerHTML = '';
     prod_results.style.display = 'none';
@@ -175,15 +190,45 @@ function loadProducts(searchk) {
                 if(prod.rprice === '-x-') prod.rprice = '';
                 if(prod.rprice) prod.rprice = Number(prod.rprice).toFixed(2).replace('.', ',');
 
-                if(!searchk) arr_products.push(prod);
-                else {
+                if(!searchk & !url_sellerid) arr_products.push(prod);
+                else if(searchk) {
                     if(searchStr(prod.title).includes(searchk)) arr_products.push(prod);
+                    if(!hasDef_search) {
+                        hasDef_search = true;
+                        categoryBtns.forEach((e) => {e.style.display = ''});
+                        categoryBtns.forEach((e) => {
+                            if(e.classList.contains('selected')) {
+                                e.innerText = '🔎 Pesquisa'
+                            }
+                        });
+                    };
                 }
+                else if(url_sellerid) {
+                    if(prod.sellerid === url_sellerid) arr_products.push(prod);
+                    if(!hasDef_seller) {
+                        hasDef_seller = true;
+                        categoryBtns.forEach((e) => {e.style.display = ''});
+                        categoryBtns.forEach((e) => {
+                            if(e.classList.contains('selected')) {
+                                let sellerSel;
+                                arr_sellers.forEach(s => {if(s.sellerid === url_sellerid) sellerSel = s});
+                                e.innerText = sellerSel.name;
+                            }
+                        });
+                    }
+                    
+                };
 
                 if (sel_order === 'price') {
                     arr_products.sort((a, b) => {
                         const vA = parseFloat(a.price.replace(',', '.'));
                         const vB = parseFloat(b.price.replace(',', '.'));
+                        return vA - vB;
+                    });
+                } else if (sel_order === 'dist') {
+                    arr_products.sort((a, b) => {
+                        const vA = parseFloat(a.dist.replace(',', '.'));
+                        const vB = parseFloat(b.dist.replace(',', '.'));
                         return vA - vB;
                     });
                 } else if (sel_order === 'rate') {
@@ -192,14 +237,7 @@ function loadProducts(searchk) {
                     });
                 } else if (sel_order === 'rel') {
                     arr_products.sort((a, b) => {
-                        return a.sel_order - b.sel_order;
-                    });
-                } else if (sel_order === 'dist') {
-                    arr_products.sort((a, b) => {
-                        const vA = parseFloat(a.dist.replace(',', '.'));
-                        const vB = parseFloat(b.dist.replace(',', '.'));
-                        console.log(vA - vB);
-                        return vA - vB;
+                        return b.sel_order - a.sel_order;
                     });
                 }
             });
@@ -242,11 +280,11 @@ function loadProducts(searchk) {
                 cardItem.classList.add('cardItem');
                 cardItem.id = prod.prodid;
                 cardItem.innerHTML = `
-                    <div class="cardItem" id="">
+                    <div class="cardItem">
                         <div class="top">
                             <img class="product" src="${prod.imglink}">
                         </div>
-                        <div class="info">
+                        <div class="info" style="white-space: nowrap">
                             <div class="itemInfo">
                                 <span class="item_title">${prod.title.length > 20 ? `<span style="font-size: 9pt">${prod.title.slice(0, 20)}...</span>` : prod.title}</span><br>
                                 ${!prod.rprice ? '' : `<span class="item_oldPrice">R$${prod.rprice}</span> `}<span class="item_price">${prod.filter == 'serv' ? 'Preço variável' : `R$${prod.price}`}</span>${prod.filter == 'serv' ? '' : ' <span class="item_priceType">cada</span>'}
@@ -272,7 +310,7 @@ function loadProducts(searchk) {
             }
 
             let linesCount = Math.ceil(arr_cardItems.length / perLine);
-            if (linesCount > 10) requireLoadMore = true;
+            if (linesCount > 10) actualMaxLines = 10, requireLoadMore = true;
             for (let i = 0; i < linesCount; i++) {
                 const line = document.createElement('div');
                 line.classList.add('line');

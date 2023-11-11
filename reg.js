@@ -613,7 +613,6 @@ function loadProducts() {
             document.querySelector('#creating #productZone #productResults table #productsCount').innerText = arr_products.length;
         });
     });
-
 };
 
 function close_editProd() {

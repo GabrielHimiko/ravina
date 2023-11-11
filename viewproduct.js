@@ -13,7 +13,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let arr_sellers = [], arr_products = [];
-let prod, seller;
+let prod, seller, finded = false;
 
 const url = new URL(window.location.href);
 const urlPar = url.searchParams.get('id');
@@ -40,6 +40,8 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
                 });
             }
         });
+
+        testIsOnBask();
 
         document.querySelector('#middle #loading').style.display = 'none';
         
@@ -143,12 +145,28 @@ document.querySelector('#middle #result #seller-img').addEventListener('click', 
     }, 100);
 });
 
-let isOnBask = false;
+function testIsOnBask() {
+    const baskData = JSON.parse(baskDataString);
+
+    baskData.forEach(p => {
+        if(p.prodid === prod.prodid) {
+            finded = true;
+        }
+    });
+
+    if(finded) {
+        document.querySelector('#to-basket').style.borderColor = 'lightgrey';
+        document.querySelector('#to-basket').style.opacity = 0.5;
+        return true;
+    } 
+    else return false;
+}
+
 document.querySelector('#to-basket').addEventListener('click', function() {
-    if (isOnBask) {alert('Este produto já está na sua cesta!'); return};
-    isOnBask = true;
-    this.style.borderColor = 'lightgrey';
-    this.style.opacity = 0.5;
+    if(testIsOnBask()) { 
+        if(confirm('Este produto já está na sua cesta!\nDeseja ir até ela?')) return window.location.href = '/basket.html'
+        else return;
+    };
 
     let new_baskData = [];
     if(baskDataString) {
@@ -159,7 +177,7 @@ document.querySelector('#to-basket').addEventListener('click', function() {
 
     localStorage.setItem("baskData", new_baskDataString);
 
-    console.log(new_baskData);
-
     alert(`1x ${prod.title} adicionado à cesta.`);
-})
+    finded = true;
+    testIsOnBask();
+});

@@ -11,6 +11,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let arr_sellers = [];
+
 firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) => {
     snapshot.forEach((childSnapshot) => {
         const seller = childSnapshot.val();
@@ -79,6 +80,10 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
                 const new_baskDataString = JSON.stringify(new_baskData);
                 localStorage.setItem("baskData", new_baskDataString);
                 loadBask();
+            });
+
+            cardItem.addEventListener('click', function() {
+                window.location.href = '/viewproduct.html?id=' + this.id;
             });
 
             document.querySelector('#result').append(cardItem);
