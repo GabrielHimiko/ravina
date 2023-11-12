@@ -22,6 +22,9 @@ let prod, seller, finded = false;
 
 const url = new URL(window.location.href);
 const urlPar = url.searchParams.get('id');
+const urlPar_search = url.searchParams.get('search');
+
+if(urlPar_search) search_input.value = urlPar_search;
 
 firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) => {
     snapshot.forEach((childSnapshot) => {

@@ -19,14 +19,15 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-let arr_products = [], arr_sellers = [], arr_cardItems = [], arr_lines = [];
-let sel_filter = 'desc', sel_subfilter, sel_order = 'rel', perLine = 2;
+let arr_products = [], arr_sellers = [], arr_cardItems = [], arr_lines = [], perLine = 2;
 let cardItemsInserted = 0, requireLoadMore = false, actualMaxLines = 10;
-let veredict = false;
+let sel_filter = 'desc', sel_subfilter, sel_order;
 
 const url = new URL(window.location.href);
 const url_sellerid = url.searchParams.get('sellerid');
 const url_search = url.searchParams.get('search');
+
+if(url_search) search_input.value = url_search;
 
 function setPerLine() {
     if(window.innerWidth <= 600) perLine = 2;
@@ -105,7 +106,7 @@ function searchStr(texto) {
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase();
-  }
+}
 
 search_btn.addEventListener('click', () => {loadProducts(search_input.value)});
 search_input.addEventListener('keydown', (event) => {
@@ -174,7 +175,7 @@ function loadProducts(searchk) {
                     }
                 }
                 else if(searchk) {
-                    if(searchStr(prod.title).includes(searchk)) arr_products.push(prod);
+                    if(searchStr(prod.title).includes(searchStr(searchk))) arr_products.push(prod);
                     if(!hasDef_search) {
                         hasDef_search = true;
                         categoryBtns.forEach((e) => {e.style.display = ''});
@@ -207,15 +208,30 @@ function loadProducts(searchk) {
             loading.style.display = 'none';
 
             if(!arr_products.length) {
-                if(searchk) prod_results.innerHTML = `
-                    Não encontramos "${searchk}" no sistema.<br>
-                    Tente <b>mudar o critério de pesquisa</b>!
-                `;
+                if(searchk) {
+
+                    let findedS = [];
+                    arr_sellers.forEach(s => {
+                        if(searchStr(s.name).includes(searchStr(searchk)) || searchStr(s.nick).includes(searchStr(searchk))) findedS.push(s);
+                    });
+
+                    if(findedS.length > 1) window.location.href = '/persons.html?search=' + searchk;
+                    else if(findedS.length == 1) window.location.href = '/viewperson.html?id=' + findedS[0].sellerid + '&search=' + searchk;
+
+                    prod_results.innerHTML = `
+                        Não encontramos "${searchk}" no sistema.<br>
+                        Tente <b>mudar o critério de pesquisa</b>!
+                    `;
+                }
                 else prod_results.innerHTML = `
                 Não encontramos nada com estas especificações no sistema.<br>
                 Tente <b>mudar os filtros e subfiltros</b>!
             `;
-            } else {
+            } 
+            else if(arr_products.length == 1 && searchk) {
+                window.location.href = '/viewproduct.html?id=' + arr_products[0].prodid + '&search=' + searchk;
+            }
+            else {
                 if(document.querySelector('#filter_title').style.display === 'none') {
                     document.querySelector('#filter_title').style.display = '';
                     document.querySelector('#filter_title').innerHTML = arr_products.length + ' resultados';
@@ -236,7 +252,11 @@ function loadProducts(searchk) {
                 });
             } else if (sel_order === 'rate') {
                 arr_products.sort((a, b) => {
-                    return b.rate - a.rate;
+                    if (a.rate !== b.rate) {
+                        return b.rate - a.rate;
+                    } else {
+                        return Math.random() * 2 - 1;
+                    }
                 });
             } else if (sel_order === 'rel') {
                 arr_products.sort((a, b) => {

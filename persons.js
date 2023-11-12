@@ -1,5 +1,5 @@
 const loading = document.querySelector('#loading');
-const prod_results = document.querySelector('#prod_results');
+const seller_results = document.querySelector('#seller_results');
 const search_input = document.querySelector('#headerTop input');
 const search_btn = document.querySelector('#headerTop .inputZone button');
 const select_orderBy = document.querySelector('#orderBy');
@@ -16,25 +16,52 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-let arr_sellers = [], arr_products = [];
+let arr_sellers = [], arr_products = [], sel_order = 'rel';
 
 const url = new URL(window.location.href);
 const url_search = url.searchParams.get('search');
 
+if(url_search) search_input.value = url_search;
+
 loadSellers(url_search);
+
+select_orderBy.addEventListener('change', function() {
+    sel_order = this.value;
+    loadSellers();
+})
+
+function searchStr(texto) {
+    return texto
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+}
+
+search_btn.addEventListener('click', () => {loadSellers(search_input.value)});
+search_input.addEventListener('keydown', (event) => {
+    if (event.key === "Enter") {
+        loadSellers(search_input.value);
+    }
+});
 
 function loadSellers(searchk) {
 
-    prod_results.innerHTML = '';
-    prod_results.style.display = 'none';
-    prod_results.style.opacity = '0';
+    seller_results.innerHTML = '';
+    seller_results.style.display = 'none';
+    seller_results.style.opacity = '0';
     loading.style.display = '';
     let totalRes = 0;
+    arr_sellers = [];
+    arr_products = [];
 
     firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
             const seller = childSnapshot.val();
-            arr_sellers.push(seller);
+
+            if(searchk) {
+                if(searchStr(seller.name).includes(searchStr(searchk)) || searchStr(seller.nick).includes(searchStr(searchk))) arr_sellers.push(seller);
+            }
+            else arr_sellers.push(seller);
         });
     
         firebase.database().ref('products').orderByChild('title').on('value', (snapshot) => {
@@ -43,9 +70,49 @@ function loadSellers(searchk) {
                 arr_products.push(prod);
             });
     
-            prod_results.style.display = '';
-            setTimeout(() => {prod_results.style.opacity = '1'}, 100);
+            seller_results.style.display = '';
+            setTimeout(() => {seller_results.style.opacity = '1'}, 100);
             loading.style.display = 'none';
+
+            if(!arr_sellers.length && searchk) {
+                    let findedP = [];
+                    arr_products.forEach(p => {
+                        if(searchStr(p.title).includes(searchStr(searchk))) findedP.push(p);
+                    });
+
+                    if(findedP.length > 1) window.location.href = '/home.html?search=' + searchk;
+                    else if(findedP.length == 1) window.location.href = '/viewproduct.html?id=' + findedP[0].prodid + '&search=' + searchk;
+                    else {
+                        seller_results.innerHTML = `
+                            Não encontramos "${searchk}" no sistema.<br>
+                            Tente <b>mudar o critério de pesquisa</b>!
+                        `;
+                    }
+            }
+
+            if (sel_order === 'dist') {
+                arr_sellers.sort((a, b) => {
+                    const vA = parseFloat(a.dist.replace(',', '.'));
+                    const vB = parseFloat(b.dist.replace(',', '.'));
+                    return vA - vB;
+                });
+            } else if (sel_order === 'rate') {
+                arr_sellers.sort((a, b) => {
+                    if (a.rate !== b.rate) {
+                        return b.rate - a.rate;
+                    } else {
+                        return Math.random() * 2 - 1;
+                    }
+                });
+            } else if (sel_order === 'rel') {
+                arr_sellers.sort((a, b) => {
+                    if (a.rel !== b.rel) {
+                        return a.rel - b.rel;
+                    } else {
+                        return Math.random() * 2 - 1;
+                    }
+                });
+            }
 
             arr_sellers.forEach(seller => {
                 seller.prodcount = 0;
@@ -89,7 +156,7 @@ function loadSellers(searchk) {
                     </div>
                 `;
 
-                prod_results.appendChild(cardItem);
+                seller_results.appendChild(cardItem);
                 totalRes++;
             });
 
