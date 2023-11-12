@@ -117,6 +117,7 @@ button {
 }
 
 #middle {
+    max-width: 700px;
     display: flex;
     flex-direction: column;
     justify-content: top;
@@ -185,6 +186,7 @@ button {
     width: 100%;
 }
 .cardItem .right {
+    width: 70%;
     margin-left: 5px;
     display: flex;
     flex-direction: column;

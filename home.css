@@ -202,6 +202,7 @@ button {
     color:rgb(190, 30, 30);
     font-size: 8pt;
     text-decoration: line-through;
+    text-shadow: 0 0 10px rgb(190, 30, 30);
 }
 #prod_results .cardItem .info .item_price {
     color:rgb(60, 60, 255);

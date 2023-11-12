@@ -90,6 +90,7 @@ button {
 }
 
 #middle {
+    max-width: 700px;
     display: flex;
     flex-direction: column;
     justify-content: top;
@@ -101,12 +102,12 @@ button {
     z-index: 2;
 }
 #middle::-webkit-scrollbar {
-    width: 4px;
+    width: 7px;
     background-color: transparent;
 }
 #middle::-webkit-scrollbar-thumb {
     background-color: lightgrey; 
-    border-radius: 5px;
+    border-radius: 3px 0 0 3px;
 }
 #middle #result {
     width: 100%;

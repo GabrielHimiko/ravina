@@ -29,6 +29,7 @@ function loadSellers(searchk) {
     prod_results.style.display = 'none';
     prod_results.style.opacity = '0';
     loading.style.display = '';
+    let totalRes = 0;
 
     firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
@@ -59,11 +60,11 @@ function loadSellers(searchk) {
 
                 arr_products.forEach(p => {
                     obj_prod_filter.forEach(filter => {
-                        if (filter === p.filter) p.filterName = filter.title;
+                        if (filter.value === p.filter) p.filterName = filter.title;
                     })
                     if(p.sellerid === seller.sellerid) {
                         seller.prodcount++;
-                        if(!seller.prodfilters.includes(p.filterName)) seller.prodfilters.push(p.filterName);
+                        if(!seller.prodfilters.includes(p.filterName))seller.prodfilters.push(p.filterName);
                     }
                 })
 
@@ -75,21 +76,25 @@ function loadSellers(searchk) {
                         <div class="left">
                             <img class="product" src="${seller.imglink}">
                         </div>
-                        <div class="right">
-                            <div style="padding-bottom: 5px; border-bottom: 1px solid lightgrey">
-                                <span><b>${seller.name}</b></span><br>
+                        <div class="right" style="width">
+                            <div>
+                                <b>${seller.name}</b><br>
+                                <div style="font-size: 10pt"><span style="color: rgb(230, 170, 0);">${seller.rateStars}</span> • <span>${seller.dist}km</span></div>
                             </div>
                             <div style="font-size: 10pt; padding-top: 5px">
-                                Conhecido(a) como <span style="color: rgb(60, 60, 255)">${seller.nick}</span><br>
-                                <div style="display: flex">Produtos à venda:&nbsp;<span style="color: rgb(60, 60, 255)">${seller.prodcount}</span>&nbsp;<button id="see-this-seller" style="font-size: 9pt" onclick="window.location.href='/home.html?sellerid=${seller.sellerid}'">Ver</button></div>
-                                Avaliação: <span style="color: rgb(230, 170, 0);">${seller.rateStars}</span>
+                                Conhecido(a) como <span style="color: rgb(60, 60, 255)">${seller.nick.length > 10 ? seller.nick.slice(0, 10).trim() + '...' : seller.nick}</span><br>
+                                <i style="font-size: 8pt">Clique para mais detalhes</i>
                             </div>
                         </div>
                     </div>
                 `;
 
                 prod_results.appendChild(cardItem);
+                totalRes++;
             });
+
+            document.querySelector('#results-count').parentNode.style.display = '';
+            document.querySelector('#results-count').innerHTML = totalRes;
         });
     });
 }

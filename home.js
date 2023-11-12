@@ -162,7 +162,8 @@ function loadProducts(searchk) {
 
                 if(!searchk & !url_sellerid) {
                     switch(sel_filter) {
-                        case 'desc': if(prod.rprice) arr_products.push(prod); break;
+                        case 'desc': 
+                            if(prod.rprice) arr_products.push(prod); break;
                         case 'all': arr_products.push(prod); break;
                         default: 
                             if(prod.filter === sel_filter) {
@@ -214,6 +215,11 @@ function loadProducts(searchk) {
                 Não encontramos nada com estas especificações no sistema.<br>
                 Tente <b>mudar os filtros e subfiltros</b>!
             `;
+            } else {
+                if(document.querySelector('#filter_title').style.display === 'none') {
+                    document.querySelector('#filter_title').style.display = '';
+                    document.querySelector('#filter_title').innerHTML = arr_products.length + ' resultados';
+                };
             }
 
             if (sel_order === 'price') {

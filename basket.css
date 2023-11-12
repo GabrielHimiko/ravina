@@ -9,12 +9,12 @@
     overflow-y: scroll;
 }
 #middle::-webkit-scrollbar {
-    width: 4px;
+    width: 7px;
     background-color: transparent;
 }
 #middle::-webkit-scrollbar-thumb {
     background-color: lightgrey; 
-    border-radius: 5px;
+    border-radius: 3px 0 0 3px;
 }
 
 #headerTop {

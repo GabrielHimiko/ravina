@@ -36,7 +36,7 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
 
         baskData = JSON.parse(baskDataString);
 
-        if (baskData) {document.querySelector('#result').style.display = ''}
+        if (baskData.length) {document.querySelector('#result').style.display = ''}
         else {document.querySelector('#not-found').style.display = ''; return}
 
         baskData.forEach((prod) => {
