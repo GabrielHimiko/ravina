@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html html lang="pt" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="all.css" rel="stylesheet">
+    <link href="viewperson.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+    <link rel="icon" type="image/png" href="/zicons_favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Ver Vendedor</title>
+</head>
+<body>
+    <main>
+        <header id="headerTop">
+            <div class="line">
+                <button id="return"><span class='material-symbols-outlined'>arrow_back</span></button>
+                <div class="inputZone"><button class="inputSym"><span class='material-symbols-outlined'>search</span></button><input placeholder="Pesquisar"></div>
+            </div>
+        </header>
+        <div id="middle">
+
+            <div id="loading">
+                <img src="zicons_loading.gif" width="200px" height="200px" style="opacity: 0.3">
+            </div>
+
+            <div id="not-found" style="display: none">
+                <b>🤔 Que isso?</b><br>
+                Esse vendedor não está no nosso sistema.<br>
+                Vamos te levar à página inicial...
+            </div>
+
+            <div id="result" style="display: none">
+
+                <div style="display: flex; flex-direction: column; border: 1px solid lightgrey; border-radius: 15px">
+                    <div id="img-container" style="width: 100%; height: 300px; overflow: hidden; display: flex; justify-content: center; align-items: center; border-radius: 15px 15px 0 0; position: relative">
+                        <img style="width: 100%" class="seller_imglink">
+                        <button id="expand_img" style="display: none; position: absolute; top: 5px; left: 5px;"><span class="material-symbols-outlined">expand</span></button>
+                    </div>
+                    <div style="border-radius: 0 0 15px 15px;  width: 100%; padding-top: 15px; padding-inline: 15px; background-color: rgb(230, 230, 230);">
+                        <div>
+                            <b><span class="seller_name" style="font-size: 14pt"></span></b>
+                            <div style="display: flex; align-items: center; justify-content: center; font-size: 10pt">
+                                <span class='material-symbols-outlined' style="font-size: 20px">route</span>&nbsp;
+                                <span class="seller_disttime"></span>
+                            </div>
+                        </div>
+                        <div style="font-size: 11pt; margin-top: 15px; display: flex; flex-direction: column; text-align: left">
+                            <div style="display: flex; align-items: center;">
+                                <span class='material-symbols-outlined'>badge</span>&nbsp;Conhecido(a) como&nbsp;<span class="seller_nick d"></span>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <span class='material-symbols-outlined'>distance</span>&nbsp;Mora a&nbsp;<span class="d"><span class="seller_dist"></span>km</span>&nbsp;de distância
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <span class='material-symbols-outlined'>reviews</span>&nbsp;Avaliação:&nbsp;<span class="seller_rate" style="color: rgb(230, 170, 0)"></span>
+                            </div>
+                        </div>
+                        <div style="font-size: 11pt; margin-top: 15px; display: flex; flex-direction: column; text-align: left">
+                            <div style="display: flex; align-items: center;">
+                                <span class='material-symbols-outlined'>inventory_2</span>&nbsp;Vende&nbsp;<span class="seller_prodcount d"></span>&nbsp;produtos&nbsp;<button id="see-this-seller" style="background-color: white;">Ver</button>
+                            </div>
+                            <div style="display: flex; align-items: center;">
+                                <span class='material-symbols-outlined'>format_list_bulleted</span>&nbsp;Filtros:&nbsp;<span class="seller_prodfilters d"></span>
+                            </div>
+                        </div>
+                        <div style="width: 100%; margin-top: 15px; border-radius: 10px; border: 1px solid lightgrey">
+                            <img class="seller_locat" style="width: 100%;">
+                        </div>
+                        <div style="display: flex; margin-top: 15px; justify-content: center;">
+                            <button id="chat" style="padding-block: 5px; padding-inline: 15px; width: auto; border-radius: 5px; background-color: white; border: 1px solid lightgrey"><span class='material-symbols-outlined'>chat</span>&nbsp;Conversar com&nbsp;<span class="seller_nick2"></span></button> 
+                        </div>
+                        <div id="footer" style="display: flex; margin-top: 15px; justify-content: center;">
+                            <button style="background-color: rgba(0, 255, 0, 0.25); border: 1px solid lightgrey; border-radius: 5px 5px 0 0; font-size: 8pt"><span class="material-symbols-outlined" style="font-size: 7pt">share</span>&nbsp;Compartilhar</button>&nbsp;<button style="background-color: rgba(255, 255, 0, 0.25); border: 1px solid lightgrey; border-bottom: none; border-radius: 5px 5px 0 0; font-size: 8pt">⚠ Denunciar</button>
+                        </div>
+                    </div>
+                </div><br>
+
+                Produtos deste vendedor
+                <div id="result_prods">
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script src="all.js"></script>
+    <script src="viewperson.js"></script>
+</body>
+</html>

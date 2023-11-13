@@ -94,8 +94,6 @@ const obj_prod_filter = [
     },
     {
         value: 'pets',
-        title: 'Para pets'
+        title: '🐶 Para pets'
     }
 ];
-
-const chatData = [];

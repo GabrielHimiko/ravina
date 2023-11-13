@@ -125,16 +125,6 @@ function loadSellers(searchk) {
                     case '5': seller.rateStars = '★★★★★'; break;
                 };
 
-                arr_products.forEach(p => {
-                    obj_prod_filter.forEach(filter => {
-                        if (filter.value === p.filter) p.filterName = filter.title;
-                    })
-                    if(p.sellerid === seller.sellerid) {
-                        seller.prodcount++;
-                        if(!seller.prodfilters.includes(p.filterName))seller.prodfilters.push(p.filterName);
-                    }
-                })
-
                 const cardItem = document.createElement('div');
                 cardItem.classList.add('cardItem');
                 cardItem.id = seller.sellerid;
@@ -155,6 +145,8 @@ function loadSellers(searchk) {
                         </div>
                     </div>
                 `;
+
+                cardItem.addEventListener('click', () => {window.location.href = '/viewperson.html?id=' + seller.sellerid})
 
                 seller_results.appendChild(cardItem);
                 totalRes++;

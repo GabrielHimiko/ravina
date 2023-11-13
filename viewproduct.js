@@ -92,13 +92,13 @@ firebase.database().ref('sellers').orderByChild('name').on('value', (snapshot) =
             case '5': seller.rateStars = '★★★★★'; break;
         };
 
+        document.title = `${prod.title} | ${seller.nick}`;
         document.querySelector('#middle .prod_title').innerHTML = prod.title;
         document.querySelector('#middle .prod_imglink').src = prod.imglink;
         document.querySelector('#middle .seller_disttime').innerHTML = `${(seller.disttimewalk >= 60 ? `${(seller.disttimewalk/60).toFixed(1).replace('.', ',')}h` : `${seller.disttimewalk}min`) + ' andando'} ou ${seller.disttimecar}min de carro`;
         document.querySelector('#middle .seller_imglink').src = seller.imglink;
         document.querySelector('#middle .seller_imglink2').src = seller.imglink;
         document.querySelector('#middle .seller_name').innerHTML = seller.name;
-        document.querySelector('#middle .seller_nick').innerHTML = seller.nick;
         document.querySelector('#middle .seller_rate').innerHTML = seller.rateStars;
         document.querySelector('#middle .seller_dist').innerHTML = seller.distStr;
         document.querySelector('#middle .seller_prodcount').innerHTML = seller.prodcount;
@@ -197,4 +197,8 @@ document.querySelector('#to-basket').addEventListener('click', function() {
 
 document.querySelector('#see-this-seller').addEventListener('click', () => {
     window.location.href = '/home.html?sellerid=' + seller.sellerid;
+});
+
+document.querySelector('#see-more').addEventListener('click', () => {
+    window.location.href = '/viewperson.html?id=' + seller.sellerid;
 });

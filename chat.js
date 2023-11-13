@@ -5,7 +5,15 @@ search_btn.addEventListener('click', () => {window.location.href = '/home.html?s
 
 document.querySelector('#loading').style.display = 'none';
 
+const url = new URL(window.location.href);
+const urlPar = url.searchParams.get('id');
 
-if(chatData.length === 0) {
+if(!urlPar) {
     document.querySelector('#not-found').style.display = '';
+} else {
+    document.querySelector('#result').style.display = '';
+    document.querySelector('#loading').style.display = 'none';
+
+
 }
+
