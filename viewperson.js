@@ -184,6 +184,10 @@ document.querySelector('#see-this-seller').addEventListener('click', () => {
     document.querySelector('#middle').scrollTop = document.querySelector('#middle').scrollHeight;
 });
 
+document.querySelector('#chat').addEventListener('click', () => {
+    window.location.href = '/chat.html?id=' + seller.sellerid;
+});
+
 document.querySelector('#return').addEventListener('click', () => {
     window.location.href = '/home.html';
 });

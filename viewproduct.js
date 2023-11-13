@@ -199,6 +199,10 @@ document.querySelector('#see-this-seller').addEventListener('click', () => {
     window.location.href = '/home.html?sellerid=' + seller.sellerid;
 });
 
+document.querySelector('#chat').addEventListener('click', () => {
+    window.location.href = '/chat.html?id=' + seller.sellerid;
+});
+
 document.querySelector('#see-more').addEventListener('click', () => {
     window.location.href = '/viewperson.html?id=' + seller.sellerid;
 });
