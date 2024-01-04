@@ -39,7 +39,7 @@ if(!urlPar) {
         document.querySelector('.seller_nick2').innerHTML = seller.nick;
     });
 
-    document.querySelector('#send-msg').addEventListener('click', sendMsg());
+    document.querySelector('#send-msg').addEventListener('click', () => {sendMsg()});
     inputMsg.addEventListener('keydown', (event) => {if(event.key === 'Enter') sendMsg()});
 
     function sendMsg() {
