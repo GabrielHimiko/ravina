@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
+    animation: fade 5s ease forwards;
 }
 #logo .title {
     font-family: 'Lobster Two', cursive;
@@ -41,4 +42,8 @@
 @keyframes getUp {
     0% {top: 100%}
     100% {top: 0%}
+}
+@keyframes fade {
+    0% {color: rgb(100, 100, 255)}
+    100% {color: white}
 }
