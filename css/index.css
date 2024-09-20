@@ -36,13 +36,9 @@
     height: 100%;
     top: 100%;
     left: 0;
-    animation: getUp 3s ease forwards;
+    animation: getUp 5s ease forwards;
 }
 @keyframes getUp {
     0% {top: 100%}
-    20% {top: 70%}
-    50% {top: 70%}
-    70% {top: 40%}
-    90% {top: 30%}
     100% {top: 0%}
 }
