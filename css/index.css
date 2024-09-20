@@ -41,9 +41,11 @@
 }
 @keyframes getUp {
     0% {top: 100%}
+    30% {top: 100%}
     100% {top: 0%}
 }
 @keyframes fade {
     0% {color: rgb(100, 100, 255)}
+    30% {color: rgb(100, 100, 255)}
     100% {color: white}
 }
