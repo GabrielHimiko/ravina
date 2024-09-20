@@ -19,11 +19,9 @@
 #logo .subtitle {
     font-size: 18pt;
 }
-#loader {
+#loader, #check {
     font-size: 34pt;
 }
-#footer {
-    position: absolute;
-    bottom: 30px;
-    font-size: 34pt;
+#check {
+    display: none;
 }
