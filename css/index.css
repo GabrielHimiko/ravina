@@ -1,7 +1,9 @@
 #interface {
-    background-image: linear-gradient(to right bottom, rgb(25, 25, 255), rgb(100, 100, 255));
+    background-color: black;
     gap: 30px;
     color: white;
+    overflow: hidden;
+    position: relative;
 }
 #logo {
     border-radius: 15px;
@@ -9,6 +11,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 #logo .title {
     font-family: 'Lobster Two', cursive;
@@ -21,7 +24,25 @@
 }
 #loader, #check {
     font-size: 34pt;
+    z-index: 1;
 }
 #check {
     display: none;
+}
+#backLoader {
+    background-image: linear-gradient(to right bottom, rgb(25, 25, 255), rgb(100, 100, 255));
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 100%;
+    left: 0;
+    animation: getUp 3s ease forwards;
+}
+@keyframes getUp {
+    0% {top: 100%}
+    20% {top: 70%}
+    50% {top: 70%}
+    70% {top: 40%}
+    90% {top: 30%}
+    100% {top: 0%}
 }

@@ -6,5 +6,5 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#check').classList.remove('bx-tada');
             //window.location.href = 'store.html';
         }, 1500);
-    }, 3000);
+    }, 4000);
 });
