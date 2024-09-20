@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#check').style.display = 'flex';
         setTimeout(() => {
             document.querySelector('#check').classList.remove('bx-tada');
-            navigator.vibrate(200);
+            navigator.vibrate([200, 100, 200]);
             //window.location.href = 'store.html';
         }, 1500);
     }, 6000);
