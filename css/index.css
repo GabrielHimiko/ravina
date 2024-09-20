@@ -30,6 +30,22 @@
 #check {
     display: none;
 }
+#version {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    animation: fade2 5s ease forwards;
+    width: 100%;
+    text-align: center;
+}
+#logo .title {
+    font-family: 'Lobster Two', cursive;
+    font-size: 62pt;
+    line-height: 70px;
+    text-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+}
 #backLoader {
     background-image: linear-gradient(to right bottom, rgb(25, 25, 255), rgb(100, 100, 255));
     position: absolute;
@@ -48,4 +64,9 @@
     0% {color: rgb(100, 100, 255)}
     30% {color: rgb(100, 100, 255)}
     100% {color: white}
+}
+@keyframes fade2 {
+    0% {opacity: 0}
+    30% {opacity: 0}
+    100% {opacity: 1}
 }
