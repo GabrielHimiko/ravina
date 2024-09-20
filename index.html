@@ -1,33 +1,20 @@
 <!DOCTYPE html>
-<html html lang="pt" translate="no">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faça Login</title>
-    <link href="all.css" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/zicons_favicon.png">
+    <title>Ravina Marketplace</title>
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!-- Boxicons -->
 </head>
 <body>
-    <main>
-        <button id="edit" onclick="window.location.href = '/reg.html'" style="display: none; opacity: 0">✎</button>
-        <div id="loading" style="display: flex">
-            <div id="top">
-                <span id="logoName">Ravina</span> Marketplace
-                <div id="loadBar"></div>
-            </div>
-        </div>
-        <div id="isLoaded">
-            <h1>Boas-vindas!</h1>
-            <div id="cardLogin">
-                <header><b>Ravina Marketplace</b> é um projeto escolar apresentado na 16ª ExpoCEEP do Colégio Maria do Rosário Castaldi, em 2023.<br><br>As imagens nesta aplicação são fictícias e não possuem ligação à realidade, usadas apenas para uma simulação da ideia do projeto.<br><br><a href="https://drive.google.com/file/d/1AzjQWfYTmTO77_QnyVn5J5YQ8wsTZFoi/view?usp=sharing">Acesse os slides usados na apresentação clicando aqui</a><br><br>Para acessar o Ravina Marketplace, <b>digite a senha de administração</b>.</header>
-                <div class="middle">
-                    <input type="password" placeholder="Digite aqui" oninput="if(this.value === 'ravina23') window.location.href = '/home.html'"></button>
-                </div>
-            </div>
-        </div>
-    </main>
-    <script src="all.js"></script>
+    
+    <div id="interface">
+        <div id="logo"><span class="title">Ravina</span> <span class="subtitle">Marketplace</span></div>
+        <div id="footer"><i class='bx bx-loader-alt bx-spin' ></i></div>
+    </div>
+
     <script src="index.js"></script>
 </body>
 </html>

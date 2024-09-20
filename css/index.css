@@ -1,0 +1,26 @@
+#interface {
+    background-image: linear-gradient(to right bottom, rgb(25, 25, 255), rgb(100, 100, 255));
+    gap: 15px;
+    color: white;
+}
+#logo {
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#logo .title {
+    font-family: 'Lobster Two', cursive;
+    font-size: 82pt;
+    line-height: 90px;
+    text-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+}
+#logo .subtitle {
+    font-size: 18pt;
+}
+#footer {
+    position: absolute;
+    bottom: 30px;
+    font-size: 34pt;
+}
