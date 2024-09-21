@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
+    border-bottom: 1px solid rgb(200, 200, 200);
 }
 #topMenu.float {
     width: calc(100% - 20px);
@@ -14,6 +15,7 @@
     background-color: rgb(235, 235, 235, 0.7);
     backdrop-filter: blur(5px);
     border-radius: 10px;
+    border-bottom: none;
     position: fixed;
     transition: 0.3s;
 }
@@ -33,19 +35,19 @@
 #search {
     width: 100%;
     height: 100%;
-    border-radius: 5px;
     outline: none;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
+    border-radius: 10px;
 }
 #search_inp {
     width: 100%;
     height: 100%;
     border: 1px solid black;
     border-width: 1px 1px 1px 0;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 10px 10px 0;
     outline: none;
     padding-right: 5px;
 }
@@ -53,7 +55,7 @@
     font-size: 14pt;
     border: 1px solid black;
     border-width: 1px 0 1px 1px;
-    border-radius: 5px 0 0 5px;
+    border-radius: 10px 0 0 10px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -66,7 +68,7 @@
     border: 1px solid rgb(100, 100, 255);
     color: white;
     border: none;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 10px 10px 0;
     height: 100%;
     display: none;
     justify-content: center;
@@ -84,7 +86,7 @@
     display: none;
 }
 #categories .cat {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: rgb(235, 235, 235);
     border: none;
     padding: 5px 10px 5px 10px;
@@ -100,7 +102,7 @@
     color: white;
 }
 #cart {
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid black;
     padding: 5px;
     font-size: 18pt;
