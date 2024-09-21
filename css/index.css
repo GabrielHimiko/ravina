@@ -5,6 +5,8 @@
     color: white;
     overflow: hidden;
     position: relative;
+    justify-content: center;
+    align-items: center;
 }
 #logo {
     border-radius: 15px;
