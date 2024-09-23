@@ -42,4 +42,5 @@
     width: 100%;
     padding: 15px;
     padding-bottom: calc(8svh + 30px);
+    display: flex;
 }

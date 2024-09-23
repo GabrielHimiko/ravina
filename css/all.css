@@ -140,7 +140,6 @@ body {
     background-color: rgb(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
     border: 1px solid rgb(100, 100, 255);
-    height: 8svh;
     box-shadow: 0 0 5px rgb(200, 200, 200);
 }
 #bottomMenu button {
@@ -151,9 +150,9 @@ body {
     border-radius: 15px;
     border: none;
     background-color: transparent;
-    font-size: 10pt;
+    font-size: 8pt;
     width: 100%;
-    padding: 5px;
+    padding: 15px;
     transition: background-color 0.3s;
 }
 #bottomMenu button:active {
