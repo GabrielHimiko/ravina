@@ -64,7 +64,7 @@ body {
     padding-right: 5px;
 }
 #search_icon {
-    font-size: 18pt;
+    font-size: 14pt;
     border: 1px solid rgb(100, 100, 255);
     border-width: 1px 0 1px 1px;
     border-radius: 10px 0 0 10px;
@@ -76,7 +76,7 @@ body {
     padding: 5px;
 }
 #search_go {
-    font-size: 14pt;
+    font-size: 18pt;
     background-color: rgb(100, 100, 255);
     border: 1px solid rgb(100, 100, 255);
     color: white;
