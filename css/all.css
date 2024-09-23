@@ -155,8 +155,9 @@ body {
     padding: 15px;
     transition: background-color 0.3s;
 }
-#bottomMenu button:active {
-    background-color: rgb(235, 235, 235);
+#bottomMenu button:active,
+#bottomMenu button.active {
+    background-color: rgb(235, 235, 235, 0.7);
     transition: none;
 }
 #bottomMenu button i {
