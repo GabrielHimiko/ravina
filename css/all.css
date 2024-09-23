@@ -5,6 +5,7 @@
 * {
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
+    outline: none;
 }
 body {
     margin: 0;
@@ -60,7 +61,6 @@ body {
     border: 1px solid rgb(100, 100, 255);
     border-width: 1px 1px 1px 0;
     border-radius: 0 10px 10px 0;
-    outline: none;
     padding-right: 5px;
 }
 #search_icon {
