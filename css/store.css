@@ -1,0 +1,45 @@
+/*TOP MENU SEC------------------------------------------------------*/
+#topMenu_sec {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    transition: transform 0.3s;
+    position: relative;
+    padding: 15px;
+    padding-top: 0;
+    border-bottom: 1px solid rgb(235, 235, 235);
+    box-shadow: 0 0 3px rgb(235, 235, 235);
+}
+#categories {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow: scroll;
+}
+#categories::-webkit-scrollbar {
+    display: none;
+}
+#categories .cat {
+    border-radius: 10px;
+    background-color: rgb(235, 235, 235);
+    border: none;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    text-wrap: nowrap;
+}
+#categories .cat.active {
+    background-color: rgb(100, 100, 255);
+    color: white;
+}
+#categories .cat:active {
+    background-color: rgb(25, 25, 255);
+    color: white;
+}
+
+/*PRODUCTS ZONE---------------------------------------------------*/
+#prodZone {
+    width: 100%;
+    padding: 15px;
+    padding-bottom: calc(8svh + 30px);
+}

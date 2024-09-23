@@ -40,17 +40,6 @@ body {
     align-items: center;
     gap: 5px;
 }
-#topMenu_sec {
-    width: 100%;
-    display: flex;
-    gap: 5px;
-    transition: transform 0.3s;
-    position: relative;
-    padding: 15px;
-    padding-top: 0;
-    border-bottom: 1px solid rgb(235, 235, 235);
-    box-shadow: 0 0 3px rgb(235, 235, 235);
-}
 #topMenu.ending {
     border-bottom: 1px solid rgb(235, 235, 235);
     box-shadow: 0 0 3px rgb(235, 235, 235);
@@ -75,7 +64,7 @@ body {
     padding-right: 5px;
 }
 #search_icon {
-    font-size: 14pt;
+    font-size: 18pt;
     border: 1px solid rgb(100, 100, 255);
     border-width: 1px 0 1px 1px;
     border-radius: 10px 0 0 10px;
@@ -100,37 +89,11 @@ body {
     align-items: center;
     padding: 10px;
 }
-#categories {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    overflow: scroll;
-}
-#categories::-webkit-scrollbar {
-    display: none;
-}
-#categories .cat {
-    border-radius: 10px;
-    background-color: rgb(235, 235, 235);
-    border: none;
-    padding: 5px 10px 5px 10px;
-    cursor: pointer;
-    text-wrap: nowrap;
-}
-#categories .cat.active {
-    background-color: rgb(100, 100, 255);
-    color: white;
-}
-#categories .cat:active {
-    background-color: rgb(25, 25, 255);
-    color: white;
-}
 #cart {
     border-radius: 10px;
     border: 1px solid transparent;
     padding: 5px;
-    font-size: 24pt;
+    font-size: 18pt;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,8 +116,6 @@ body {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    padding-bottom: calc(8svh + 30px);
-    padding-top: 0px;
 }
 #middle::-webkit-scrollbar {
     width: 5px;
@@ -164,20 +125,16 @@ body {
     border-radius: 5px 0 0 5px;
 }
 
-/*PRODUCTS ZONE---------------------------------------------------*/
-#prodZone {
-
-}
-
 /*BOTTOM MENU ---------------------------------------------------------*/
 #bottomMenu {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    margin: 15px;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%, 0);
     padding: 0;
     border-radius: 15px;
-    width: calc(100% - 30px);
+    width: calc(100svw - 30px);
+    max-width: 670px;
     display: flex;
     justify-content: space-around;
     background-color: rgb(255, 255, 255, 0.7);
@@ -197,13 +154,18 @@ body {
     font-size: 10pt;
     width: 100%;
     padding: 5px;
-    transition: 0.3s;
+    transition: background-color 0.3s;
 }
 #bottomMenu button:active {
-    color: rgb(25, 25, 255);
     background-color: rgb(235, 235, 235);
     transition: none;
 }
 #bottomMenu button i {
-    font-size: 24pt;
+    font-size: 18pt;
+    transition: color 0.3s;
+}
+#bottomMenu button:active i,
+#bottomMenu button.active i {
+    color: rgb(25, 25, 255);
+    transition: none;
 }
