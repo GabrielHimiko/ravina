@@ -9,6 +9,7 @@
     padding-top: 0;
     border-bottom: 1px solid rgb(235, 235, 235);
     box-shadow: 0 0 3px rgb(235, 235, 235);
+    background-color: white;
 }
 #categories {
     width: 100%;
@@ -25,7 +26,6 @@
     background-color: rgb(235, 235, 235);
     border: none;
     padding: 5px 10px 5px 10px;
-    cursor: pointer;
     text-wrap: nowrap;
 }
 #categories .cat.active {
@@ -43,4 +43,74 @@
     padding: 15px;
     padding-bottom: calc(8svh + 30px);
     display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.item {
+    width: calc(50svw - 20px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: white;
+}
+.item .imgCont {
+    height: calc(50svw - 20px);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: purple;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(10px);
+    border-radius: 10px 10px 0 0;
+}
+.item .imgCont img {
+    width: 115%;
+}
+.item .imgCont .rPrice {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 10px 0 10px;
+    padding-inline: 5px;
+    color: white;
+    background-color: rgb(100, 100, 255);
+}
+.item .prodInfo {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding-top: 10px;
+    padding-inline: 15px;
+    margin: 0;
+    line-height: 100%;
+}
+.item .sellerInfo {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5px;
+    padding-top: 15px;
+    padding-inline: 15px;
+}
+.item .sellerInfo .price {
+    font-size: 14pt;
+    color: rgb(100, 100, 255);
+}
+.item .sellerInfo .price .cifao {
+    font-size: 12pt;
+}
+.item .sellerInfo .estrela {
+    color: gold;
 }
