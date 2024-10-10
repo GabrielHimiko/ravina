@@ -136,7 +136,7 @@ function loadDatabase(filter, subfilter, orderBy, search) {
 
         el.prodInfo.cont.classList.add('prodInfo');
         el.prodInfo.title.classList.add('title');
-        el.prodInfo.title.innerText = prod.title;
+        el.prodInfo.title.innerText = prod.title.length > 30 ? prod.title.slice(0, 30).trim() + '...' : prod.title;
 
         el.prodInfo.cont.appendChild(el.prodInfo.title);
         el.prodInfo.cont.appendChild(el.prodInfo.price);

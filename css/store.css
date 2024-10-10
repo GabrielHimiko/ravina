@@ -63,7 +63,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: purple;
+    background-color: rgb(200, 200, 200);
     position: relative;
     background-size: cover;
     background-position: center;
@@ -72,6 +72,7 @@
 }
 .item .imgCont img {
     width: 115%;
+    image-rendering: optimizeSpeed;
 }
 .item .imgCont .rPrice {
     position: absolute;
