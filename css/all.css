@@ -64,7 +64,7 @@ body {
     padding-right: 5px;
 }
 #search_icon {
-    font-size: 14pt;
+    font-size: 18pt;
     border: 1px solid rgb(100, 100, 255);
     border-width: 1px 0 1px 1px;
     border-radius: 10px 0 0 10px;
@@ -93,7 +93,7 @@ body {
     border-radius: 10px;
     border: 1px solid transparent;
     padding: 5px;
-    font-size: 18pt;
+    font-size: 24pt;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,16 +134,19 @@ body {
     transform: translate(-50%, 0);
     padding: 0;
     border-radius: 15px;
-    width: calc(100svw - 30px);
-    max-width: 670px;
+    max-width: calc(100svw - 30px);
     display: flex;
     justify-content: space-around;
-    background-color: rgb(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
+    background-color: rgb(255, 255, 255, 0.95);
     border: 1px solid rgb(100, 100, 255);
     box-shadow: 0 0 5px rgb(200, 200, 200);
-    gap: 10px;
+    gap: 1px;
     z-index: 999;
+}
+@media (max-width: 670) {
+    #bottomMenu {
+        max-width: 670px;
+    }
 }
 #bottomMenu button {
     display: flex;
@@ -153,9 +156,9 @@ body {
     border-radius: 15px;
     border: none;
     background-color: transparent;
-    font-size: 8pt;
     width: 100%;
-    padding: 15px;
+    padding-block: 10px;
+    padding-inline: 25px;
     transition: background-color 0.3s;
 }
 #bottomMenu button:active,
@@ -164,11 +167,18 @@ body {
     transition: none;
 }
 #bottomMenu button i {
-    font-size: 18pt;
+    font-size: 24pt;
     transition: color 0.3s;
+}
+#bottomMenu button .name {
+    display: none;
+    font-size: 10pt;
 }
 #bottomMenu button:active i,
 #bottomMenu button.active i {
     color: rgb(25, 25, 255);
     transition: none;
+}
+#bottomMenu button.active .name {
+    display: flex;
 }

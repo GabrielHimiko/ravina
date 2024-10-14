@@ -26,6 +26,22 @@ const search = {
 const cart = document.querySelector('#cart');
 const prodZone = document.querySelector('#prodZone');
 
+//Tamanho da tela
+let perLine = 2;
+document.addEventListener('DOMContentLoaded', () => {verifyWindowSize()});
+window.addEventListener('resize', () => {verifyWindowSize()});
+function verifyWindowSize() {
+    let newPerLine = 0;
+    if(document.querySelector('#interface').offsetWidth >= 600) newPerLine = 3
+    else newPerLine = 2;
+
+    if(newPerLine !== perLine) {
+        console.log('perLine changed: ', newPerLine, perLine)
+        perLine = newPerLine;
+        loadDatabase();
+    }
+};
+
 //Search
 search.inp.addEventListener('focus', () => {
     search.go.style.display = 'flex';
@@ -60,7 +76,7 @@ middle.addEventListener('scroll', () => {
 })
 
 //prodZone
-let sellers = [], prods = [];
+let sellers = [], prods = [], lines = [];
 firebase.database().ref('sellers').orderByChild('name').once('value').then((snapshot) => {
     
     sellers = [], prods = [];
@@ -103,11 +119,32 @@ function loadDatabase(filter, subfilter, orderBy, search) {
 
         }
 
+        const lastLine = lines[lines.length - 1]
+        let selLine;
+        if(!lastLine) {
+            selLine = createNewLine();
+        } 
+        else if(lastLine.querySelectorAll('.item').length >= perLine) {
+            selLine = createNewLine();
+        }
+        else {
+            selLine = lastLine;
+        };
+        
+        function createNewLine() {
+            const newLine = document.createElement('div');
+            newLine.classList.add('line');
+            prodZone.appendChild(newLine);
+            lines.push(newLine);
+            return newLine;
+        }
+
         const el = {
             cont: document.createElement('div'),
             imgCont: document.createElement('div'),
             rPrice: document.createElement('div'),
             img: document.createElement('img'),
+            backImg: document.createElement('img'),
             prodInfo: {
                 cont: document.createElement('div'),
                 title: document.createElement('span'),
@@ -123,10 +160,13 @@ function loadDatabase(filter, subfilter, orderBy, search) {
 
         el.cont.classList.add('item');
         el.imgCont.classList.add('imgCont');
+        el.img.classList.add('frontImg');
+        el.backImg.classList.add('backImg');
 
         el.img.src = prod.imglink;
-        el.imgCont.style.backgroundImage = `url('${prod.imglink}')`;
+        el.backImg.src = prod.imglink;
         el.imgCont.appendChild(el.img);
+        el.imgCont.appendChild(el.backImg);
 
         if(prod.rprice && prod.rprice != '-x-') {
             el.rPrice.classList.add('rPrice');
@@ -153,6 +193,6 @@ function loadDatabase(filter, subfilter, orderBy, search) {
         el.cont.appendChild(el.imgCont);
         el.cont.appendChild(el.prodInfo.cont);
         el.cont.appendChild(el.sellerInfo.cont);
-        prodZone.appendChild(el.cont);
+        selLine.appendChild(el.cont);
     });
 };

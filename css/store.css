@@ -48,8 +48,14 @@
     flex-wrap: wrap;
     gap: 5px;
 }
+.line {
+    display: flex;
+    width: 100%;
+    height: 30svh;
+    gap: 5px;
+}
 .item {
-    width: calc(50svw - 20px);
+    width: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -57,22 +63,30 @@
     background-color: white;
 }
 .item .imgCont {
-    height: calc(50svw - 20px);
+    height: 25svh;
     width: 100%;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(200, 200, 200);
     position: relative;
     background-size: cover;
     background-position: center;
-    backdrop-filter: blur(10px);
     border-radius: 10px 10px 0 0;
+    border: 1px solid rgb(200, 200, 200);
+    background-image: url('https://portal.crea-sc.org.br/wp-content/uploads/2017/11/imagem-indisponivel-para-produtos-sem-imagem_15_5.jpg');
 }
-.item .imgCont img {
+.item .imgCont .frontImg {
     width: 115%;
     image-rendering: optimizeSpeed;
+    z-index: 2;
+}
+.item .imgCont .backImg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    filter: blur(10px);
+    z-index: 1;
 }
 .item .imgCont .rPrice {
     position: absolute;
@@ -82,9 +96,10 @@
     padding-inline: 5px;
     color: white;
     background-color: rgb(100, 100, 255);
+    z-index: 3;
 }
 .item .prodInfo {
-    height: 30%;
+    height: 5svh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -102,7 +117,7 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 5px;
-    padding-top: 15px;
+    padding-top: 0;
     padding-inline: 15px;
 }
 .item .sellerInfo .price {
