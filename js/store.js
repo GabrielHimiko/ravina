@@ -174,6 +174,7 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
             imgCont: document.createElement('div'),
             rPrice: document.createElement('div'),
             img: document.createElement('img'),
+            backImg: document.createElement('img'),
             prodInfo: {
                 cont: document.createElement('div'),
                 title: document.createElement('span'),
@@ -190,9 +191,12 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
         el.cont.classList.add('item');
         el.imgCont.classList.add('imgCont');
         el.img.classList.add('frontImg');
+        el.backImg.classList.add('backImg');
 
         el.img.src = prod.imglink;
+        el.backImg.src = prod.imglink;
         el.imgCont.appendChild(el.img);
+        el.imgCont.appendChild(el.backImg);
 
         if(prod.rprice && prod.rprice != '-x-') {
             el.rPrice.classList.add('rPrice');

@@ -122,13 +122,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    background-size: cover;
+    background-position: center;
     border-radius: 10px 10px 0 0;
     border: 1px solid rgb(200, 200, 200);
-    background-image: linear-gradient(to top left, rgb(200, 200, 200), rgb(235, 235, 235))
+    background-image: url('https://portal.crea-sc.org.br/wp-content/uploads/2017/11/imagem-indisponivel-para-produtos-sem-imagem_15_5.jpg');
 }
 .item .imgCont .frontImg {
     width: 115%;
     image-rendering: optimizeSpeed;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.item .imgCont .backImg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    filter: blur(10px);
+    z-index: 1;
 }
 .item .imgCont .rPrice {
     position: absolute;
