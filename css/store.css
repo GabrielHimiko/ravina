@@ -83,6 +83,7 @@
     padding: 15px;
     border-radius: 10px;
     gap: 15px;
+    display: none;
 }
 #prodZone {
     width: 100%;
