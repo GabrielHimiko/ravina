@@ -122,9 +122,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    background-size: cover;
-    background-position: center;
     border-radius: 10px 10px 0 0;
     border: 1px solid rgb(200, 200, 200);
     background-image: linear-gradient(to top left, rgb(200, 200, 200), rgb(235, 235, 235))
@@ -132,7 +129,6 @@
 .item .imgCont .frontImg {
     width: 115%;
     image-rendering: optimizeSpeed;
-    z-index: 2;
 }
 .item .imgCont .rPrice {
     position: absolute;
