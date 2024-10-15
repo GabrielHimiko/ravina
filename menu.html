@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Ravina Marketplace</title>
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/view.css">
+    <link rel="icon" href="imgs/favicon.png">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!-- Boxicons -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
+</head>
+<body>
+    
+    <div id="interface">
+
+        <div id="topMenu">
+            <div id="topMenu_prim">
+                <button id="return"><i class='bx bx-left-arrow-alt' ></i></button> <div id="search"><i id="search_icon" class='bx bx-search' ></i><input id="search_inp" placeholder="Buscar no Marketplace" autocomplete="off"><button id="search_go"><i class='bx bx-search' ></i></button></div> <button id="cart"><i class='bx bx-cart-alt'></i></button>
+            </div>
+        </div>
+
+        <div id="middle" style="height: 100%; justify-content: center;">
+
+            <div style="display: flex; flex-direction: column; align-items: center; background-color: white; padding: 15px; border-radius: 10px; gap: 15px">
+                Menu do Desenvolvedor
+                <button style="padding: 15px; background-color: white; border: 1px solid black; border-radius: 10px; width: 70%; display: flex; justify-content: space-between; align-items: center" onclick="window.location.href='/tabmode.html'">
+                    <i class='bx bx-desktop' style="font-size: 24pt"></i> Modo standby
+                </button>
+                <button style="padding: 15px; background-color: white; border: 1px solid black; border-radius: 10px; width: 70%; display: flex; justify-content: space-between; align-items: center" onclick="window.location.href='/reg.html'">
+                    <i class='bx bx-edit' style="font-size: 24pt"></i> Painel de edição do site
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

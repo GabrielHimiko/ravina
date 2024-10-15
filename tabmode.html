@@ -4,86 +4,19 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja | Ravina Marketplace</title>
+    <title>Ravina Marketplace</title>
     <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/store.css">
+    <link rel="stylesheet" href="css/tabmode.css">
     <link rel="icon" href="imgs/favicon.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!-- Boxicons -->
-    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script>
 </head>
 <body>
     
     <div id="interface">
-
-        <div id="topMenu">
-            <div id="topMenu_prim">
-                <div id="search"><i id="search_icon" class='bx bx-search' ></i><input id="search_inp" placeholder="Buscar no Marketplace" autocomplete="off"><button id="search_go"><i class='bx bx-search' ></i></button></div> <button id="cart"><i class='bx bx-cart-alt'></i></button>
-            </div>
-        </div>
-
-        <div id="middle">
-            <div id="topMenu_sec">
-                <div id="categories">
-                    <button class="cat active">Recomendados</button>
-                    <button class="cat">Desconto</button>
-                    <button class="cat">Alimentícios</button>
-                    <button class="cat">Roupas & Acessórios</button>
-                    <button class="cat">Móveis & Decor</button>
-                    <button class="cat">Plantas</button>
-                    <button class="cat">Para Pets</button>
-                    <button class="cat">Serviços</button>
-                </div>
-            </div>
-
-            <div id="prodZone_header">
-                <div>
-                    <span id="totalResults">0</span> resultados
-                </div>
-                <div>
-                    <button id="selFilters"><i class='bx bx-filter-alt'></i></button>
-                    <div id="selFilters_cont">
-                        Organizar por...
-                        <select>
-                            <option>Relevância</option>
-                            <option>Menor preço primeiro</option>
-                            <option>Maior preço primeiro</option>
-                            <option>Distância</option>
-                            <option>Avaliações</option>
-                        </select>
-
-                        Preço
-                        <input>
-                    </div>
-                </div>
-            </div>
-
-            <div id="prodZone">
-                
-            </div>
-        </div>
-
-        <div id="bottomMenu">
-            <button class="active">
-                <i class='bx bx-store'></i>
-                <span class="name">Loja</span>
-            </button>
-            <button>
-                <i class='bx bx-group'></i>
-                <span class="name">Vendedores</span>
-            </button>
-            <button>
-                <i class='bx bx-chat' ></i>
-                <span class="name">Conversas</span>
-            </button>
-            <button>
-                <i class='bx bx-dots-horizontal-rounded' ></i>
-                <span class="name">Mais</span>
-            </button>
-        </div>
+        <div id="logo"><span class="title">Ravina</span> <span class="subtitle">Marketplace</span></div>
+        <button id="start" onclick="window.location.href='/index.html'">Conheça nosso site <i class='bx bx-right-arrow-alt' ></i></button>
 
     </div>
 
-    <script src="js/store.js"></script>
 </body>
 </html>
