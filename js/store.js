@@ -102,7 +102,7 @@ firebase.database().ref('sellers').orderByChild('name').once('value').then((snap
             prods.push(prod);
         });
 
-        loadDatabase(0, 0, 'price', true, 0);
+        loadDatabase(0, 0, 'rel', 0, 0);
     });
 
 });
@@ -127,6 +127,7 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
         if(filter) {
             let hasFilter = false;
             filter.forEach((f) => {
+                if(f === 'desc' && prod.rprice !== '-x-') hasFilter = true;
                 if(prod.filter === f) hasFilter = true;
             });
             if(!hasFilter) return;
@@ -145,6 +146,8 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
         }
 
         validProds++;
+
+        console.log(prod.filter)
 
         const lastLine = lines[lines.length - 1];
         let selLine;
@@ -232,3 +235,14 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
 
     document.querySelector('#totalResults').innerText = validProds;
 };
+
+const catBtns = document.querySelectorAll('#categories button');
+catBtns.forEach(cb => {
+    cb.addEventListener('click', () => {
+        catBtns.forEach(c => {c.hidden = false}); //desocultando todos os catBtns
+        catBtns[0].innerHTML = cb.innerHTML;
+        cb.hidden = true;
+        document.querySelector('#categories').scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        loadDatabase(cb.value == 'rec' ? 0 : [cb.value], 0, 'rel', false, 0);
+    });
+})
