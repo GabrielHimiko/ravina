@@ -89,7 +89,8 @@ body {
     align-items: center;
     padding: 10px;
 }
-#cart {
+#cart,
+#return {
     border-radius: 10px;
     border: 1px solid transparent;
     padding: 5px;
@@ -103,7 +104,11 @@ body {
     background-color: white;
     transition: background-color 0.7s, color 2s;
 }
-#cart:active {
+#return {
+    font-size: 20pt;
+}
+#cart:active,
+#return:active {
     background-color: rgb(235, 235, 235);
     color: rgb(25, 25, 255);
     transition: none;
@@ -142,11 +147,6 @@ body {
     box-shadow: 0 0 5px rgb(200, 200, 200);
     gap: 1px;
     z-index: 999;
-}
-@media (max-width: 670) {
-    #bottomMenu {
-        max-width: 670px;
-    }
 }
 #bottomMenu button {
     display: flex;

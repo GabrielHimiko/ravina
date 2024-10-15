@@ -1,0 +1,146 @@
+
+.image {
+    width: 100%;
+    min-height: 50svh;
+    background-color: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image img {
+    width: 100%;
+}
+#prodInfo {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+}
+#prodInfo #priceInfo {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+#prodInfo #priceInfo #price {
+    font-size: 18pt;
+    color: rgb(25, 25, 255);
+}
+#prodInfo #priceInfo #rprice {
+    text-decoration: line-through;
+}
+#prodInfo #priceInfo #desc {
+    background-color: rgb(255, 25, 25);
+    border-radius: 5px;
+    padding-inline: 5px;
+    color: white;
+}
+#prodInfo #title {
+    font-size: 14pt;
+}
+#prodInfo .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#prodInfo .footer #rate {
+    color: orange;
+}
+#prodInfo button {
+    border-radius: 5px;
+    border: none;
+    font-size: 14pt;
+}
+#localInfo {
+    background-color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+#localInfo #travelTime_walk,
+#localInfo #travelTime_drive {
+    color: rgb(25, 25, 255);
+}
+#localInfo .bottom {
+    font-size: 10pt;
+}
+#localInfo i {
+    font-size: 24pt;
+}
+#sellerInfo {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+#sellerInfo .top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+#sellerInfo .imgCont {
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    background-color: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#sellerInfo .imgCont img {
+    width: 100%;
+}
+#sellerInfo #sellerName {
+    font-size: 14pt;
+}
+#sellerInfo .bottom {
+    display: flex;
+    margin-top: 15px;
+}
+#sellerInfo .bottom .sellerBasics {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid black;
+    width: 100%;
+    font-size: 10pt;
+}
+#sellerInfo .bottom .sellerBasics:last-child {
+    border-right: none;
+}
+#sellerInfo .bottom .sellerBasics span {
+    font-size: 14pt;
+}
+#sellerInfo .bottom #sellerRate i {
+    color: orange;
+}
+#sellerProds {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+#sellerProds .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+#sellerProds .header i {
+    font-size: 24pt;
+}
+#reviews {
+    background-color: white;
+    padding: 15px;
+}
+#reviews .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
