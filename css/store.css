@@ -123,7 +123,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     border-radius: 10px 10px 0 0;
     border: 1px solid rgb(200, 200, 200);
@@ -131,6 +131,7 @@
 }
 .item .imgCont .frontImg {
     width: 115%;
+    height: auto;
     image-rendering: optimizeQuality;
     z-index: 2;
     position: absolute;
