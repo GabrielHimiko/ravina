@@ -1,0 +1,51 @@
+
+#interface {
+    background-color: black;
+    gap: 30px;
+    color: white;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+#logo {
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    animation: fade 5s ease forwards;
+    color: rgb(100, 100, 255);
+}
+#logo .title {
+    font-family: 'Lobster Two', cursive;
+    font-size: 62pt;
+    line-height: 70px;
+    text-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+}
+#logo .subtitle {
+    font-size: 18pt;
+}
+#logo .title {
+    font-family: 'Lobster Two', cursive;
+    font-size: 62pt;
+    line-height: 70px;
+    text-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+}
+#start {
+    padding: 10px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 15px;
+    font-size: 18pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.3s;
+}
+#start i {
+    font-size: 24pt;
+}

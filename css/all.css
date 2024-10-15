@@ -101,7 +101,7 @@ body {
     height: 5svh;
     width: 5svh;
     background-color: white;
-    transition: 0.3s;
+    transition: background-color 0.7s, color 2s;
 }
 #cart:active {
     background-color: rgb(235, 235, 235);
@@ -159,7 +159,7 @@ body {
     width: 100%;
     padding-block: 10px;
     padding-inline: 15px;
-    transition: background-color 0.3s;
+    transition: background-color 0.7s;
 }
 #bottomMenu button:active,
 #bottomMenu button.active {
@@ -168,7 +168,7 @@ body {
 }
 #bottomMenu button i {
     font-size: 24pt;
-    transition: color 0.3s;
+    transition: color 2s;
 }
 #bottomMenu button .name {
     display: none;

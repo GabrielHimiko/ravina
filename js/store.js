@@ -36,7 +36,6 @@ function verifyWindowSize() {
     else newPerLine = 2;
 
     if(newPerLine !== perLine) {
-        console.log('perLine changed: ', newPerLine, perLine)
         perLine = newPerLine;
         loadDatabase();
     }
@@ -103,23 +102,51 @@ firebase.database().ref('sellers').orderByChild('name').once('value').then((snap
             prods.push(prod);
         });
 
-        loadDatabase();
+        loadDatabase(0, 0, 'price', true, 0);
     });
 
 });
 
-function loadDatabase(filter, subfilter, orderBy, search) {
+function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
 
     prodZone.innerHTML = '';
 
+    if(orderBy) {
+        prods.sort((a, b) => {
+            if (orderByInvert) {
+                return b[orderBy] - a[orderBy];
+            } else {
+                return a[orderBy] - b[orderBy];
+            }
+        });
+    }
+
+    let validProds = 0;
     prods.forEach(prod => {
-        if(filter && prod.filter !== filter) return;
-        if(subfilter && prod.subfilter !== subfilter) return;
+
+        if(filter) {
+            let hasFilter = false;
+            filter.forEach((f) => {
+                if(prod.filter === f) hasFilter = true;
+            });
+            if(!hasFilter) return;
+        };
+
+        if(subfilter) {
+            let hasSubfilter = false;
+            subfilter.forEach((sf) => {
+                if(prod.subfilter === sf) hasSubfilter = true;
+            });
+            if(!hasSubfilter) return;
+        };
+
         if(search) {
 
         }
 
-        const lastLine = lines[lines.length - 1]
+        validProds++;
+
+        const lastLine = lines[lines.length - 1];
         let selLine;
         if(!lastLine) {
             selLine = createNewLine();
@@ -195,4 +222,13 @@ function loadDatabase(filter, subfilter, orderBy, search) {
         el.cont.appendChild(el.sellerInfo.cont);
         selLine.appendChild(el.cont);
     });
+
+    const lastLine = lines[lines.length - 1];
+    while (lastLine.children.length < perLine) {
+        const fItem = document.createElement('div');
+        fItem.classList.add('fItem');
+        lastLine.appendChild(fItem);
+    }
+
+    document.querySelector('#totalResults').innerText = validProds;
 };
