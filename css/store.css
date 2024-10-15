@@ -131,7 +131,6 @@
 }
 .item .imgCont .frontImg {
     width: 115%;
-    image-rendering: optimizeSpeed;
     z-index: 2;
     position: absolute;
     top: 50%;
