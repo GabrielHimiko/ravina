@@ -128,17 +128,10 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
             let hasFilter = false;
             filter.forEach((f) => {
                 if(f === 'desc' && (prod.rprice && prod.rprice !== '-x-')) hasFilter = true;
+                if(f === 'com' && (prod.filter === 'com' || prod.filter === 'beb' || prod.filter === 'doces')) hasFilter = true;
                 if(prod.filter === f) hasFilter = true;
             });
             if(!hasFilter) return;
-        };
-
-        if(subfilter) {
-            let hasSubfilter = false;
-            subfilter.forEach((sf) => {
-                if(prod.subfilter === sf) hasSubfilter = true;
-            });
-            if(!hasSubfilter) return;
         };
 
         if(search) {
@@ -146,8 +139,6 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
         }
 
         validProds++;
-
-        console.log(prod.filter)
 
         const lastLine = lines[lines.length - 1];
         let selLine;
