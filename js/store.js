@@ -28,20 +28,34 @@ const prodZone = document.querySelector('#prodZone');
 
 //Tamanho da tela
 let perLine = 2;
-document.addEventListener('DOMContentLoaded', () => {verifyWindowSize()});
-window.addEventListener('resize', () => {verifyWindowSize()});
-function verifyWindowSize() {
+if(document.querySelector('#interface').offsetWidth >= 600) perLine = 3;
+
+window.addEventListener('resize', () => {
     let newPerLine = 0;
     if(document.querySelector('#interface').offsetWidth >= 600) newPerLine = 3
     else newPerLine = 2;
 
     if(newPerLine !== perLine) {
         perLine = newPerLine;
-        loadDatabase();
+        loadDatabase(0, 'rel', 0, 0);
     }
-};
+});
 
 //Search
+search.go.addEventListener('mousedown', () => {
+    const searchKey = search.inp.value;
+    loadDatabase(0, 'rel', false, searchKey);
+});
+search.inp.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        search.go.style = 'inherit';
+        search.icon.style = 'inherit';
+        search.inp.style = 'inherit';
+        cart.style = 'inherit';
+        const searchKey = search.inp.value;
+        loadDatabase(0, 'rel', false, searchKey);
+    }
+  });
 search.inp.addEventListener('focus', () => {
     search.go.style.display = 'flex';
     search.icon.style.display = 'none';
@@ -103,14 +117,15 @@ firebase.database().ref('sellers').orderByChild('name').once('value').then((snap
             prods.push(prod);
         });
 
-        loadDatabase(0, 0, 'rel', 0, 0);
+        loadDatabase(0, 'rel', 0, 0);
     });
 
 });
 
-function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
+function loadDatabase(filter, orderBy, orderByInvert, search) {
 
     prodZone.innerHTML = '';
+    lines = [];
 
     if(orderBy) {
         prods.sort((a, b) => {
@@ -125,18 +140,25 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
     let validProds = 0;
     prods.forEach(prod => {
 
-        if(filter) {
+        if(filter && !search) {
             let hasFilter = false;
             filter.forEach((f) => {
                 if(f === 'desc' && (prod.rprice && prod.rprice !== '-x-')) hasFilter = true;
                 if(f === 'com' && (prod.filter === 'com' || prod.filter === 'beb' || prod.filter === 'doces')) hasFilter = true;
                 if(prod.filter === f) hasFilter = true;
             });
-            if(!hasFilter) return;
+            if(!hasFilter) return console.log(prod.title + ' não tem o filtro necessário');
         };
 
-        if(search) {
-
+        function removeAccents(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+        
+        if (search) {
+            const normalizedTitle = removeAccents(prod.title.toLowerCase());
+            const normalizedSearch = removeAccents(search.toLowerCase());
+        
+            if (!normalizedTitle.includes(normalizedSearch)) return;
         }
 
         validProds++;
@@ -159,7 +181,7 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
             prodZone.appendChild(newLine);
             lines.push(newLine);
             return newLine;
-        }
+        };
 
         const el = {
             cont: document.createElement('div'),
@@ -222,14 +244,16 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
         });
     });
 
+    document.querySelector('#totalResults').innerText = validProds;
+
+    if(!validProds) return prodZone.innerHTML = 'Nenhum produto corresponde aos critérios que você escolheu :(';
+
     const lastLine = lines[lines.length - 1];
     while (lastLine.children.length < perLine) {
         const fItem = document.createElement('div');
         fItem.classList.add('fItem');
         lastLine.appendChild(fItem);
     }
-
-    document.querySelector('#totalResults').innerText = validProds;
 };
 
 const catBtns = document.querySelectorAll('#categories button');
@@ -239,6 +263,6 @@ catBtns.forEach(cb => {
         catBtns[0].innerHTML = cb.innerHTML;
         cb.hidden = true;
         document.querySelector('#categories').scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        loadDatabase(cb.value == 'rec' ? 0 : [cb.value], 0, 'rel', false, 0);
+        loadDatabase(cb.value == 'rec' ? 0 : [cb.value], 'rel', false, 0);
     });
 })
