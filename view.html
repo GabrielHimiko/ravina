@@ -25,17 +25,21 @@
         <div id="middle">
 
             <div class="image">
-                <img id="prodImg" src="https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image04_grd.png">
+                <img id="prodImg">
+                <img id="backImg">
             </div>
 
             <div id="prodInfo">
                 <div id="priceInfo">
-                    <span id="price"><span style="font-size: 12pt">R$</span>30,00</span>
-                    <span id="rprice">R$45,00</span>
-                    <span id="desc">-15%</span>
+                    <div>
+                        <span id="price"></span>
+                        <span id="rprice" hidden></span>
+                        <span id="desc" hidden></span>
+                    </div>
+                    <span id="parc"></span>
                 </div>
                 <div id="title">
-                    Nome do produto completo sem abreviações quero quebrar a linha 123 4 5 6
+                    
                 </div>
                 <div class="footer">
                         <div>
@@ -61,16 +65,16 @@
             <div id="sellerInfo">
                 <div class="top">
                     <div class="imgCont">
-                        <img id="sellerImg" src="https://files.tecnoblog.net/wp-content/uploads/2021/07/wagner-perfil.jpg">
+                        <img id="sellerImg">
                     </div>
                     <div>
-                        <div id="sellerName">Weverton Luiz Martins</div>
+                        <div id="sellerName"></div>
                         <div><i class='bx bx-map'></i> <span id="sellerDist">5</span>km de distância</div>
                     </div>
                 </div>
                 <div class="bottom">
                     <div class="sellerBasics">
-                        <div><span id="sellerRate">4<i class='bx bxs-star'></i></span></div>
+                        <div><span id="sellerRate"></span></div>
                         <div>22 avaliações</div>
                     </div>
                     <div class="sellerBasics">
@@ -103,6 +107,17 @@
                     Esse produto foi avaliado por 3 usuários.
                 </div>
             </div>
+        </div>
+
+        <div id="bottomMenu_per">
+            <button class="active">
+                <i class='bx bx-money'></i>
+                <span class="name">Compre agora</span>
+            </button>
+            <button>
+                <i class='bx bx-cart'></i>
+                <span class="name">Adicionar ao Carrinho</span>
+            </button>
         </div>
 
     </div>

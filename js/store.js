@@ -89,6 +89,7 @@ firebase.database().ref('sellers').orderByChild('name').once('value').then((snap
             
         snapshot.forEach((childSnapshot) => {
             const prod = childSnapshot.val();
+            prod.key = childSnapshot.key;
             
             sellers.forEach(seller => {
                 if (seller.sellerid === prod.sellerid) {
@@ -215,6 +216,10 @@ function loadDatabase(filter, subfilter, orderBy, orderByInvert, search) {
         el.cont.appendChild(el.prodInfo.cont);
         el.cont.appendChild(el.sellerInfo.cont);
         selLine.appendChild(el.cont);
+
+        el.cont.addEventListener('click', () => {
+            window.location.href = '/view.html?id=' + prod.key;
+        });
     });
 
     const lastLine = lines[lines.length - 1];

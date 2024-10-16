@@ -1,20 +1,32 @@
 
 .image {
     width: 100%;
+    height: 50svh;
     min-height: 50svh;
     background-color: black;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .image img {
     width: 100%;
+    z-index: 2;
+}
+.image #backImg {
+    position: absolute;
+    height: 115%;
+    z-index: 1;
+    filter: blur(30px);
+    top: 0;
+    left: 0;
 }
 #prodInfo {
     padding: 15px;
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap: 15px;
     margin-bottom: 15px;
     background-color: white;
@@ -22,7 +34,9 @@
 #prodInfo #priceInfo {
     gap: 5px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    line-height: 100%;
+    padding-top: 10px;
 }
 #prodInfo #priceInfo #price {
     font-size: 18pt;
@@ -137,10 +151,51 @@
 #reviews {
     background-color: white;
     padding: 15px;
+    margin-bottom: 100px;
 }
 #reviews .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+}
+
+/*BOTTOM MENU ---------------------------------------------------------*/
+#bottomMenu_per {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 0;
+    border-radius: 15px;
+    max-width: calc(100svw - 30px);
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(255, 255, 255, 0.95);
+    border: 1px solid rgb(100, 100, 255);
+    box-shadow: 0 0 5px rgb(200, 200, 200);
+    gap: 1px;
+    z-index: 999;
+}
+#bottomMenu_per button {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: none;
+    background-color: transparent;
+    width: 50%;
+    padding-block: 10px;
+    padding-inline: 30px;
+    transition: background-color 1s, color 1s;
+    text-wrap: nowrap;
+}
+#bottomMenu_per button.active {
+    border: 3px solid rgb(100, 100, 255);
+    color: rgb(100, 100, 255);;
+    transition: none;
+}
+#bottomMenu_per button i {
+    font-size: 24pt;
 }
