@@ -591,7 +591,7 @@ function close_editSeller() {
 };
 
 function viewSeller(seller) {
-    document.querySelector('main #middle #creating').scrollTop = 0;
+    document.querySelector('#middle #creating').scrollTop = 0;
     if (sellerInView_isEdit) {
         close_editSeller();
         return;

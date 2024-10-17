@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja | Ravina Marketplace</title>
+    <title>Vendedores | Ravina Marketplace</title>
     <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/store.css">
+    <link rel="stylesheet" href="css/sellers.css">
     <link rel="icon" href="imgs/favicon.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!-- Boxicons -->
     <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
@@ -23,53 +23,33 @@
         </div>
 
         <div id="middle">
-            <div id="topMenu_sec">
-                <div id="categories">
-                    <button class="cat active">Recomendados</button>
-                    <button class="cat" value="rec" hidden>Recomendados</button>
-                    <button class="cat" value="desc">Desconto</button>
-                    <button class="cat" value="com">Alimentícios</button>
-                    <button class="cat" value="acess">Roupas & Acessórios</button>
-                    <button class="cat" value="dec">Móveis & Decor</button>
-                    <button class="cat" value="plantas">Plantas</button>
-                    <button class="cat" value="pets">Para Pets</button>
-                    <button class="cat" value="serv">Serviços</button>
-                </div>
-            </div>
 
-            <div id="prodZone_header">
+            <div id="sellersZone_header">
                 <div>
                     <span id="totalResults">0</span> resultados
                 </div>
                 <div>
-                    <button id="selFilters"><i class='bx bx-filter-alt'></i></button>
-                    <div id="selFilters_cont">
-                        Organizar por...
-                        <select>
-                            <option>Relevância</option>
-                            <option>Menor preço primeiro</option>
-                            <option>Maior preço primeiro</option>
-                            <option>Distância</option>
-                            <option>Avaliações</option>
-                        </select>
-
-                        Preço
-                        <input>
-                    </div>
+                    <select>
+                        <option>Relevância</option>
+                        <option>Menor preço primeiro</option>
+                        <option>Maior preço primeiro</option>
+                        <option>Distância</option>
+                        <option>Avaliações</option>
+                    </select>
                 </div>
             </div>
 
-            <div id="prodZone">
+            <div id="sellersZone">
                 <i class='bx bx-loader-alt bx-spin' style="font-size: 36pt;"></i>
             </div>
         </div>
 
         <div id="bottomMenu">
-            <button class="active">
+            <button onclick="window.location.href = '/store.html'">
                 <i class='bx bx-store'></i>
                 <span class="name">Loja</span>
             </button>
-            <button onclick="window.location.href = '/sellers.html'">
+            <button class="active">
                 <i class='bx bx-group'></i>
                 <span class="name">Vendedores</span>
             </button>
@@ -85,6 +65,6 @@
 
     </div>
 
-    <script src="js/store.js"></script>
+    <script src="js/sellers.js"></script>
 </body>
 </html>

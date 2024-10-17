@@ -161,9 +161,9 @@ body {
     padding-inline: 15px;
     transition: background-color 0.7s;
 }
-#bottomMenu button:active,
 #bottomMenu button.active {
-    background-color: rgb(235, 235, 235, 0.7);
+    background-color: rgb(100, 100, 255);
+    color: white;
     transition: none;
 }
 #bottomMenu button i {
@@ -173,11 +173,6 @@ body {
 #bottomMenu button .name {
     display: none;
     font-size: 10pt;
-}
-#bottomMenu button:active i,
-#bottomMenu button.active i {
-    color: rgb(25, 25, 255);
-    transition: none;
 }
 #bottomMenu button.active .name {
     display: flex;
