@@ -150,10 +150,10 @@ function loadDatabase(orderBy, orderByInvert, search) {
                         <div><span style="font-size: 14pt"><i class='bx bx-package' ></i> ${seller.prods}</span></div>
                         <div>Produtos à venda</div>
                     </div>
-                    <div class="sellerBasics">
+                </div>
+                <div class="footer">
                         <button><i class='bx bx-search' ></i> Ver produtos</button>
                         <button><i class='bx bx-chat'></i> Chat pessoal</button>
-                    </div>
                 </div>
             </div>
         `;

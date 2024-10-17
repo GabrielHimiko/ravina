@@ -63,11 +63,12 @@
     border-radius: 10px;
     background-color: white;
     padding: 15px;
+    gap: 15px;
 }
 .item .imgCont {
-    height: 12svh;
-    width: 12svh;
-    min-width: 12svh;
+    height: 14svh;
+    width: 14svh;
+    min-width: 14svh;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -95,7 +96,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 5px;
 }
 .item .sellerInfo .bottom {
     display: flex;
@@ -116,7 +117,12 @@
     align-items: center;
     gap: 5px;
 }
-.item .sellerInfo .bottom .sellerBasics button {
+.item .sellerInfo .footer {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+}
+.item .sellerInfo .footer button {
     width: 80%;
     border-radius: 5px;
     border: 1px solid rgb(200, 200, 200);
@@ -124,6 +130,7 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
+    padding: 5px;
 }
 .item .sellerInfo .estrela {
     color: gold;
