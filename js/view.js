@@ -76,4 +76,23 @@ function findProd() {
     document.querySelector('#sellerDist').innerHTML = selProd.s_dist.replace(".", ",");
     document.querySelector('#sellerImg').src = selProd.s_img;
     document.querySelector('#sellerRate').innerHTML = selProd.s_rate + "<i class='bx bxs-star'></i>";
+
+    prods.forEach(prod => {
+        if (prod.sellerid === selProd.sellerid && prod.key !== selProd.key) {
+            const el = document.createElement('div');
+            el.classList.add('item');
+            el.innerHTML = `
+                <div class="imgCont">
+                    <img src="${prod.imglink}">
+                </div>
+                <div class="prodInfo">
+                    <div><span class="title">${prod.title.length > 25 ? prod.title.slice(0, 25).trim() + '...' : prod.title}</span></div>
+                </div>
+            `;
+            document.querySelector('#prods').appendChild(el);
+            el.addEventListener('click', () => {
+                window.location.href = '/view.html?id=' + prod.key;
+            })
+        }
+    });
 };

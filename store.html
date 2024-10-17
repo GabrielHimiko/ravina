@@ -41,21 +41,17 @@
                 <div>
                     <span id="totalResults">0</span> resultados
                 </div>
-                <div>
-                    <button id="selFilters"><i class='bx bx-filter-alt'></i></button>
-                    <div id="selFilters_cont">
-                        Organizar por...
-                        <select>
-                            <option>Relevância</option>
-                            <option>Menor preço primeiro</option>
-                            <option>Maior preço primeiro</option>
-                            <option>Distância</option>
-                            <option>Avaliações</option>
-                        </select>
-
-                        Preço
-                        <input>
+                <div style="display: flex">
+                    <div style="border-radius: 5px 0 0 5px; border: 1px solid rgb(200, 200, 200); border-right: none; background-color: white; display: flex; justify-content: center; align-items: center; padding: 5px;">
+                        <i class='bx bx-filter-alt' ></i>
                     </div>
+                    <select id="orderBy">
+                        <option value="rel">Relevância</option>
+                        <option value="price">Menor preço primeiro</option>
+                        <option value="price_invert">Maior preço primeiro</option>
+                        <option value="s_dist">Distância</option>
+                        <option value="s_rate">Avaliações</option>
+                    </select>
                 </div>
             </div>
 

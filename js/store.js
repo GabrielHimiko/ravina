@@ -65,6 +65,15 @@ search.inp.addEventListener('focus', () => {
     search.inp.style.borderColor = 'rgb(100, 100, 255)';
     cart.style.display = 'none';
 });
+search.inp.addEventListener('input', () => {
+    search.go.style.display = 'flex';
+    search.icon.style.display = 'none';
+    search.inp.style.borderWidth = '1px 0 1px 1px';
+    search.inp.style.borderRadius = '10px 0 0 10px';
+    search.inp.style.paddingInline = '10px';
+    search.inp.style.borderColor = 'rgb(100, 100, 255)';
+    cart.style.display = 'none';
+});
 search.inp.addEventListener('blur', () => {
     search.go.style = 'inherit';
     search.icon.style = 'inherit';
@@ -119,7 +128,6 @@ firebase.database().ref('sellers').orderByChild('name').once('value').then((snap
 
         loadDatabase(0, 'rel', 0, 0);
     });
-
 });
 
 function loadDatabase(filter, orderBy, orderByInvert, search) {
@@ -256,13 +264,19 @@ function loadDatabase(filter, orderBy, orderByInvert, search) {
     }
 };
 
+let active = 'rec';
 const catBtns = document.querySelectorAll('#categories button');
 catBtns.forEach(cb => {
     cb.addEventListener('click', () => {
         catBtns.forEach(c => {c.hidden = false}); //desocultando todos os catBtns
         catBtns[0].innerHTML = cb.innerHTML;
+        active = cb.value;
         cb.hidden = true;
         document.querySelector('#categories').scrollTo({top: 0, left: 0, behavior: 'smooth'});
         loadDatabase(cb.value == 'rec' ? 0 : [cb.value], 'rel', false, 0);
     });
 })
+
+document.querySelector('#orderBy').addEventListener('change', function() {
+    loadDatabase(active == 'rec' ? 0 : [active], this.value == 'price_invert' ? 'price' : this.value, this.value == 'price_invert' || this.value == 's_rate' ? true : false, 0);
+});
