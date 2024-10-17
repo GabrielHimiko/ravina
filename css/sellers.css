@@ -66,9 +66,9 @@
     gap: 15px;
 }
 .item .imgCont {
-    height: 14svh;
-    width: 14svh;
-    min-width: 14svh;
+    height: 5svh;
+    width: 5svh;
+    min-width: 5svh;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -101,7 +101,9 @@
 .item .sellerInfo .top {
     display: flex;
     width: 100%;
-    
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
 }
 .item .sellerInfo .bottom {
     display: flex;

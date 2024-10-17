@@ -134,11 +134,11 @@ function loadDatabase(orderBy, orderByInvert, search) {
         const el = document.createElement('div');
         el.classList.add('item');
         el.innerHTML = `
-            <div class="imgCont">
-                <img src="${seller.imglink}">
-            </div>
             <div class="sellerInfo">
                 <div class="top">
+                    <div class="imgCont">
+                        <img src="${seller.imglink}">
+                    </div>
                     <span style="font-size: 14pt">${seller.name}</span>
                 </div>
                 <div class="bottom">
