@@ -98,23 +98,29 @@
     align-items: center;
     gap: 5px;
 }
-.item .sellerInfo .bottom {
+.item .sellerInfo .top {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     width: 100%;
+    
 }
-.item .sellerInfo .bottom .sellerBasics {
-    width: 100%;
-    border-right: 1px solid black;
-}
-.item .sellerInfo .bottom .sellerBasics:last-child {
-    border-right: none;
+.item .sellerInfo .bottom {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+}
+.item .sellerInfo .bottom .sellerBasics {
+    width: 100%;
+    border-bottom: 1px solid rgb(200, 200, 200);
+    line-height: 100%;
+    padding-block: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.item .sellerInfo .bottom .sellerBasics:last-child {
+    border-bottom: none;
     gap: 5px;
 }
 .item .sellerInfo .footer {

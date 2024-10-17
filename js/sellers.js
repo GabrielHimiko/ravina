@@ -143,12 +143,12 @@ function loadDatabase(orderBy, orderByInvert, search) {
                 </div>
                 <div class="bottom">
                     <div class="sellerBasics">
+                        <div>Avaliação geral</div>
                         <div><span style="font-size: 14pt">${seller.rate}<i class='bx bxs-star' style="color: orange"></i></span></div>
-                        <div>22 avaliações</div>
                     </div>
                     <div class="sellerBasics">
-                        <div><span style="font-size: 14pt"><i class='bx bx-package' ></i> ${seller.prods}</span></div>
                         <div>Produtos à venda</div>
+                        <div><span style="font-size: 14pt">${seller.prods}</span></div>
                     </div>
                 </div>
                 <div class="footer">
