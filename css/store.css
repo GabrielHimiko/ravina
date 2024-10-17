@@ -53,6 +53,7 @@
     align-items: center;
     gap: 5px;
     padding: 5px;
+    background-color: white;
 }
 #selFilters {
     border-radius: 10px;
